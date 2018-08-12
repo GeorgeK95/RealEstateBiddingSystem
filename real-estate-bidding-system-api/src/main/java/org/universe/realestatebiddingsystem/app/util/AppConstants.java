@@ -18,10 +18,12 @@ public interface AppConstants {
     //    URLS
     String HOME_URL = "/";
     String USERS_URL = "/users";
+    String ESTATES_URL = "/estates";
     String USERS_URL_ALL = "/users/**";
     String ADMIN_URL = "/admin";
     String AUTH_ALL_URL = "/auth/**";
-    String ALL_URL = "/**";
+    String MAP_ALL_URL = "/**";
+    String ALL_URL = "/all";
     String CURRENT_URL = "/current";
     String REGISTER_URL = "/register";
     String LOGIN_URL = "/login";
@@ -63,7 +65,7 @@ public interface AppConstants {
     int ROLE_NAME_LENGH_VALUE = 20;
     String USERS = "users";
     String ROLES = "roles";
-    int USER_FIRST_NAME_MAX_VALUE = 20;
+    int USER_FIRST_NAME_MAX_VALUE = 30;
     int EMAIL_MAX_VALUE = 40;
     int EMAIL_MIN_VALUE = 8;
     String USER_ROLES = "user_roles";
@@ -79,5 +81,5 @@ public interface AppConstants {
     int TOWN_MIN_VALUE = 3;
     int TOWN_MAX_VALUE = 30;
     int USER_LAST_NAME_MIN_VALUE = 3;
-    int USER_LAST_NAME_MAX_VALUE = 20;
+    int USER_LAST_NAME_MAX_VALUE = 30;
 }

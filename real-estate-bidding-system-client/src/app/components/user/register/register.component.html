@@ -1,0 +1,139 @@
+<div class="container mt-58">
+  <form (ngSubmit)="onRegister()" #registerForm="ngForm">
+    <div class="row">
+      <div class="col-2"></div>
+
+      <div class="align-center col-8">
+        <h2>Please Sign Up</h2>
+
+        <hr class="colorgraph">
+
+        <div class="form-group">
+          <div class="form-group">
+            <input type="text" class="form-control" id="email"
+                   required
+                   placeholder="Email Address"
+                   pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
+                   [(ngModel)]="register.email"
+                   name="email"
+                   #email="ngModel">
+          </div>
+          <div [hidden]="email.valid || email.pristine" class="invalid-feedback">
+            Email format is invalid.
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+              <input type="text" class="form-control" id="firstName"
+                     placeholder="First Name"
+                     required
+                     pattern="^[A-Z][a-z]{2,29}$"
+                     [(ngModel)]="register.firstName"
+                     name="firstName"
+                     #firstName="ngModel">
+            </div>
+            <div [hidden]="firstName.valid || firstName.pristine" class="invalid-feedback">
+              Names must contain only letters, start with a capital letter and must be between 3 and 30 symbols.
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+              <input type="text" class="form-control" id="lastName"
+                     placeholder="Last Name"
+                     required
+                     pattern="^[A-Z][a-z]{2,29}$"
+                     [(ngModel)]="register.lastName"
+                     name="lastName"
+                     #lastName="ngModel">
+            </div>
+            <div [hidden]="lastName.valid || lastName.pristine" class="invalid-feedback">
+              Names must contain only letters, start with a capital letter and must be between 3 and 30 symbols.
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+              <input type="password" class="form-control" id="password"
+                     required
+                     placeholder="Password"
+                     pattern="^[\w\d]{6,20}$"
+                     [(ngModel)]="register.password"
+                     name="password"
+                     #password="ngModel">
+            </div>
+            <div [hidden]="password.valid || password.pristine" class="invalid-feedback">
+              Password must be between 6 and 20 symbols and must contain only letters and digits.
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+              <input type="password" class="form-control" id="confirm"
+                     required
+                     pattern="^[\w\d]{6,20}$"
+                     placeholder="Confirm Password"
+                     [(ngModel)]="register.confirm"
+                     name="confirm"
+                     #confirm="ngModel">
+            </div>
+            <div [hidden]="confirm.value === password.value || confirm.pristine" class="invalid-feedback">
+              Both passwords must match.
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+              <input type="text" class="form-control" id="town"
+                     required
+                     placeholder="Town"
+                     pattern="^[A-Z][a-z]{2,29}$"
+                     [(ngModel)]="register.town"
+                     name="town"
+                     #town="ngModel">
+            </div>
+            <div [hidden]="town.valid || town.pristine" class="invalid-feedback">
+              Town must contain only letters, start with a capital letter and must be between 3 and 30 symbols.
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="form-group">
+              <input type="tel" class="form-control" id="telephone"
+                     required
+                     placeholder="Telephone"
+                     pattern="(^$|[0-9]{10})"
+                     [(ngModel)]="register.telephone"
+                     name="telephone"
+                     #telephone="ngModel">
+            </div>
+            <div [hidden]="telephone.valid || telephone.pristine" class="invalid-feedback">
+              Invalid phone format.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 mt-5">
+          By clicking <strong class="label label-primary">Register</strong>, you agree to the <a routerLink="/terms">Terms
+          and Conditions</a> set out by this site, including our Cookie Use.
+        </div>
+
+        <hr class="colorgraph">
+
+        <div class="col-12">
+          <input type="submit" value="Register" class="btn btn-success btn-block btn-lg" tabindex="7"
+                 [disabled]="registerForm.form.invalid || confirm.value !== password.value">
+        </div>
+      </div>
+
+      <div class="col-2"></div>
+
+    </div>
+
+  </form>
+</div>

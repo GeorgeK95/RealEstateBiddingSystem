@@ -1,0 +1,23 @@
+.mt-58 {
+  margin-top: 58px;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.colorgraph {
+  height: 5px;
+  border-top: 0;
+  background: #d1d8d3;
+  border-radius: 5px;
+}
+
+.invalid-feedback {
+  color: red;
+  display: block;
+}
+
+.form-control {
+  margin-top: 20px;
+}

@@ -20,6 +20,8 @@ import org.universe.realestatebiddingsystem.user.model.entity.User;
 import org.universe.realestatebiddingsystem.user.model.enumeration.RoleName;
 import org.universe.realestatebiddingsystem.user.model.request.LoginRequestModel;
 import org.universe.realestatebiddingsystem.user.model.request.RegisterRequestModel;
+import org.universe.realestatebiddingsystem.user.model.response.RegisterResponseModel;
+import org.universe.realestatebiddingsystem.user.model.response.UsersResponseModel;
 import org.universe.realestatebiddingsystem.user.repository.UserRepository;
 import org.universe.realestatebiddingsystem.user.service.api.IRoleService;
 import org.universe.realestatebiddingsystem.user.service.api.IUserService;
@@ -27,6 +29,7 @@ import org.universe.realestatebiddingsystem.user.service.api.IUserService;
 import java.util.List;
 import java.util.Set;
 
+import static org.universe.realestatebiddingsystem.app.util.AppConstants.USER_LOGGED_SUCCESSFULLY_MESSAGE;
 import static org.universe.realestatebiddingsystem.app.util.AppConstants.USER_REGISTERED_SUCCESSFULLY_MESSAGE;
 
 @Service
@@ -67,7 +70,9 @@ public class UserService extends BaseService<User> implements IUserService {
 
         String jwt = tokenProvider.generateToken(authentication);
 
-        return ResponseEntity.ok(new JwtAuthenticationResponseModel(jwt, authentication.getName()));
+        String finalMsg = String.format(USER_LOGGED_SUCCESSFULLY_MESSAGE,
+                this.userRepository.findByEmail(requestModel.getEmail()).getFirstName());
+        return ResponseEntity.ok(new JwtAuthenticationResponseModel(jwt, authentication.getName(), finalMsg));
     }
 
     @Override
@@ -80,8 +85,15 @@ public class UserService extends BaseService<User> implements IUserService {
 
         this.addRoleAndSave(requestModel);
 
-        return new ResponseEntity<>(Json.toJson(USER_REGISTERED_SUCCESSFULLY_MESSAGE, requestModel.getEmail()),
-                HttpStatus.CREATED);
+        String finalMsg = String.format(USER_REGISTERED_SUCCESSFULLY_MESSAGE, requestModel.getFirstName());
+        return new ResponseEntity<>(new RegisterResponseModel(finalMsg, HttpStatus.OK.value()), HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<?> getUsers() {
+        List<UsersResponseModel> proba = DTOConverter.convert(this.userRepository.findAll(), UsersResponseModel.class);
+        return new ResponseEntity<>(proba,
+                HttpStatus.OK);
     }
 
     private void addRoleAndSave(RegisterRequestModel requestModel) {

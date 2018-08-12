@@ -1,3 +1,4 @@
+/*
 package org.universe.realestatebiddingsystem.app.model.response.error;
 
 import java.util.Map;
@@ -18,3 +19,4 @@ public class SignUpErrorResponseModel {
         this.fieldMessages = fieldMessages;
     }
 }
+*/

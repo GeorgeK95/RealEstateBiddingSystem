@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {RegisterRequestModel} from '../../../core/model/request/user/register-request.model';
+import {UserService} from '../../../core/service/user/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -8,8 +10,9 @@ import {RegisterRequestModel} from '../../../core/model/request/user/register-re
 })
 export class RegisterComponent implements OnInit {
   private register: RegisterRequestModel;
+  private HOME_URL: '/';
 
-  constructor() {
+  constructor(private userService: UserService, private router: Router) {
   }
 
   ngOnInit() {
@@ -17,6 +20,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegister() {
-    console.log('reg');
+    this.userService.register(this.register).subscribe();
   }
 }

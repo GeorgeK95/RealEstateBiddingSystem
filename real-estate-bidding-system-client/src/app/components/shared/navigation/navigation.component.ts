@@ -23,6 +23,9 @@ export class NavigationComponent implements OnInit {
     return this.service.checkIfLoggedIn();
   }
 
+  isAdmin() {
+  }
+
   onLogout() {
     this.service.authToken = undefined;
     localStorage.clear();

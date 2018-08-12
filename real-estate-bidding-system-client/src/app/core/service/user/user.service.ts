@@ -45,4 +45,8 @@ export class UserService {
   set authToken(value: string) {
     this._authToken = value;
   }
+
+  getUsers() {
+    return null;
+  }
 }

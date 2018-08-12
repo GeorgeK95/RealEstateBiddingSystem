@@ -18,9 +18,9 @@ public interface AppConstants {
     //    URLS
     String HOME_URL = "/";
     String USERS_URL = "/users";
+    String ADMIN_URL = "/admin";
     String ESTATES_URL = "/estates";
     String USERS_URL_ALL = "/users/**";
-    String ADMIN_URL = "/admin";
     String AUTH_ALL_URL = "/auth/**";
     String MAP_ALL_URL = "/**";
     String ALL_URL = "/all";
@@ -38,6 +38,7 @@ public interface AppConstants {
     String EMTPY = "";
 
     String USER_REGISTERED_SUCCESSFULLY_MESSAGE = "%s registered successfully.";
+    String USER_LOGGED_SUCCESSFULLY_MESSAGE = "%s logged in successfully.";
     String PROFILE_EDITED_SUCCESSFULLY_MESSAGE = "Profile edited successfully.";
     String INVALID_TOWN_MESSAGE = "Town length must be between 4 and 30 symbols.";
     String EMAIL_ADDRESS_ALREADY_IN_USE_MESSAGE = "Email Address already in use!";

@@ -6,12 +6,17 @@ import {UserModule} from './components/user/user.module';
 import {SharedModule} from './components/shared/shared.module';
 import {AppRouting} from './app.routing';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
 import {UserService} from './core/service/user/user.service';
 import {EstateModule} from './components/estate/estate.module';
 import {ServiceModule} from './core/service/services.module';
 import {TermsComponent} from './components/shared/terms/terms.component';
+import {ErrorInterceptor} from './core/interceptor/error.interceptor';
+import {TokenInterceptor} from './core/interceptor/token.interceptor';
+import {LoginInterceptor} from './core/interceptor/login.interceptor';
+import { AllUsersComponent } from './components/admin/all-users/all-users.component';
+import {AdminModule} from './components/admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -26,10 +31,26 @@ import {TermsComponent} from './components/shared/terms/terms.component';
     UserModule,
     SharedModule,
     EstateModule,
-    ServiceModule
+    ServiceModule,
+    AdminModule
   ],
   providers: [
-    UserService
+    UserService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoginInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

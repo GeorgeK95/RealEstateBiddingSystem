@@ -13,4 +13,6 @@ public interface IUserService extends IService<User> {
     ResponseEntity<?> loginUser(LoginRequestModel requestModel, Errors errors);
 
     ResponseEntity<?> registerUser(RegisterRequestModel requestModel, Errors errors);
+
+    ResponseEntity<?> getUsers();
 }

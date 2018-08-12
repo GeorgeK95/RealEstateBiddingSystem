@@ -8,11 +8,13 @@ import {HomeComponent} from './components/shared/home/home.component';
 import {EstateModule} from './components/estate/estate.module';
 import {EstateGuard} from './core/guard/estates/estate.guard';
 import {TermsComponent} from './components/shared/terms/terms.component';
+import {AdminModule} from './components/admin/admin.module';
 
 const FULL = 'full';
 const ABOUT = 'about';
 const USER = 'users';
 const ESTATES = 'estates';
+const ADMIN = 'admin';
 const CONTACTS = 'contacts';
 const ALL = '**';
 const HOME = '';
@@ -25,6 +27,7 @@ const appRoutes = [
   {path: ABOUT, component: AboutComponent},
   {path: CONTACTS, component: ContactsComponent},
   {path: ESTATES, canActivate: [EstateGuard], loadChildren: () => EstateModule},
+  {path: ADMIN, canActivate: [EstateGuard], loadChildren: () => AdminModule}, // adminauth
   {path: ALL, component: NotFoundComponent}
 ];
 

@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginRequestModel} from '../../../core/model/request/user/login-request.model';
+import {Router} from '@angular/router';
+import {UserService} from '../../../core/service/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -8,8 +10,9 @@ import {LoginRequestModel} from '../../../core/model/request/user/login-request.
 })
 export class LoginComponent implements OnInit {
   private login: LoginRequestModel;
+  private HOME_URL: '/';
 
-  constructor() {
+  constructor(private userService: UserService, private router: Router) {
   }
 
   ngOnInit() {
@@ -17,6 +20,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    console.log('logg');
+    this.userService.login(this.login).subscribe();
   }
 }

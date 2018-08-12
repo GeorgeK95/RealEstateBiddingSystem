@@ -4,10 +4,12 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import org.universe.realestatebiddingsystem.user.model.entity.Role;
+import org.universe.realestatebiddingsystem.user.model.entity.User;
 import org.universe.realestatebiddingsystem.user.model.enumeration.RoleName;
 import org.universe.realestatebiddingsystem.user.repository.RoleRepository;
+import org.universe.realestatebiddingsystem.user.repository.UserRepository;
 
-import java.util.Set;
+import java.util.HashSet;
 
 @Component
 public class DataLoader implements ApplicationRunner {
@@ -20,11 +22,12 @@ public class DataLoader implements ApplicationRunner {
     private static final String USER = "user";
     private static final String USER_PASS = "useruser";
 
-
     private final RoleRepository roleRepository;
+    private final UserRepository userRepository;
 
-    public DataLoader(RoleRepository roleRepository) {
+    public DataLoader(RoleRepository roleRepository, UserRepository userRepository) {
         this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -42,12 +45,21 @@ public class DataLoader implements ApplicationRunner {
         this.roleRepository.save(roleAdmin);
     }
 
-   /* private void seedUsers() {
-        User admin = new User(ADMIN, ADMIN_EMAIL, ADMIN_PASS);
-        admin.setRoles(Set.of(roleUser, roleAdmin));
+    private void seedUsers() {
+        User admin = new User(
+                "jeki_7@abv.bg",
+                "jeki_7@abv.bg",
+                "Georgi",
+                "Kopchev",
+                "0885705258",
+                "Plovdiv",
+                new HashSet<>(this.roleRepository.findAll()),
+                false
+        );
+
         this.userRepository.save(admin);
 
-        User user = new User(USER, USER_EMAIL, USER_PASS);
+        /*User user = new User(USER, USER_EMAIL, USER_PASS);
         user.setRoles(Set.of(roleUser));
         this.userRepository.save(user);
 
@@ -97,8 +109,7 @@ public class DataLoader implements ApplicationRunner {
 
         User user10 = new User("user10", "user10@abv.bg", "user10");
         user10.setRoles(Set.of(roleUser));
-        this.userRepository.save(user10);
-
-    }*/
+        this.userRepository.save(user10);*/
+    }
 
 }

@@ -17,6 +17,7 @@ public interface AppConstants {
 
     //    URLS
     String HOME_URL = "/";
+    String ID_PATTERN_URL = "/{id}";
     String USERS_URL = "/users";
     String ADMIN_URL = "/admin";
     String ESTATES_URL = "/estates";
@@ -24,7 +25,7 @@ public interface AppConstants {
     String AUTH_ALL_URL = "/auth/**";
     String MAP_ALL_URL = "/**";
     String ALL_URL = "/all";
-    String CURRENT_USER_URL = "/:id";
+    String CURRENT_USER_URL = "/current";
     String REGISTER_URL = "/register";
     String LOGIN_URL = "/login";
     String USERS_USERNAME_URL = "/{username}";

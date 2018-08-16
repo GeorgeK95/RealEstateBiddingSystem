@@ -15,4 +15,6 @@ public interface IUserService {
     ResponseEntity<?> getUsers();
 
     ResponseEntity<?> getUserByToken(String id);
+
+    ResponseEntity<?> getUserById(Long id);
 }

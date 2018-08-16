@@ -1,6 +1,5 @@
 package org.universe.realestatebiddingsystem.user.service.impl;
 
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,6 @@ import org.universe.realestatebiddingsystem.app.model.response.JwtAuthentication
 import org.universe.realestatebiddingsystem.app.security.jwt.JwtTokenProvider;
 import org.universe.realestatebiddingsystem.app.service.BaseService;
 import org.universe.realestatebiddingsystem.app.util.DTOConverter;
-import org.universe.realestatebiddingsystem.app.util.Json;
 import org.universe.realestatebiddingsystem.user.model.entity.User;
 import org.universe.realestatebiddingsystem.user.model.enumeration.RoleName;
 import org.universe.realestatebiddingsystem.user.model.request.LoginRequestModel;
@@ -31,7 +29,6 @@ import org.universe.realestatebiddingsystem.user.service.api.IUserService;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static org.universe.realestatebiddingsystem.app.util.AppConstants.USER_LOGGED_SUCCESSFULLY_MESSAGE;
 import static org.universe.realestatebiddingsystem.app.util.AppConstants.USER_NOT_FOUND_WITH_ID_MESSAGE;
@@ -104,11 +101,24 @@ public class UserService extends BaseService<User> implements IUserService {
     public ResponseEntity<?> getUserByToken(String id) {
         Long userId = this.tokenProvider.getUserIdFromJWT(id);
 
+        User user = this.getUserByIdOrThrowException(userId);
+
+        return new ResponseEntity<>(DTOConverter.convert(user, UserProfileResponseModel.class), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> getUserById(Long id) {
+        User user = this.getUserByIdOrThrowException(id);
+
+        return new ResponseEntity<>(DTOConverter.convert(user, UserProfileResponseModel.class), HttpStatus.OK);
+    }
+
+    private User getUserByIdOrThrowException(Long userId) {
         Optional<User> user = this.userRepository.findById(userId);
 
         if (!user.isPresent()) throw new UsernameNotFoundException(USER_NOT_FOUND_WITH_ID_MESSAGE + userId);
 
-        return new ResponseEntity<>(DTOConverter.convert(user.get(), UserProfileResponseModel.class), HttpStatus.OK);
+        return user.get();
     }
 
     private void addRoleAndSave(RegisterRequestModel requestModel) {

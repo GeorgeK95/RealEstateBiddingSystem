@@ -37,7 +37,7 @@
 }
 
 .transparent {
-  background-color: rgba(0, 0, 0, 0.1);
+  /*background-color: rgba(0, 0, 0, 0.1);*/
   color: #4dd0e1;
   font-size: 25px;
   border: none;
@@ -51,10 +51,10 @@
   color: #315795;
 }
 
-.red {
-  color: red;
+.blue {
+  color: #4dd0e1;
 }
 
-.blue {
+.black {
   color: #333;
 }

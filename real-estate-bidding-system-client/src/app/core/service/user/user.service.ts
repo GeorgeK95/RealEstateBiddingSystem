@@ -50,6 +50,6 @@ export class UserService {
   }
 
   getUsers() {
-    return this.httpClient.get<UserResponseModel>(this.ALL_USERS_URL);
+    return this.httpClient.get<UserResponseModel[]>(this.ALL_USERS_URL);
   }
 }

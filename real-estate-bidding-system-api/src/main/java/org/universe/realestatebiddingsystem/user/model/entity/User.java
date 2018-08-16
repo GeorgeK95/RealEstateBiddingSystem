@@ -42,14 +42,14 @@ public class User implements UserDetails {
     private String lastName;
 
     @NotBlank
-    @Pattern(regexp = TELEPHONE_REGEXP)
-    @Column(nullable = false, length = TELEPHONE_LENGHT)
-    private String telephone;
+    @Size(min = TOWN_MIN_VALUE, max = TOWN_MAX_VALUE)
+    @Column(nullable = false, length = TOWN_MAX_VALUE)
+    private String town;
 
     //    @NotBlank
-    @Size(min = TOWN_MIN_VALUE, max = TOWN_MAX_VALUE)
-    @Column(length = TOWN_MAX_VALUE)
-    private String town;
+    @Pattern(regexp = TELEPHONE_REGEXP)
+    @Column(length = TELEPHONE_LENGHT)
+    private String telephone;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = USER_ROLES,

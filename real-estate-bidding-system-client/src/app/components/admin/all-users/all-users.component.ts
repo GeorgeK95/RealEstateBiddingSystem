@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClientService} from '../../../core/service/http-client.service';
 import {UserService} from '../../../core/service/user/user.service';
 import {UserResponseModel} from '../../../core/model/response/user-response.model';
@@ -10,8 +10,10 @@ import {UserResponseModel} from '../../../core/model/response/user-response.mode
   styleUrls: ['./all-users.component.css']
 })
 export class AllUsersComponent implements OnInit {
+  readonly USER_BY_ID_URL = '/users/';
   readonly SEPARATOR = ', ';
-  private users: UserResponseModel;
+  private users: UserResponseModel[];
+  private cloned: UserResponseModel[];
   private page = 1;
   private itemsPerPage = 6;
   private currentlyLoggedInEmail = 'ivan@abv.bg';
@@ -20,14 +22,16 @@ export class AllUsersComponent implements OnInit {
   constructor(
     private http: HttpClientService,
     private route: ActivatedRoute,
+    private router: Router,
     private service: UserService
   ) {
   }
 
   ngOnInit() {
     this.service.getUsers()
-      .subscribe((res: UserResponseModel) => {
+      .subscribe((res: UserResponseModel[]) => {
         this.users = res;
+        this.cloned = res;
       });
 
     this.service.getCurrentlyLoggedInUser()
@@ -37,13 +41,27 @@ export class AllUsersComponent implements OnInit {
   }
 
   searchByUsername(targetUsername: string) {
-    /*const found = this.users.sortedByPopulation.filter(
-      (user: UserResponseModel) => user.username.includes(targetUsername)
+    if (!targetUsername) {
+      this.users = this.cloned;
+      return;
+    }
+
+    const found = this.cloned.filter(
+      (user: UserResponseModel) => {
+        user.email.includes(targetUsername) ||
+        user.firstName.includes(targetUsername) ||
+        user.lastName.includes(targetUsername) ||
+        (user.telephone && user.telephone.includes(targetUsername)) ||
+        user.town.includes(targetUsername);
+      }
     );
 
     if (found) {
-      this.statistics.users = found;
-    }*/
+      this.users = found;
+    }
   }
 
+  navigateToProfile(id: number) {
+    this.router.navigate([this.USER_BY_ID_URL.concat(id)]);
+  }
 }

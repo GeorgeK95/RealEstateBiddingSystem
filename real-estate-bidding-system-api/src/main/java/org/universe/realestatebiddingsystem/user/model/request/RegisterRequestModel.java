@@ -35,10 +35,10 @@ public class RegisterRequestModel {
     private String lastName;
 
     @NotBlank
-    @Pattern(regexp = TELEPHONE_REGEXP)
-    private String telephone;
-
-//    @NotBlank
     @Size(min = TOWN_MIN_VALUE, max = TOWN_MAX_VALUE)
     private String town;
+
+    //    @NotBlank
+    @Pattern(regexp = TELEPHONE_REGEXP)
+    private String telephone;
 }

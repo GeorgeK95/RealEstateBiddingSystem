@@ -97,7 +97,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(STATIC_URLS)
                 .permitAll()
-                .antMatchers(HttpMethod.POST, USERS_URL_ALL)
+                .antMatchers(USERS_URL_ALL)
                 .permitAll()
                 .anyRequest()
                 .authenticated();

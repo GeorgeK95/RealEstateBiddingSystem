@@ -11,6 +11,7 @@ import org.universe.realestatebiddingsystem.user.service.api.IUserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 import static org.universe.realestatebiddingsystem.app.util.AppConstants.*;
 
@@ -31,5 +32,11 @@ public class UserController {
     @GetMapping(CURRENT_USER_URL)
     public ResponseEntity<?> getUserByToken(HttpServletRequest request) {
         return this.userService.getUserByToken(request.getHeader(AUTHORIZATION).replace(BEARER_, EMTPY));
+    }
+
+    @PreAuthorize(IS_AUTHENTICATED)
+    @GetMapping(ID_PATTERN_URL)
+    public ResponseEntity<?> findUserById(@PathVariable(ID) Long id) {
+        return this.userService.getUserById(id);
     }
 }

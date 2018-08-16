@@ -1,5 +1,5 @@
 <div class="container mt-58 align-center" *ngIf="users">
-  <h1>Statistics</h1>
+  <h1>All Users</h1>
 
   <div class="md-form active-cyan active-cyan-2 mb-3">
     <input type="text" class="form-control transparent" #search
@@ -26,10 +26,10 @@
     id: ALL_USERS,
     itemsPerPage: itemsPerPage,
     currentPage: page
-    };let i = index" [ngClass]="user.email === currentlyLoggedInEmail ? 'red': 'blue'">
+    };let i = index" [ngClass]="user.email === currentlyLoggedInEmail ? 'blue': 'black'"
+        (click)="navigateToProfile(user.id)">
       <td scope="row">{{i + 1}}</td>
-      <td><a [ngClass]="user.email === currentlyLoggedInEmail ? 'red': 'blue'"
-             routerLink="/users/{{user.id}}">{{user.email}}</a></td>
+      <td>{{user.email}}</td>
       <td>{{user.firstName}}</td>
       <td>{{user.lastName}}</td>
       <td>{{user.town}}</td>

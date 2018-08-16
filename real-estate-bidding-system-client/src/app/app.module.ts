@@ -11,11 +11,9 @@ import {ToastrModule} from 'ngx-toastr';
 import {UserService} from './core/service/user/user.service';
 import {EstateModule} from './components/estate/estate.module';
 import {ServiceModule} from './core/service/services.module';
-import {TermsComponent} from './components/shared/terms/terms.component';
 import {ErrorInterceptor} from './core/interceptor/error.interceptor';
 import {TokenInterceptor} from './core/interceptor/token.interceptor';
 import {LoginInterceptor} from './core/interceptor/login.interceptor';
-import { AllUsersComponent } from './components/admin/all-users/all-users.component';
 import {AdminModule} from './components/admin/admin.module';
 
 @NgModule({

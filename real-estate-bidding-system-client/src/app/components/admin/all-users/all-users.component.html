@@ -1,3 +1,60 @@
-<p class="mt-58">
-  all-users works!
-</p>
+<div class="container mt-58 align-center" *ngIf="users">
+  <h1>Statistics</h1>
+
+  <div class="md-form active-cyan active-cyan-2 mb-3">
+    <input type="text" class="form-control transparent" #search
+           (input)="searchByUsername(search.value)">
+  </div>
+
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Email</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Town<!--<span [class]="townsCaretClass" (click)="orderByTowns()"></span>--></th>
+      <th scope="col">Roles</th>
+      <th scope="col">Is Banned</th>
+      <th scope="col">Telephone</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <!--<span (mouseover)="hover=true" (mouseleave)="hover=false">-->
+    <tr *ngFor="let user of users | paginate: {
+    id: ALL_USERS,
+    itemsPerPage: itemsPerPage,
+    currentPage: page
+    };let i = index" [ngClass]="user.email === currentlyLoggedInEmail ? 'red': 'blue'">
+      <td scope="row">{{i + 1}}</td>
+      <td><a [ngClass]="user.email === currentlyLoggedInEmail ? 'red': 'blue'"
+             routerLink="/users/{{user.id}}">{{user.email}}</a></td>
+      <td>{{user.firstName}}</td>
+      <td>{{user.lastName}}</td>
+      <td>{{user.town}}</td>
+      <td>{{user.rolesList}}</td>
+      <td>{{user.isBanned}}</td>
+      <td *ngIf="user.telephone">{{user.telephone}}</td>
+      <td *ngIf="!user.telephone">-</td>
+    </tr>
+
+    </tbody>
+  </table>
+
+
+  <pagination-controls id="allUsers"
+                       (pageChange)="page = $event"
+                       maxSize="9"
+                       directionLinks="true"
+                       autoHide="true"
+                       previousLabel="Previous"
+                       nextLabel="Next"
+                       screenReaderPaginationLabel="Pagination"
+                       screenReaderPageLabel="page"
+                       screenReaderCurrentLabel="You're on page">
+  </pagination-controls>
+
+</div>
+
+

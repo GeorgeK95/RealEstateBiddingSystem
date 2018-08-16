@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
@@ -21,15 +22,19 @@ import org.universe.realestatebiddingsystem.user.model.enumeration.RoleName;
 import org.universe.realestatebiddingsystem.user.model.request.LoginRequestModel;
 import org.universe.realestatebiddingsystem.user.model.request.RegisterRequestModel;
 import org.universe.realestatebiddingsystem.user.model.response.RegisterResponseModel;
-import org.universe.realestatebiddingsystem.user.model.response.UsersResponseModel;
+import org.universe.realestatebiddingsystem.user.model.response.UserProfileResponseModel;
+import org.universe.realestatebiddingsystem.user.model.response.UserResponseModel;
 import org.universe.realestatebiddingsystem.user.repository.UserRepository;
 import org.universe.realestatebiddingsystem.user.service.api.IRoleService;
 import org.universe.realestatebiddingsystem.user.service.api.IUserService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.universe.realestatebiddingsystem.app.util.AppConstants.USER_LOGGED_SUCCESSFULLY_MESSAGE;
+import static org.universe.realestatebiddingsystem.app.util.AppConstants.USER_NOT_FOUND_WITH_ID_MESSAGE;
 import static org.universe.realestatebiddingsystem.app.util.AppConstants.USER_REGISTERED_SUCCESSFULLY_MESSAGE;
 
 @Service
@@ -51,11 +56,6 @@ public class UserService extends BaseService<User> implements IUserService {
         this.tokenProvider = tokenProvider;
         this.authenticationManager = authenticationManager;
         this.roleService = roleService;
-    }
-
-    @Override
-    public List<User> findAll() {
-        return this.userRepository.findAll();
     }
 
     @Override
@@ -91,9 +91,24 @@ public class UserService extends BaseService<User> implements IUserService {
 
     @Override
     public ResponseEntity<?> getUsers() {
-        List<UsersResponseModel> proba = DTOConverter.convert(this.userRepository.findAll(), UsersResponseModel.class);
-        return new ResponseEntity<>(proba,
-                HttpStatus.OK);
+        List<User> users = DTOConverter.convert(this.userRepository.findAll(), User.class);
+
+        List<UserResponseModel> usersResponse = DTOConverter.convert(users, UserResponseModel.class);
+
+        UserResponseModel[] userResponseArray = usersResponse.toArray(new UserResponseModel[0]);
+
+        return new ResponseEntity<>(userResponseArray, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> getUserByToken(String id) {
+        Long userId = this.tokenProvider.getUserIdFromJWT(id);
+
+        Optional<User> user = this.userRepository.findById(userId);
+
+        if (!user.isPresent()) throw new UsernameNotFoundException(USER_NOT_FOUND_WITH_ID_MESSAGE + userId);
+
+        return new ResponseEntity<>(DTOConverter.convert(user.get(), UserProfileResponseModel.class), HttpStatus.OK);
     }
 
     private void addRoleAndSave(RegisterRequestModel requestModel) {

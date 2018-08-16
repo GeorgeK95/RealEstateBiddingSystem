@@ -9,6 +9,7 @@ import org.universe.realestatebiddingsystem.user.model.request.LoginRequestModel
 import org.universe.realestatebiddingsystem.user.model.request.RegisterRequestModel;
 import org.universe.realestatebiddingsystem.user.service.api.IUserService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import static org.universe.realestatebiddingsystem.app.util.AppConstants.*;
@@ -26,13 +27,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping(REGISTER_URL)
-    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequestModel requestModel, Errors errors) {
-        return this.userService.registerUser(requestModel, errors);
-    }
-
-    @PostMapping(LOGIN_URL)
-    public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequestModel requestModel, Errors errors) {
-        return this.userService.loginUser(requestModel, errors);
+    @PreAuthorize(IS_AUTHENTICATED)
+    @GetMapping(CURRENT_USER_URL)
+    public ResponseEntity<?> getUserByToken(HttpServletRequest request) {
+        return this.userService.getUserByToken(request.getHeader(AUTHORIZATION).replace(BEARER_, EMTPY));
     }
 }

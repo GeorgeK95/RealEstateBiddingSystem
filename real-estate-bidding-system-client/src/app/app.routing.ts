@@ -27,7 +27,7 @@ const appRoutes = [
   {path: ABOUT, component: AboutComponent},
   {path: CONTACTS, component: ContactsComponent},
   {path: ESTATES, canActivate: [EstateGuard], loadChildren: () => EstateModule},
-  {path: ADMIN, canActivate: [EstateGuard], loadChildren: () => AdminModule}, // adminauth
+  {path: ADMIN, canActivate: [EstateGuard], loadChildren: () => AdminModule}, // adminguard
   {path: ALL, component: NotFoundComponent}
 ];
 

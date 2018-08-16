@@ -24,7 +24,7 @@ public interface AppConstants {
     String AUTH_ALL_URL = "/auth/**";
     String MAP_ALL_URL = "/**";
     String ALL_URL = "/all";
-    String CURRENT_URL = "/current";
+    String CURRENT_USER_URL = "/:id";
     String REGISTER_URL = "/register";
     String LOGIN_URL = "/login";
     String USERS_USERNAME_URL = "/{username}";

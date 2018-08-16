@@ -7,9 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.universe.realestatebiddingsystem.app.util.AppConstants.*;
 
@@ -62,17 +60,17 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Boolean isBanned = false;
 
-    public User(String email, String password, String firstName, String lastName, String telephone,
-                String town, Set<Role> roles, Boolean isBanned) {
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.telephone = telephone;
-        this.town = town;
-        this.roles = roles;
-        this.isBanned = isBanned;
-    }
+//    public User(String email, String password, String firstName, String lastName, String telephone,
+//                String town, Set<Role> roles, Boolean isBanned) {
+//        this.email = email;
+//        this.password = password;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.telephone = telephone;
+//        this.town = town;
+//        this.roles = roles;
+//        this.isBanned = isBanned;
+//    }
 
     @PrePersist
     public void onPrePersist() {
@@ -112,5 +110,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return this.isBanned;
+    }
+
+    public List<Role> getRolesList() {
+        return new ArrayList<>(this.roles);
     }
 }

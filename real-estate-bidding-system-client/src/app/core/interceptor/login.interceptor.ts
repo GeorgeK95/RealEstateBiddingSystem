@@ -17,7 +17,11 @@ export class LoginInterceptor implements HttpInterceptor {
   readonly LOGIN_URL = '/users/login';
   readonly HOME_URL = '/';
   readonly AUTH_TOKEN = 'authtoken';
+  readonly IS_ADMIN = 'is_admin';
   readonly SUCCESS = 'Success.';
+  readonly TRUE = 'true';
+  readonly FALSE = 'false';
+
   // readonly SIGNED_IN_SUCCESSFULLY_MESSAGE = 'Signed in successfully.';
 
   constructor(
@@ -48,8 +52,10 @@ export class LoginInterceptor implements HttpInterceptor {
   }
 
   private setDataToLocalStorage(res: LoginResponseModel): void {
+    const isAdminEvaluation = res.admin === true ? this.TRUE : this.FALSE;
     localStorage.setItem(this.AUTH_TOKEN, res.accessToken);
-    // localStorage.setItem(this.USERNAME, res.username);
+    localStorage.setItem(this.IS_ADMIN, isAdminEvaluation);
     this.service.authToken = res.accessToken;
+    this.service.isAdmin = isAdminEvaluation;
   }
 }

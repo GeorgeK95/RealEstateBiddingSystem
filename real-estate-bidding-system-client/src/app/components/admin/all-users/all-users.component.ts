@@ -47,13 +47,11 @@ export class AllUsersComponent implements OnInit {
     }
 
     const found = this.cloned.filter(
-      (user: UserResponseModel) => {
-        user.email.includes(targetUsername) ||
+      (user: UserResponseModel) => user.email.includes(targetUsername) ||
         user.firstName.includes(targetUsername) ||
         user.lastName.includes(targetUsername) ||
         (user.telephone && user.telephone.includes(targetUsername)) ||
-        user.town.includes(targetUsername);
-      }
+        user.town.includes(targetUsername)
     );
 
     if (found) {
@@ -62,6 +60,6 @@ export class AllUsersComponent implements OnInit {
   }
 
   navigateToProfile(id: number) {
-    this.router.navigate([this.USER_BY_ID_URL.concat(id)]);
+    this.router.navigate([this.USER_BY_ID_URL.concat(String(id))]);
   }
 }

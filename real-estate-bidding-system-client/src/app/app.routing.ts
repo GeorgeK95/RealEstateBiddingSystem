@@ -9,6 +9,7 @@ import {EstateModule} from './components/estate/estate.module';
 import {EstateGuard} from './core/guard/estates/estate.guard';
 import {TermsComponent} from './components/shared/terms/terms.component';
 import {AdminModule} from './components/admin/admin.module';
+import {AdminGuard} from './core/guard/admin/admin.guard';
 
 const FULL = 'full';
 const ABOUT = 'about';
@@ -27,7 +28,7 @@ const appRoutes = [
   {path: ABOUT, component: AboutComponent},
   {path: CONTACTS, component: ContactsComponent},
   {path: ESTATES, canActivate: [EstateGuard], loadChildren: () => EstateModule},
-  {path: ADMIN, canActivate: [EstateGuard], loadChildren: () => AdminModule}, // adminguard
+  {path: ADMIN, canActivate: [AdminGuard], loadChildren: () => AdminModule},
   {path: ALL, component: NotFoundComponent}
 ];
 

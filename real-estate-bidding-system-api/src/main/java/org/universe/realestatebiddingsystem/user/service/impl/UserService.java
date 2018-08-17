@@ -67,9 +67,13 @@ public class UserService extends BaseService<User> implements IUserService {
 
         String jwt = tokenProvider.generateToken(authentication);
 
+        User userByEmail = this.userRepository.findByEmail(requestModel.getEmail());
         String finalMsg = String.format(USER_LOGGED_SUCCESSFULLY_MESSAGE,
-                this.userRepository.findByEmail(requestModel.getEmail()).getFirstName());
-        return ResponseEntity.ok(new JwtAuthenticationResponseModel(jwt, authentication.getName(), finalMsg));
+                userByEmail.getFirstName());
+
+        return ResponseEntity.ok(
+                new JwtAuthenticationResponseModel(jwt, authentication.getName(), finalMsg, userByEmail.getRoles().size() > 1)
+        );
     }
 
     @Override
@@ -103,7 +107,7 @@ public class UserService extends BaseService<User> implements IUserService {
 
         User user = this.getUserByIdOrThrowException(userId);
 
-        return new ResponseEntity<>(DTOConverter.convert(user, UserProfileResponseModel.class), HttpStatus.OK);
+        return new ResponseEntity<>(DTOConverter.convert(user, UserResponseModel.class), HttpStatus.OK);
     }
 
     @Override

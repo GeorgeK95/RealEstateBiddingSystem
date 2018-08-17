@@ -33,7 +33,10 @@
       <td>{{user.firstName}}</td>
       <td>{{user.lastName}}</td>
       <td>{{user.town}}</td>
-      <td>{{user.rolesList}}</td>
+
+      <td *ngIf="user.rolesList.length > 1">Admin, User</td>
+      <td *ngIf="user.rolesList.length === 1">User</td>
+
       <td>{{user.isBanned}}</td>
       <td *ngIf="user.telephone">{{user.telephone}}</td>
       <td *ngIf="!user.telephone">-</td>

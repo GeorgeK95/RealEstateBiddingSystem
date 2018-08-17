@@ -10,13 +10,16 @@ import {UserResponseModel} from '../../model/response/user-response.model';
 export class UserService {
 
   readonly AUTH_TOKEN = 'authtoken';
+  readonly IS_ADMIN = 'is_admin';
   readonly REGISTER_URL = `http://localhost:8080/users/register`;
   readonly LOGIN_URL = 'http://localhost:8080/users/login';
   readonly ALL_USERS_URL = 'http://localhost:8080/admin/users';
   readonly CURRENT_USER_URL = 'http://localhost:8080/users/current';
+  readonly TRUE = 'true';
   // readonly GET_USER_BY_USERNAME_URL = 'http://localhost:8080/users/';
 
   private _authToken: string;
+  private _isAdmin: string;
 
   constructor(private httpClient: HttpClientService) {
   }
@@ -33,12 +36,25 @@ export class UserService {
     return this.authToken === localStorage.getItem(this.AUTH_TOKEN);
   }
 
+  checkIfAdmin() {
+    return localStorage.getItem(this.IS_ADMIN) === this.TRUE;
+  }
+
   /*getUserByUsername(username: string) {
     return this.httpClient.get<UserProfileResponseModel>(this.GET_USER_BY_USERNAME_URL + username);
   }*/
 
   getCurrentlyLoggedInUser() {
     return this.httpClient.get<UserResponseModel>(this.CURRENT_USER_URL);
+  }
+
+
+  get isAdmin(): string {
+    return this._isAdmin;
+  }
+
+  set isAdmin(value: string) {
+    this._isAdmin = value;
   }
 
   get authToken(): string {

@@ -20,7 +20,7 @@ export class UserProfileComponent implements OnInit {
   private profilePageUser: UserProfileResponseModel; // which profile we are looking at
   readonly ID = 'id';
   readonly RADIX = 10;
-  readonly PROFILE_PAGE_URL = `http://localhost:8080/users/details/`;
+  readonly PROFILE_PAGE_URL = `/users/details/`;
 
   constructor(
     private http: HttpClientService,

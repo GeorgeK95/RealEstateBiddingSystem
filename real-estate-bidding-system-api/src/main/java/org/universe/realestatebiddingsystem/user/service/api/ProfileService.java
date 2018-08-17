@@ -30,22 +30,23 @@ public class ProfileService extends BaseService<User> implements IProfileService
         User user = this.userRepository.findById(id).orElseThrow();
 
         boolean matches = new BCryptPasswordEncoder().matches(editProfileRequestModel.getCurrentPassword(), user.getPassword());
-        String a = new BCryptPasswordEncoder().encode(editProfileRequestModel.getCurrentPassword());
-        String b = user.getPassword();
-        String c = editProfileRequestModel.getNewPassword();
-        String d = editProfileRequestModel.getConfirm();
+//        String currentPasswordEncrypted = new BCryptPasswordEncoder().encode(editProfileRequestModel.getCurrentPassword());
+//        String dbPassword = user.getPassword();
+        String newPassword = editProfileRequestModel.getNewPassword();
+        String confirmNewPassword = editProfileRequestModel.getConfirm();
 
-        if (!a.equals(b) || !c.equals(d))
+        if (!matches || !newPassword.equals(confirmNewPassword))
             return new ResponseEntity(INVALID_CREDENTIALS_MESSAGE, HttpStatus.BAD_REQUEST);
 
-        user = this.updateUser(user, DTOConverter.convert(editProfileRequestModel, User.class));
+        user = this.updateUser(user, DTOConverter.convert(editProfileRequestModel, User.class),
+                editProfileRequestModel.getNewPassword());
 
         this.userRepository.save(user);
 
         return new ResponseEntity<>(new Gson().toJson(PROFILE_EDITED_SUCCESSFULLY_MESSAGE), HttpStatus.OK);
     }
 
-    private User updateUser(User user, User edited) {
+    private User updateUser(User user, User edited, String newPassword) {
         if (edited.getFirstName() != null)
             user.setFirstName(edited.getFirstName());
         if (edited.getLastName() != null)
@@ -54,8 +55,9 @@ public class ProfileService extends BaseService<User> implements IProfileService
             user.setTelephone(edited.getTelephone());
         if (edited.getTown() != null)
             user.setTown(edited.getTown());
-        if (edited.getPassword() != null)
-            user.setPassword(edited.getPassword());
+        if (newPassword != null) {
+            user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
+        }
 
         return user;
     }

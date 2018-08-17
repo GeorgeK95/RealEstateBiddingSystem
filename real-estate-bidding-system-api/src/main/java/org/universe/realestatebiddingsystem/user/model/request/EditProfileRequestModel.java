@@ -18,12 +18,12 @@ public class EditProfileRequestModel {
     @Size(min = PASSWORD_MIN_VALUE, max = PASSWORD_MAX_VALUE)
     private String currentPassword;
 
-    @NotBlank
-    @Size(min = PASSWORD_MIN_VALUE, max = PASSWORD_MAX_VALUE)
+//    @NotBlank
+//    @Size(min = PASSWORD_MIN_VALUE, max = PASSWORD_MAX_VALUE)
     private String newPassword;
 
-    @NotBlank
-    @Size(min = PASSWORD_MIN_VALUE, max = PASSWORD_MAX_VALUE)
+//    @NotBlank
+//    @Size(min = PASSWORD_MIN_VALUE, max = PASSWORD_MAX_VALUE)
     private String confirm;
 
     @NotBlank
@@ -41,4 +41,8 @@ public class EditProfileRequestModel {
     @Pattern(regexp = TELEPHONE_REGEXP)
     private String telephone;
 
+
+    public String getPassword() {
+        return null;
+    }
 }

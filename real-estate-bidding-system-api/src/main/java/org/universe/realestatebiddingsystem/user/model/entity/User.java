@@ -115,4 +115,5 @@ public class User implements UserDetails {
     public List<Role> getRolesList() {
         return new ArrayList<>(this.roles);
     }
+
 }

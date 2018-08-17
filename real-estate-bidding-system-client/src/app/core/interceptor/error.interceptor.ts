@@ -22,6 +22,8 @@ export class ErrorInterceptor implements HttpInterceptor {
   readonly UNAUTHORIZED = 'Unauthorized!';
   readonly HOME_URL = '/';
   readonly LOGIN_URL = 'http://localhost:8080/users/login';
+  readonly EDIT_PROFILE_URL = 'http://localhost:8080/users/details/';
+  readonly PUT = 'PUT';
 
   constructor(private toastr: ToastrService, private router: Router) {
   }
@@ -34,16 +36,15 @@ export class ErrorInterceptor implements HttpInterceptor {
             this.toastr.error(err.error.body, this.ERROR);
           } else {
             if (err.status === this.BAD_REQUEST_STATUS_CODE) {
-              if (err.url === this.LOGIN_URL) {
-                this.toastr.error(this.INVALID_DATA_PROVIDED, this.ERROR);
-                return;
-              }
               // noinspection TsLint
               for (const errorKey in err.error) {
                 this.toastr.error(err.error[errorKey],
                   (errorKey.charAt(this.ZERO).toUpperCase() + errorKey.slice(this.ONE))
                 );
               }
+              return;
+
+              // this.toastr.error(this.INVALID_DATA_PROVIDED, this.ERROR);
             } else {
               if (err.status === this.FORBIDDEN_STATUS_CODE) {
                 this.toastr.error(this.UNAUTHORIZED_MESSAGE, this.UNAUTHORIZED);

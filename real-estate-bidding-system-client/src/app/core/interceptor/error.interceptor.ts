@@ -9,6 +9,8 @@ import {Router} from '@angular/router';
   providedIn: 'root'
 })
 export class ErrorInterceptor implements HttpInterceptor {
+  readonly ZERO = 0;
+  readonly ONE = 1;
   readonly UNAUTHORIZED_STATUS_CODE = 401;
   readonly FORBIDDEN_STATUS_CODE = 403;
   readonly BAD_REQUEST_STATUS_CODE = 400;
@@ -19,6 +21,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   readonly UNAUTHORIZED_MESSAGE = 'You don\'t have permission to view page content.';
   readonly UNAUTHORIZED = 'Unauthorized!';
   readonly HOME_URL = '/';
+  readonly LOGIN_URL = 'http://localhost:8080/users/login';
 
   constructor(private toastr: ToastrService, private router: Router) {
   }
@@ -31,7 +34,16 @@ export class ErrorInterceptor implements HttpInterceptor {
             this.toastr.error(err.error.body, this.ERROR);
           } else {
             if (err.status === this.BAD_REQUEST_STATUS_CODE) {
-              this.toastr.error(this.INVALID_DATA_PROVIDED, this.ERROR);
+              if (err.url === this.LOGIN_URL) {
+                this.toastr.error(this.INVALID_DATA_PROVIDED, this.ERROR);
+                return;
+              }
+              // noinspection TsLint
+              for (const errorKey in err.error) {
+                this.toastr.error(err.error[errorKey],
+                  (errorKey.charAt(this.ZERO).toUpperCase() + errorKey.slice(this.ONE))
+                );
+              }
             } else {
               if (err.status === this.FORBIDDEN_STATUS_CODE) {
                 this.toastr.error(this.UNAUTHORIZED_MESSAGE, this.UNAUTHORIZED);

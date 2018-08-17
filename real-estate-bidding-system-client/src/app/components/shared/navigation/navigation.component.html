@@ -27,6 +27,12 @@
           <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/estates/mybids">My Bids</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/users/details/1">My Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/estates/myfriends">My Friends</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" *ngIf="isLoggedIn() && isAdmin()" routerLink="/admin/users">Users</a>
         </li>
 

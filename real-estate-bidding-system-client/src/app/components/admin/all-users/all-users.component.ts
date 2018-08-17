@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClientService} from '../../../core/service/http-client.service';
 import {UserService} from '../../../core/service/user/user.service';
-import {UserResponseModel} from '../../../core/model/response/user-response.model';
+import {UserResponseModel} from '../../../core/model/response/user/user-response.model';
 
 @Component({
   selector: 'app-all-users',
@@ -10,7 +10,7 @@ import {UserResponseModel} from '../../../core/model/response/user-response.mode
   styleUrls: ['./all-users.component.css']
 })
 export class AllUsersComponent implements OnInit {
-  readonly USER_BY_ID_URL = '/users/';
+  readonly USER_BY_ID_URL = '/users/details/';
   readonly SEPARATOR = ', ';
   private users: UserResponseModel[];
   private cloned: UserResponseModel[];
@@ -60,6 +60,6 @@ export class AllUsersComponent implements OnInit {
   }
 
   navigateToProfile(id: number) {
-    this.router.navigate([this.USER_BY_ID_URL.concat(String(id))]);
+    this.router.navigate([this.USER_BY_ID_URL + id]);
   }
 }

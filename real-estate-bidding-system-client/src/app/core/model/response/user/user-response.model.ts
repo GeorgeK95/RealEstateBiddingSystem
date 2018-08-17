@@ -1,4 +1,4 @@
-import {RoleResponseModel} from './role-response.model';
+import {RoleResponseModel} from '../role/role-response.model';
 
 export class UserResponseModel {
   constructor(

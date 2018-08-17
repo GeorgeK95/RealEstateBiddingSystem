@@ -13,7 +13,7 @@ import {AdminGuard} from './core/guard/admin/admin.guard';
 
 const FULL = 'full';
 const ABOUT = 'about';
-const USER = 'users';
+const USERS = 'users';
 const ESTATES = 'estates';
 const ADMIN = 'admin';
 const CONTACTS = 'contacts';
@@ -24,7 +24,7 @@ const TERMS = 'terms';
 const appRoutes = [
   {path: HOME, component: HomeComponent, pathMatch: FULL},
   {path: TERMS, component: TermsComponent},
-  {path: USER, loadChildren: () => UserModule},
+  {path: USERS, loadChildren: () => UserModule},
   {path: ABOUT, component: AboutComponent},
   {path: CONTACTS, component: ContactsComponent},
   {path: ESTATES, canActivate: [EstateGuard], loadChildren: () => EstateModule},

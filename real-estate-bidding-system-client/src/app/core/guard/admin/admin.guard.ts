@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {UserService} from '../../service/user/user.service';
-import {UserResponseModel} from '../../model/response/user-response.model';
+import {UserResponseModel} from '../../model/response/user/user-response.model';
 import {ToastrService} from 'ngx-toastr';
 
 @Injectable({

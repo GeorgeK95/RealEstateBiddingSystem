@@ -2,13 +2,15 @@ import {Injectable} from '@angular/core';
 import {HttpClientService} from '../http-client.service';
 import {RegisterRequestModel} from '../../model/request/user/register-request.model';
 import {LoginRequestModel} from '../../model/request/user/login-request.model';
-import {UserResponseModel} from '../../model/response/user-response.model';
+import {UserResponseModel} from '../../model/response/user/user-response.model';
+import {UserProfileResponseModel} from '../../model/response/user/user-profile-response.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
+  readonly UID = 'uid';
   readonly AUTH_TOKEN = 'authtoken';
   readonly IS_ADMIN = 'is_admin';
   readonly REGISTER_URL = `http://localhost:8080/users/register`;
@@ -16,7 +18,7 @@ export class UserService {
   readonly ALL_USERS_URL = 'http://localhost:8080/admin/users';
   readonly CURRENT_USER_URL = 'http://localhost:8080/users/current';
   readonly TRUE = 'true';
-  // readonly GET_USER_BY_USERNAME_URL = 'http://localhost:8080/users/';
+  readonly GET_USER_BY_USERNAME_URL = 'http://localhost:8080/users/';
 
   private _authToken: string;
   private _isAdmin: string;
@@ -40,12 +42,16 @@ export class UserService {
     return localStorage.getItem(this.IS_ADMIN) === this.TRUE;
   }
 
-  /*getUserByUsername(username: string) {
-    return this.httpClient.get<UserProfileResponseModel>(this.GET_USER_BY_USERNAME_URL + username);
-  }*/
+  getUserById(id: number) {
+    return this.httpClient.get<UserProfileResponseModel>(this.GET_USER_BY_USERNAME_URL + id);
+  }
 
   getCurrentlyLoggedInUser() {
     return this.httpClient.get<UserResponseModel>(this.CURRENT_USER_URL);
+  }
+
+  getCurrentlyLoggedInUserForProfile() {
+    return this.httpClient.get<UserProfileResponseModel>(this.CURRENT_USER_URL);
   }
 
 

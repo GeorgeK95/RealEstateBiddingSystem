@@ -18,6 +18,11 @@
   display: block;
 }
 
+.valid-feedback {
+  color: #4dd0e1;
+  display: block;
+}
+
 .form-control {
   margin-top: 20px;
 }

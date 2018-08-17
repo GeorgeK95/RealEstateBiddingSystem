@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../../core/service/user/user.service';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {UserResponseModel} from '../../../core/model/response/user-response.model';
+import {UserResponseModel} from '../../../core/model/response/user/user-response.model';
 
 @Component({
   selector: 'app-navigation',
@@ -21,7 +21,7 @@ export class NavigationComponent implements OnInit {
   private hamburgerBtnClass: string;
   private hamburgerDivClass: string;
 
-  constructor(private service: UserService, private router: Router, private toastr: ToastrService) {
+  constructor(private userService: UserService, private router: Router, private toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -30,15 +30,15 @@ export class NavigationComponent implements OnInit {
   }
 
   isLoggedIn() {
-    return this.service.checkIfLoggedIn();
+    return this.userService.checkIfLoggedIn();
   }
 
   isAdmin() {
-    return this.service.checkIfAdmin();
+    return this.userService.checkIfAdmin();
   }
 
   onLogout() {
-    this.service.authToken = undefined;
+    this.userService.authToken = undefined;
     localStorage.clear();
     this.toastr.info(this.SIGNED_OUT_SUCCESSFULLY_MESSAGE, this.SUCCESS);
     this.router.navigate([this.HOME_URL]);

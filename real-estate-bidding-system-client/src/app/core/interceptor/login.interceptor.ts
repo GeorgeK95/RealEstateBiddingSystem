@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {Injectable} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
 import {UserService} from '../service/user/user.service';
-import {LoginResponseModel} from '../model/response/login-response.model';
+import {LoginResponseModel} from '../model/response/user/login-response.model';
 
 @Injectable({
   providedIn: 'root'

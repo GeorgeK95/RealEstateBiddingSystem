@@ -7,16 +7,18 @@ import {Injectable} from '@angular/core';
 })
 export class TokenInterceptor implements HttpInterceptor {
   readonly AUTHTOKEN = 'authtoken';
+  readonly METHOD_PUT = 'PUT';
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-   /* if (req.method === 'PUT') { // later on check url too
+    if (req.method === this.METHOD_PUT) { // later on check url too
       req.clone({
           setHeaders: {
             'Access-Control-Allow-Origin': 'http://localhost:8080'
           }
         }
       );
-    }*/
+    }
+
     if (this.retrieveToken() !== null) {
       req = req.clone({
         setHeaders: {

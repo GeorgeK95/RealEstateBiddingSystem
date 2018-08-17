@@ -3,9 +3,11 @@ import {userRoutes} from './user.routing';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {userComponents} from './index';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   imports: [
+    CommonModule,
     FormsModule,
     RouterModule.forChild(userRoutes)
   ],

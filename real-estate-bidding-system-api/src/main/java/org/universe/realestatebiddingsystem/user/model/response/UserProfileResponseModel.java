@@ -7,6 +7,12 @@ import java.util.List;
 
 @Data
 public class UserProfileResponseModel {
+    private String id;
     private String email;
-//    private List<RoleResponseModel> rolesList = new ArrayList<>();
+    private String town;
+    private String telephone;
+    private String firstName;
+    private String lastName;
+    private String isBanned;
+    private List<RoleResponseModel> rolesList = new ArrayList<>();
 }

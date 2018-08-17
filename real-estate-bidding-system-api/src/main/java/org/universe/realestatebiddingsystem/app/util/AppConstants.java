@@ -28,7 +28,7 @@ public interface AppConstants {
     String CURRENT_USER_URL = "/current";
     String REGISTER_URL = "/register";
     String LOGIN_URL = "/login";
-    String USERS_USERNAME_URL = "/{username}";
+    String USERS_DETAILS_ID_URL = "/details/{id}";
 
     //    MESSAGES
     String RESPONDING_WITH_UNAUTHORIZED_ERROR_MESSAGE = "Responding with unauthorized error. Message - {}";

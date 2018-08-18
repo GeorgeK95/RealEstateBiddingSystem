@@ -9,7 +9,7 @@ export class HttpClientService {
   }
 
   public get<T>(url: string) {
-    return this.http.get<T>(url,);
+    return this.http.get<T>(url);
   }
 
   public post<T>(url: string, body: any) {

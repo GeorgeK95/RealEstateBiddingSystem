@@ -18,7 +18,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/estates/create">New</a>
+          <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/estates/new">New</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/estates/myoffers">My Offers</a>
@@ -27,7 +27,7 @@
           <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/estates/mybids">My Bids</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/users/details/1">My Profile</a>
+          <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/users/details/{{getCurrentUserId()}}">My Profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/estates/myfriends">My Friends</a>
@@ -42,10 +42,10 @@
           </a>
           <div class="dropdown-menu" x-placement="bottom-start"
                style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 44px, 0px);">
-            <a class="dropdown-item" routerLink="/estates/create">New</a>
+            <a class="dropdown-item" routerLink="/auth/create">New</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" routerLink="/estates/create">My Offers</a>
-            <a class="dropdown-item" routerLink="/estates/create">My Bids</a>
+            <a class="dropdown-item" routerLink="/auth/create">My Offers</a>
+            <a class="dropdown-item" routerLink="/auth/create">My Bids</a>
           </div>
         </li>-->
 

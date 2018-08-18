@@ -25,6 +25,8 @@ public interface AppConstants {
     String AUTH_ALL_URL = "/auth/**";
     String MAP_ALL_URL = "/**";
     String ALL_URL = "/all";
+    String CITIES_URL = "/cities";
+    String TYPES_URL = "/types";
     String CURRENT_USER_URL = "/current";
     String REGISTER_URL = "/register";
     String LOGIN_URL = "/login";
@@ -72,6 +74,8 @@ public interface AppConstants {
     int ROLE_NAME_LENGH_VALUE = 20;
     String USERS = "users";
     String ROLES = "roles";
+    String TYPES = "types";
+    String CITIES = "cities";
     int USER_FIRST_NAME_MAX_VALUE = 30;
     int EMAIL_MAX_VALUE = 40;
     int EMAIL_MIN_VALUE = 8;

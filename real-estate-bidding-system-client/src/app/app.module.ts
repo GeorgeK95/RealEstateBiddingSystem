@@ -16,6 +16,7 @@ import {TokenInterceptor} from './core/interceptor/token.interceptor';
 import {LoginInterceptor} from './core/interceptor/login.interceptor';
 import {AdminModule} from './components/admin/admin.module';
 import {ProfileEditInterceptor} from './core/interceptor/profile-edit.interceptor';
+import { NewEstateComponent } from './components/estate/new-estate/new-estate.component';
 
 @NgModule({
   declarations: [

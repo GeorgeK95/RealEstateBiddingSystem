@@ -38,7 +38,7 @@ export class UserProfileComponent implements OnInit {
     this.userService.getCurrentlyLoggedInUserForProfile()
       .subscribe((res: UserProfileResponseModel) => {
         this.user = res;
-        this.hasAuthorities = (res.rolesList.length > 1);
+        this.hasAuthorities = (res.rolesList.length > 1) || (profilePageUrlId === res.id);
       });
 
     this.userService.getUserById(profilePageUrlId)

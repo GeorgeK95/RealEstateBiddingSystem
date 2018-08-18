@@ -60,17 +60,20 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Boolean isBanned = false;
 
-//    public User(String email, String password, String firstName, String lastName, String telephone,
-//                String town, Set<Role> roles, Boolean isBanned) {
-//        this.email = email;
-//        this.password = password;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.telephone = telephone;
-//        this.town = town;
-//        this.roles = roles;
-//        this.isBanned = isBanned;
-//    }
+    public User() {
+    }
+
+    public User(String email, String password, String firstName, String lastName, String telephone,
+                String town, Set<Role> roles, Boolean isBanned) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.telephone = telephone;
+        this.town = town;
+        this.roles = roles;
+        this.isBanned = isBanned;
+    }
 
     @PrePersist
     public void onPrePersist() {

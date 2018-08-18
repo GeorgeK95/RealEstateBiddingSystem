@@ -15,7 +15,7 @@ import static org.universe.realestatebiddingsystem.app.util.AppConstants.*;
 
 @RestController
 @RequestMapping(USERS_URL)
-@PreAuthorize(IS_ADMIN)
+@PreAuthorize(IS_AUTHENTICATED)
 @CrossOrigin(origins = "*")
 public class ProfileController {
 

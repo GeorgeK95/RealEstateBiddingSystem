@@ -6,7 +6,7 @@ import {UserService} from '../../service/user/user.service';
 @Injectable({
   providedIn: 'root'
 })
-export class EstateGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
   readonly LOGIN_URL = '/users/login';
 
   constructor(private service: UserService, private router: Router) {

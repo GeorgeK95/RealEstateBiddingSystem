@@ -1,0 +1,127 @@
+<div class="container mt-58">
+
+  <form (ngSubmit)="onNewEstateFormSubmit()" #newEstate="ngForm">
+    <div class="row">
+      <div class="col-2"></div>
+
+      <div class="align-center col-8">
+        <h2>Publish Estate</h2>
+
+        <hr class="colorgraph">
+
+        <div class="form-group row">
+          <label for="action" class="col-4 mt-3">Action</label><br/>
+          <div class="col-2"></div>
+          <div class="mt-3 col-5 row" id="action">
+            <!--style="margin-right: 20px"-->
+            <div class="col-2">
+              <input type="radio" ng-model="color.name" name="action">Rent
+            </div>
+            <div class="col-8"></div>
+            <div class="col-2">
+              <input type="radio" ng-model="color.name" name="action">Buy
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="type" class="col-4">Type</label>
+          <div class="col-2"></div>
+          <div class="form-group col-5">
+            <select id="type" name="singleSelect" ng-model="data.singleSelect" class="form-control">
+              <option value="option-1">Option 1</option>
+              <option value="option-2">Option 2</option>
+            </select>
+          </div>
+        </div>
+
+        <!--<div class="form-group row">
+          <label for="country" class="col-4">Country</label>
+          <div class="col-2"></div>
+          <div class="form-group col-5">
+            <select id="country" name="singleSelect" ng-model="data.singleSelect" class="form-control">
+              <option value="option-1">Option 1</option>
+              <option value="option-2">Option 2</option>
+            </select>
+          </div>
+        </div>-->
+
+        <div class="form-group row">
+          <label for="city" class="col-4">City</label>
+          <div class="col-2"></div>
+          <div class="form-group col-5">
+            <select id="city" name="singleSelect" ng-model="data.singleSelect" class="form-control">
+              <option value="option-1">Option 1</option>
+              <option value="option-2">Option 2</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="floor" class="col-4">Floor</label>
+          <div class="col-2"></div>
+          <div class="form-group col-5">
+            <input id="floor" type="number" class="form-control" required placeholder="Floor">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="area" class="col-4">Area</label>
+          <div class="col-2"></div>
+          <div class="form-group col-5">
+            <input id="area" type="number" class="form-control" required placeholder="Area">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="area" class="col-4">Image</label>
+          <div class="col-2"></div>
+          <div class="form-group col-5">
+            <input id="image" type="text" class="form-control" required placeholder="Image Url">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="info" class="col-4">Additional Info</label>
+          <div class="col-2"></div>
+          <div class="form-group col-5">
+            <textarea id="info" type="number" class="form-control" required placeholder="Additional Info"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="peculiarities" class="col-4">Peculiarities</label>
+          <div class="col-2"></div>
+          <div class="form-group col-5" id="peculiarities">
+
+            <div class="row">
+              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Panel</div>
+              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Brick</div>
+              <!--Large-format shuttering-->
+              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">LFS</div>
+              <!--creeping formwork-->
+              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">CFW</div>
+            </div>
+
+            <div class="row">
+              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Trimmer Joists</div>
+              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Under Construction</div>
+            </div>
+
+          </div>
+        </div>
+
+        <hr class="colorgraph">
+
+        <div class="col-12">
+          <input type="submit" value="Publish Estate" class="btn btn-success btn-block btn-lg mb-5" tabindex="7"
+                 [disabled]="newEstate.form.invalid">
+        </div>
+
+      </div>
+
+      <div class="col-2"></div>
+    </div>
+  </form>
+
+</div>

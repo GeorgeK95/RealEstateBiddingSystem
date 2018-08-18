@@ -1,10 +1,10 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {EstateGuard} from './estates/estate.guard';
+import {AuthGuard} from './auth/auth.guard';
 import {AdminGuard} from './admin/admin.guard';
 
 @NgModule({
-  providers: [EstateGuard, AdminGuard],
+  providers: [AuthGuard, AdminGuard],
   imports: [
     CommonModule
   ]

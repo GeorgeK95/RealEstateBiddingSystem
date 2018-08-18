@@ -10,6 +10,7 @@ import org.springframework.validation.Errors;
 import org.universe.realestatebiddingsystem.app.service.BaseService;
 import org.universe.realestatebiddingsystem.app.util.DTOConverter;
 import org.universe.realestatebiddingsystem.user.model.entity.User;
+import org.universe.realestatebiddingsystem.user.model.enumeration.RoleName;
 import org.universe.realestatebiddingsystem.user.model.request.EditProfileRequestModel;
 import org.universe.realestatebiddingsystem.user.repository.UserRepository;
 
@@ -29,7 +30,9 @@ public class ProfileService extends BaseService<User> implements IProfileService
 
         User user = this.userRepository.findById(id).orElseThrow();
 
+        //owner of account or admin only will return true
         boolean matches = new BCryptPasswordEncoder().matches(editProfileRequestModel.getCurrentPassword(), user.getPassword());
+
         String newPassword = editProfileRequestModel.getNewPassword();
         String confirmNewPassword = editProfileRequestModel.getConfirm();
 
@@ -60,7 +63,7 @@ public class ProfileService extends BaseService<User> implements IProfileService
             user.setTelephone(edited.getTelephone());
         if (edited.getTown() != null && !edited.getTown().isEmpty())
             user.setTown(edited.getTown());
-        if (newPassword != null && !newPassword.isEmpty()){
+        if (newPassword != null && !newPassword.isEmpty()) {
             user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
         }
 

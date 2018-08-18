@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../../core/service/user/user.service';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {UserResponseModel} from '../../../core/model/response/user/user-response.model';
 
 @Component({
   selector: 'app-navigation',
@@ -35,6 +34,16 @@ export class NavigationComponent implements OnInit {
 
   isAdmin() {
     return this.userService.checkIfAdmin();
+  }
+
+  getCurrentUserId() {
+    return this.parseJwt(this.userService.authToken).sub;
+  }
+
+  parseJwt(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
   }
 
   onLogout() {

@@ -24,14 +24,12 @@ public class ProfileService extends BaseService<User> implements IProfileService
     }
 
     @Override
-    public ResponseEntity<?> editUserProfile(EditProfileRequestModel editProfileRequestModel, Errors errors, Long id) {
+    public ResponseEntity<?> editUserAccount(EditProfileRequestModel editProfileRequestModel, Errors errors, Long id) {
         if (errors.hasErrors()) return new ResponseEntity(super.processErrors(errors), HttpStatus.BAD_REQUEST);
 
         User user = this.userRepository.findById(id).orElseThrow();
 
         boolean matches = new BCryptPasswordEncoder().matches(editProfileRequestModel.getCurrentPassword(), user.getPassword());
-//        String currentPasswordEncrypted = new BCryptPasswordEncoder().encode(editProfileRequestModel.getCurrentPassword());
-//        String dbPassword = user.getPassword();
         String newPassword = editProfileRequestModel.getNewPassword();
         String confirmNewPassword = editProfileRequestModel.getConfirm();
 
@@ -46,16 +44,23 @@ public class ProfileService extends BaseService<User> implements IProfileService
         return new ResponseEntity<>(new Gson().toJson(PROFILE_EDITED_SUCCESSFULLY_MESSAGE), HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<?> disableUserAccount(Long id) {
+        this.userRepository.banUser(id);
+
+        return new ResponseEntity<>(new Gson().toJson(PROFILE_EDITED_SUCCESSFULLY_MESSAGE), HttpStatus.OK);
+    }
+
     private User updateUser(User user, User edited, String newPassword) {
-        if (edited.getFirstName() != null)
+        if (edited.getFirstName() != null && !edited.getFirstName().isEmpty())
             user.setFirstName(edited.getFirstName());
-        if (edited.getLastName() != null)
+        if (edited.getLastName() != null && !edited.getLastName().isEmpty())
             user.setLastName(edited.getLastName());
-        if (edited.getTelephone() != null)
+        if (edited.getTelephone() != null && !edited.getTelephone().isEmpty())
             user.setTelephone(edited.getTelephone());
-        if (edited.getTown() != null)
+        if (edited.getTown() != null && !edited.getTown().isEmpty())
             user.setTown(edited.getTown());
-        if (newPassword != null) {
+        if (newPassword != null && !newPassword.isEmpty()){
             user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
         }
 

@@ -20,7 +20,7 @@
     </div>
 
     <div class="card-body" *ngIf="isEditBtnClicked && !isDeleteBtnClicked">
-      <h3>Edit Profile</h3>
+      <h3>Edit Account</h3>
 
       <form (ngSubmit)="onProfileEditSubmit()" #editProfileForm="ngForm" class="app-form">
         <div class="row">
@@ -140,7 +140,9 @@
 
             <div class="col-12">
               <input type="submit" value="Save Changes" class="btn btn-success btn-block btn-lg" tabindex="7"
-                     [disabled]="editProfileForm.form.invalid || confirm.value !== newPassword.value">
+                     [disabled]="editProfileForm.form.invalid ||
+                     confirm.value !== newPassword.value ||
+                     editProfileForm.pristine === true">
             </div>
           </div>
 
@@ -160,55 +162,39 @@
 
           <div class="align-center col-8">
 
-            <div class="col-xs-12 col-sm-12 col-md-12">
-              <div class="form-group">
-                <input type="password" class="form-control" id="email" readonly [value]="editUserRequestModel.email">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="email" readonly [value]="profilePageUser.email">
+                </div>
+              </div>
+
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" [value]="profilePageUser.firstName" readonly>
+                </div>
+              </div>
+
+              <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" readonly [value]="profilePageUser.lastName">
+                </div>
               </div>
             </div>
 
             <div class="row">
               <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                  <input type="text" class="form-control" [value]="editUserRequestModel.firstName" readonly>
+                  <input type="text" class="form-control" [value]="profilePageUser.town" readonly>
                 </div>
               </div>
 
               <div class="col-xs-12 col-sm-6 col-md-6">
                 <div class="form-group">
-                  <input type="text" class="form-control" readonly [value]="editUserRequestModel.lastName">
+                  <input type="tel" class="form-control" [value]="profilePageUser.telephone" readonly>
                 </div>
               </div>
             </div>
-
-            <!--<div class="row">
-              <div class="col-xs-12 col-sm-6 col-md-6">
-                <div class="form-group">
-                  <input type="text" class="form-control" id="town"
-                         placeholder="Town"
-                         pattern="^[A-Z][a-z]{2,29}$"
-                         [(ngModel)]="editUserRequestModel.town"
-                         name="town"
-                         #town="ngModel">
-                </div>
-                <div [hidden]="town.valid || town.pristine" class="invalid-feedback">
-                  Town must contain only letters, start with a capital letter and must be between 3 and 30 symbols.
-                </div>
-              </div>
-
-              <div class="col-xs-12 col-sm-6 col-md-6">
-                <div class="form-group">
-                  <input type="tel" class="form-control" id="telephone"
-                         placeholder="Telephone"
-                         pattern="(^$|[0-9]{10})"
-                         [(ngModel)]="editUserRequestModel.telephone"
-                         name="telephone"
-                         #telephone="ngModel">
-                </div>
-                <div [hidden]="telephone.valid || telephone.pristine" class="invalid-feedback">
-                  Invalid phone format.
-                </div>
-              </div>
-            </div>-->
 
             <div class="col-12">
               <input type="submit" value="Disable Account" class="btn btn-danger btn-block btn-lg" tabindex="7">

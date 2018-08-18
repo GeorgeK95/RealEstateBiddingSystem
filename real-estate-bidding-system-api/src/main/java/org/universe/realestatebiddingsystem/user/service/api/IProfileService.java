@@ -6,6 +6,7 @@ import org.universe.realestatebiddingsystem.user.model.request.EditProfileReques
 
 public interface IProfileService {
 
-    ResponseEntity<?> editUserProfile(EditProfileRequestModel editProfileRequestModel, Errors errors, Long id);
+    ResponseEntity<?> editUserAccount(EditProfileRequestModel editProfileRequestModel, Errors errors, Long id);
 
+    ResponseEntity<?> disableUserAccount(Long id);
 }

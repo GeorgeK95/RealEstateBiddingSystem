@@ -24,6 +24,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   readonly LOGIN_URL = 'http://localhost:8080/users/login';
   readonly EDIT_PROFILE_URL = 'http://localhost:8080/users/details/';
   readonly PUT = 'PUT';
+  readonly INVALID_CREDENTIALS = 'Invalid credentials.';
 
   constructor(private toastr: ToastrService, private router: Router) {
   }
@@ -36,13 +37,19 @@ export class ErrorInterceptor implements HttpInterceptor {
             this.toastr.error(err.error.body, this.ERROR);
           } else {
             if (err.status === this.BAD_REQUEST_STATUS_CODE) {
-              // noinspection TsLint
-              for (const errorKey in err.error) {
-                this.toastr.error(err.error[errorKey],
-                  (errorKey.charAt(this.ZERO).toUpperCase() + errorKey.slice(this.ONE))
-                );
+              if (err.error === this.INVALID_CREDENTIALS ||
+                err.error.message && err.error.message.localeCompare('Invalid credentials.') === 0) {
+                // login with invalid credentials
+                this.toastr.error(this.INVALID_CREDENTIALS, this.ERROR);
+              } else {
+                // noinspection TsLint
+                for (const errorKey in err.error) {
+                  // edit user profile with invalid credentials
+                  this.toastr.error(err.error[errorKey],
+                    (errorKey.charAt(this.ZERO).toUpperCase() + errorKey.slice(this.ONE))
+                  );
+                }
               }
-              return;
 
               // this.toastr.error(this.INVALID_DATA_PROVIDED, this.ERROR);
             } else {

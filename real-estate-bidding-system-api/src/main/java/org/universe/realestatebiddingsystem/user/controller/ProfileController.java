@@ -30,6 +30,11 @@ public class ProfileController {
     public ResponseEntity<?> editUserProfile(@Valid @RequestBody EditProfileRequestModel editProfileRequestModel, Errors errors,
                                              @PathVariable Long id, HttpServletRequest req) {
         // req za auth koi sym az
-        return this.profileService.editUserProfile(editProfileRequestModel, errors, id);
+        return this.profileService.editUserAccount(editProfileRequestModel, errors, id);
+    }
+
+    @DeleteMapping(USERS_DETAILS_ID_URL)
+    public ResponseEntity<?> editUserProfile(@PathVariable Long id) {
+        return this.profileService.disableUserAccount(id);
     }
 }

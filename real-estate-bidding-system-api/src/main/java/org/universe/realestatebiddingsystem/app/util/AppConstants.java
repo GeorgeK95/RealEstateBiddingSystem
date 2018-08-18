@@ -41,7 +41,12 @@ public interface AppConstants {
     String USER_REGISTERED_SUCCESSFULLY_MESSAGE = "%s registered successfully.";
     String USER_LOGGED_SUCCESSFULLY_MESSAGE = "%s logged in successfully.";
     String PROFILE_EDITED_SUCCESSFULLY_MESSAGE = "Profile edited successfully.";
-    String INVALID_TOWN_MESSAGE = "Town length must be between 4 and 30 symbols.";
+    String PROFILE_DISABLED_SUCCESSFULLY_MESSAGE = "Profile disabled successfully.";
+    String INVALID_TOWN_MESSAGE = "Invalid town provided.";
+    String INVALID_PHONE_MESSAGE = "Invalid phone provided.";
+    String INVALID_FIRST_NAME_MESSAGE = "Invalid first name provided.";
+    String INVALID_CONFIRM_PASSWORD_MESSAGE = "Custom password field is mandatory.";
+    String INVALID_LAST_NAME_MESSAGE = "Invalid last name provided.";
     String EMAIL_ADDRESS_ALREADY_IN_USE_MESSAGE = "Email Address already in use!";
     String PASSWORDS_MISMATCH_MESSAGE = "Passwords do not match!";
     String USER_ROLE_NOT_SET_MESSAGE = "User Role not set.";

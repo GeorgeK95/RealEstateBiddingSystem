@@ -8,7 +8,7 @@ import org.universe.realestatebiddingsystem.user.model.entity.User;
 
 import java.util.Optional;
 
-import static org.universe.realestatebiddingsystem.app.util.AppConstants.EMAIL;
+import static org.universe.realestatebiddingsystem.app.util.AppConstants.ID;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -19,6 +19,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
 
-    @Query("update User u set u.isBanned = true where u.email = :email")
-    boolean banUser(@Param(EMAIL) String email);
+    @Query("update User u set u.isBanned = true where u.id = :id")
+    boolean banUser(@Param(ID) Long id);
 }

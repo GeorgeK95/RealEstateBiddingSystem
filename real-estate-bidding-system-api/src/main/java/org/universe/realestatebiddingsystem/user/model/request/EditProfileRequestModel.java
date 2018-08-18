@@ -15,32 +15,34 @@ public class EditProfileRequestModel {
     private String email;*/
 
     @NotBlank
-    @Size(min = PASSWORD_MIN_VALUE, max = PASSWORD_MAX_VALUE)
+    @Size(min = PASSWORD_MIN_VALUE, max = PASSWORD_MAX_VALUE, message = INVALID_FIRST_NAME_MESSAGE)
     private String currentPassword;
 
-//    @NotBlank
+    //    @NotBlank
 //    @Size(min = PASSWORD_MIN_VALUE, max = PASSWORD_MAX_VALUE)
     private String newPassword;
 
-//    @NotBlank
+    //    @NotBlank
 //    @Size(min = PASSWORD_MIN_VALUE, max = PASSWORD_MAX_VALUE)
     private String confirm;
 
-    @NotBlank
-    @Size(min = USER_FIRST_NAME_MIN_VALUE, max = USER_FIRST_NAME_MAX_VALUE)
+    //    @NotBlank
+//    @Size(min = USER_FIRST_NAME_MIN_VALUE, max = USER_FIRST_NAME_MAX_VALUE)
+    @Pattern(regexp = "(^$|.{3,30})", message = INVALID_FIRST_NAME_MESSAGE)
     private String firstName;
 
-    @NotBlank
-    @Size(min = USER_LAST_NAME_MIN_VALUE, max = USER_LAST_NAME_MAX_VALUE)
+    //    @NotBlank
+//    @Size(min = USER_LAST_NAME_MIN_VALUE, max = USER_LAST_NAME_MAX_VALUE)
+    @Pattern(regexp = "(^$|.{3,30})", message = INVALID_LAST_NAME_MESSAGE)
     private String lastName;
 
-    @NotBlank
-    @Size(min = TOWN_MIN_VALUE, max = TOWN_MAX_VALUE, message = INVALID_TOWN_MESSAGE)
+    //    @NotBlank
+//    @Size(min = TOWN_MIN_VALUE, max = TOWN_MAX_VALUE, message = INVALID_TOWN_MESSAGE)
+    @Pattern(regexp = "(^$|.{3,30})", message = INVALID_TOWN_MESSAGE)
     private String town;
 
-    @Pattern(regexp = TELEPHONE_REGEXP)
+    @Pattern(regexp = TELEPHONE_REGEXP, message = INVALID_PHONE_MESSAGE)
     private String telephone;
-
 
     public String getPassword() {
         return null;

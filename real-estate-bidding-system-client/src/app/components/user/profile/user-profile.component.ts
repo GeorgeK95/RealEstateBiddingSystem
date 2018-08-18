@@ -19,6 +19,7 @@ export class UserProfileComponent implements OnInit {
   private editUserRequestModel: EditProfileRequestModel; // who will be edited editvam
   private profilePageUser: UserProfileResponseModel; // which profile we are looking at
   readonly ID = 'id';
+  readonly VALID = 'VALID';
   readonly RADIX = 10;
   readonly PROFILE_PAGE_URL = `/users/details/`;
 
@@ -68,7 +69,10 @@ export class UserProfileComponent implements OnInit {
   }
 
   onProfileDeleteSubmit() {
-    console.log('delettt');
+    this.profileService.deleteProfile(this.profilePageUser.id)
+      .subscribe((res) => {
+        // toastr
+        this.router.navigate([this.PROFILE_PAGE_URL + this.profilePageUser.id]);
+      });
   }
-
 }

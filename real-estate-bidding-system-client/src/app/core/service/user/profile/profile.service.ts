@@ -7,13 +7,16 @@ import {EditProfileRequestModel} from '../../../model/request/profile/edit-profi
 })
 export class ProfileService {
 
-  readonly EDIT_PROFILE_URL = `http://localhost:8080/users/details/`;
+  readonly USER_DETAILS_URL = `http://localhost:8080/users/details/`;
 
   constructor(private httpClient: HttpClientService) {
   }
 
   editProfile(profileRequestModel: EditProfileRequestModel, id: number) {
-    return this.httpClient.put<EditProfileRequestModel>(this.EDIT_PROFILE_URL + id, profileRequestModel);
+    return this.httpClient.put<EditProfileRequestModel>(this.USER_DETAILS_URL + id, profileRequestModel);
   }
 
+  deleteProfile(id: number) {
+    return this.httpClient.delete(this.USER_DETAILS_URL + id);
+  }
 }

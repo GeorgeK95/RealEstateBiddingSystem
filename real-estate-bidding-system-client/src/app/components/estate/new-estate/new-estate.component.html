@@ -15,11 +15,12 @@
           <div class="mt-3 col-5 row" id="action">
             <!--style="margin-right: 20px"-->
             <div class="col-2">
-              <input type="radio" ng-model="color.name" name="action">Rent
+              <input type="radio" required ng-model="color.name" name="action" value="rent"
+                     [(ngModel)]="requestModel.action">Rent
             </div>
             <div class="col-8"></div>
             <div class="col-2">
-              <input type="radio" ng-model="color.name" name="action">Buy
+              <input type="radio" ng-model="color.name" name="action" value="sell" [(ngModel)]="requestModel.action">Sell
             </div>
           </div>
         </div>
@@ -28,31 +29,18 @@
           <label for="type" class="col-4">Type</label>
           <div class="col-2"></div>
           <div class="form-group col-5">
-            <select id="type" name="singleSelect" ng-model="data.singleSelect" class="form-control">
-              <option value="option-1">Option 1</option>
-              <option value="option-2">Option 2</option>
+            <select id="type" class="form-control" name="city" [(ngModel)]="requestModel.type" required>
+              <option *ngFor="let type of types" value="{{type.typeName}}">{{type.typeName}}</option>
             </select>
           </div>
         </div>
-
-        <!--<div class="form-group row">
-          <label for="country" class="col-4">Country</label>
-          <div class="col-2"></div>
-          <div class="form-group col-5">
-            <select id="country" name="singleSelect" ng-model="data.singleSelect" class="form-control">
-              <option value="option-1">Option 1</option>
-              <option value="option-2">Option 2</option>
-            </select>
-          </div>
-        </div>-->
 
         <div class="form-group row">
           <label for="city" class="col-4">City</label>
           <div class="col-2"></div>
           <div class="form-group col-5">
-            <select id="city" name="singleSelect" ng-model="data.singleSelect" class="form-control">
-              <option value="option-1">Option 1</option>
-              <option value="option-2">Option 2</option>
+            <select id="city" class="form-control" name="city" [(ngModel)]="requestModel.city" required>
+              <option *ngFor="let city of cities" value="{{city.name}}">{{city.name}}</option>
             </select>
           </div>
         </div>
@@ -61,7 +49,11 @@
           <label for="floor" class="col-4">Floor</label>
           <div class="col-2"></div>
           <div class="form-group col-5">
-            <input id="floor" type="number" class="form-control" required placeholder="Floor">
+            <input id="floor" type="number" class="form-control" placeholder="Floor"
+                   [(ngModel)]="requestModel.floor" name="floor" #floor="ngModel">
+          </div>
+          <div [hidden]="floor.valid || floor.pristine" class="invalid-feedback">
+            Floor must be number between 0 and 100.
           </div>
         </div>
 
@@ -69,7 +61,8 @@
           <label for="area" class="col-4">Area</label>
           <div class="col-2"></div>
           <div class="form-group col-5">
-            <input id="area" type="number" class="form-control" required placeholder="Area">
+            <input id="area" type="number" class="form-control" required placeholder="Area"
+                   [(ngModel)]="requestModel.area" name="area">
           </div>
         </div>
 
@@ -77,7 +70,8 @@
           <label for="area" class="col-4">Image</label>
           <div class="col-2"></div>
           <div class="form-group col-5">
-            <input id="image" type="text" class="form-control" required placeholder="Image Url">
+            <input id="file" type="text" class="form-control" required
+                   [(ngModel)]="requestModel.image" name="image">
           </div>
         </div>
 
@@ -85,30 +79,54 @@
           <label for="info" class="col-4">Additional Info</label>
           <div class="col-2"></div>
           <div class="form-group col-5">
-            <textarea id="info" type="number" class="form-control" required placeholder="Additional Info"></textarea>
+            <textarea id="info" type="number" class="form-control" placeholder="Additional Info"
+                      [(ngModel)]="requestModel.additionalInfo" name="additionalInfo"></textarea>
           </div>
         </div>
 
         <div class="form-group row">
           <label for="peculiarities" class="col-4">Peculiarities</label>
           <div class="col-2"></div>
-          <div class="form-group col-5" id="peculiarities">
 
-            <div class="row">
-              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Panel</div>
-              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Brick</div>
-              <!--Large-format shuttering-->
-              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">LFS</div>
-              <!--creeping formwork-->
-              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">CFW</div>
+          <div id="peculiarities" class="row" *ngFor="let peculiarity of peculiarities; let i = index">
+            <div class="col-3">
+              <input type="checkbox"
+                     [name]="'peculiarities'+i"
+                     [(ngModel)]="peculiarity.checked"
+                     value="{{peculiarity.id}}">
+              {{peculiarity.name}}
+              <!--<input type="checkbox" name="peculiarities" value="{{peculiarity.value}}">{{peculiarity.name}}-->
             </div>
-
-            <div class="row">
-              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Trimmer Joists</div>
-              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Under Construction</div>
-            </div>
-
           </div>
+
+          <!--<div class="form-group col-5" id="peculiarities">
+
+            <div class="row">
+              <div class="col-3"><input type="checkbox" name="peculiarities" value="panel">Panel
+              </div>
+              <div class="col-3"><input type="checkbox" name="peculiarities" value="brick">Brick
+              </div>
+              &lt;!&ndash;Large-format shuttering&ndash;&gt;
+              <div class="col-3"><input type="checkbox" name="peculiarities" value="lfs">LFS</div>
+              &lt;!&ndash;creeping formwork&ndash;&gt;
+              <div class="col-3"><input type="checkbox" name="peculiarities" value="cfw">CFW</div>
+            </div>
+
+            <div class="row">
+              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Elevator</div>
+              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">In Build</div>
+              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Pool</div>
+              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Trimmer Joists</div>
+            </div>
+
+            <div class="row">
+              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">AirCool</div>
+              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Garage</div>
+              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Furnished</div>
+              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Panorama View</div>
+            </div>
+
+          </div>-->
         </div>
 
         <hr class="colorgraph">

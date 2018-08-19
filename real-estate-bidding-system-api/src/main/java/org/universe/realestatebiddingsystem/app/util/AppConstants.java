@@ -20,7 +20,9 @@ public interface AppConstants {
     String ID_PATTERN_URL = "/{id}";
     String USERS_URL = "/users";
     String ADMIN_URL = "/admin";
+    String PECULIARITY_URL = "/peculiarity";
     String ESTATES_URL = "/estates";
+    String NEW_URL = "/new";
     String USERS_URL_ALL = "/users/**";
     String AUTH_ALL_URL = "/auth/**";
     String MAP_ALL_URL = "/**";
@@ -75,8 +77,10 @@ public interface AppConstants {
     int TELEPHONE_LENGHT = 10;
     int ROLE_NAME_LENGH_VALUE = 20;
     String USERS = "users";
+    String ADDS = "estates";
     String ROLES = "roles";
     String TYPES = "types";
+    String PECULIARITIES = "peculiarities";
     String CITIES = "cities";
     int USER_FIRST_NAME_MAX_VALUE = 30;
     int EMAIL_MAX_VALUE = 40;

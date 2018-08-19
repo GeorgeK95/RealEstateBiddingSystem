@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `types` (
+/*CREATE TABLE IF NOT EXISTS `types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
   PRIMARY KEY (`id`),
@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `types` (
 
 --
 -- Dumping data for table `types`
---
+--*/
 
 INSERT INTO `types` (`id`, `type_name`) VALUES
 (1, 'One Room Apartment'),

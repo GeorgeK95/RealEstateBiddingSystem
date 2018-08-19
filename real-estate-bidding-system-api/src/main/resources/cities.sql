@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `cities` (
+/*CREATE TABLE IF NOT EXISTS `cities` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `code` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
@@ -8,9 +8,9 @@ CREATE TABLE IF NOT EXISTS `cities` (
 
 --
 -- Dumping data for table `cities`
---
+--*/
 
-INSERT INTO `cities` (`id`, `city_name`, `post_code`) VALUES
+INSERT INTO `cities` (`id`, `name`, `code`) VALUES
 (1, 'София', '1000'),
 (2, 'Пловдив', '4000'),
 (3, 'Варна', '9000'),

@@ -12,7 +12,6 @@ import {Router} from '@angular/router';
 })
 export class UserService {
 
-  readonly UID = 'uid';
   readonly AUTH_TOKEN = 'authtoken';
   readonly IS_ADMIN = 'is_admin';
   readonly REGISTER_URL = `http://localhost:8080/users/register`;
@@ -58,7 +57,6 @@ export class UserService {
   getCurrentlyLoggedInUserForProfile() {
     return this.httpClient.get<UserProfileResponseModel>(this.CURRENT_USER_URL);
   }
-
 
   get isAdmin(): string {
     return this._isAdmin;

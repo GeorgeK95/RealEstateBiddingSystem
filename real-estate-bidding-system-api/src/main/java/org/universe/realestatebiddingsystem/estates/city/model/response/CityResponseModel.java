@@ -1,4 +1,4 @@
-package org.universe.realestatebiddingsystem.estates.estate.mode.response;
+package org.universe.realestatebiddingsystem.estates.city.model.response;
 
 import lombok.Data;
 

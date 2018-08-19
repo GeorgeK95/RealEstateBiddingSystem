@@ -9,7 +9,9 @@ import org.universe.realestatebiddingsystem.user.model.enumeration.RoleName;
 import org.universe.realestatebiddingsystem.user.repository.RoleRepository;
 import org.universe.realestatebiddingsystem.user.repository.UserRepository;
 
+import java.sql.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -26,6 +28,12 @@ public class DataLoader implements ApplicationRunner {
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
 
+    private static final String DBNAME = "rebs_db";
+    private static final String URL = "jdbc:mysql://localhost:3306";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "admin9808";
+
+
     public DataLoader(RoleRepository roleRepository, UserRepository userRepository) {
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
@@ -38,7 +46,20 @@ public class DataLoader implements ApplicationRunner {
     }
 
     private void seedCities() {
+        /*String useQuery = "USE " + DBNAME + "; ";
 
+        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            connection.setAutoCommit(false);
+            try (Statement statement = connection.createStatement()) {
+                statement.execute(useQuery);
+                String addVillainQuery = "insert into villains(name, evilness_factor)\n" +
+                        "values ('" + villainName + "', 'evil')";
+                statement.execute(addVillainQuery);
+            }
+        } catch (SQLException e) {
+            connection.rollback();
+            System.out.println("Fail");
+        }*/
     }
 
     private void seedUsersAndRoles() {

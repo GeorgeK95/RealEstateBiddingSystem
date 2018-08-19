@@ -1,4 +1,4 @@
-package org.universe.realestatebiddingsystem.estates.type.service.impl;
+package org.universe.realestatebiddingsystem.estates.type.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

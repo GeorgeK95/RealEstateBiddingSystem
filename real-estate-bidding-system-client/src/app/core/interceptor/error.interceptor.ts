@@ -24,7 +24,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   readonly LOGIN_URL = 'http://localhost:8080/users/login';
   readonly EDIT_PROFILE_URL = 'http://localhost:8080/users/details/';
   readonly PUT = 'PUT';
-  readonly INVALID_CREDENTIALS = 'Invalid credentials.';
+  readonly INVALID_CREDENTIALS = 'Invalid or mismatch password.';
 
   constructor(private toastr: ToastrService, private router: Router) {
   }

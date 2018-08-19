@@ -4,6 +4,8 @@ import {RegisterRequestModel} from '../../model/request/user/register-request.mo
 import {LoginRequestModel} from '../../model/request/user/login-request.model';
 import {UserResponseModel} from '../../model/response/user/user-response.model';
 import {UserProfileResponseModel} from '../../model/response/user/user-profile-response.model';
+import {ToastrService} from 'ngx-toastr';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +21,14 @@ export class UserService {
   readonly CURRENT_USER_URL = 'http://localhost:8080/users/current';
   readonly TRUE = 'true';
   readonly GET_USER_BY_USERNAME_URL = 'http://localhost:8080/users/';
+  readonly HOME_URL = '/';
+  readonly SIGNED_OUT_SUCCESSFULLY_MESSAGE = 'Signed out successfully.';
+  readonly SUCCESS = 'Success.';
 
   private _authToken: string;
   private _isAdmin: string;
 
-  constructor(private httpClient: HttpClientService) {
+  constructor(private httpClient: HttpClientService, private router: Router, private toastr: ToastrService) {
   }
 
   register(registerModel: RegisterRequestModel) {
@@ -73,5 +78,12 @@ export class UserService {
 
   getUsers() {
     return this.httpClient.get<UserResponseModel[]>(this.ALL_USERS_URL);
+  }
+
+  logout() {
+    this.authToken = undefined;
+    localStorage.clear();
+    this.toastr.info(this.SIGNED_OUT_SUCCESSFULLY_MESSAGE, this.SUCCESS);
+    this.router.navigate([this.HOME_URL]);
   }
 }

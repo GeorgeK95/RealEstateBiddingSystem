@@ -65,11 +65,10 @@ public class UserService extends BaseService<User> implements IUserService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = tokenProvider.generateToken(authentication);
+        String jwt = this.tokenProvider.generateToken(authentication);
 
         User userByEmail = this.userRepository.findByEmail(requestModel.getEmail());
-        String finalMsg = String.format(USER_LOGGED_SUCCESSFULLY_MESSAGE,
-                userByEmail.getFirstName());
+        String finalMsg = String.format(USER_LOGGED_SUCCESSFULLY_MESSAGE, userByEmail.getFirstName());
 
         return ResponseEntity.ok(
                 new JwtAuthenticationResponseModel(jwt, authentication.getName(), finalMsg, userByEmail.getRoles().size() > 1)

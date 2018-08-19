@@ -24,7 +24,6 @@ import org.universe.realestatebiddingsystem.app.security.user.CustomUserDetailsS
 
 import java.util.List;
 
-import static org.universe.realestatebiddingsystem.app.util.AppConstants.AUTH_ALL_URL;
 import static org.universe.realestatebiddingsystem.app.util.AppConstants.USERS_URL_ALL;
 
 @Configuration

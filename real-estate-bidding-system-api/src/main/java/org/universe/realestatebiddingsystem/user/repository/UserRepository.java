@@ -24,5 +24,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Transactional
     @Modifying
     @Query("update User u set u.isBanned = true where u.id = :id")
-    boolean banUser(@Param(ID) Long id);
+    void banUser(@Param(ID) Long id);
 }

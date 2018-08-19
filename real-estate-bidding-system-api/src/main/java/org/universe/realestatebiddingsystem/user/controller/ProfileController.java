@@ -29,8 +29,8 @@ public class ProfileController {
     @PutMapping(USERS_DETAILS_ID_URL)
     public ResponseEntity<?> editUserProfile(@Valid @RequestBody EditProfileRequestModel editProfileRequestModel, Errors errors,
                                              @PathVariable Long id, HttpServletRequest req) {
-        // req za auth koi sym az
-        return this.profileService.editUserAccount(editProfileRequestModel, errors, id);
+        return this.profileService.editUserAccount(editProfileRequestModel, errors, id,
+                req.getHeader(AUTHORIZATION).replace(BEARER_, EMTPY));
     }
 
     @DeleteMapping(USERS_DETAILS_ID_URL)

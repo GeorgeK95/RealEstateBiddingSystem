@@ -36,8 +36,10 @@ public interface AppConstants {
     String RESPONDING_WITH_UNAUTHORIZED_ERROR_MESSAGE = "Responding with unauthorized error. Message - {}";
     String SORRY_YOU_RE_NOT_AUTHORIZED_TO_ACCESS_THIS_RESOURCE_MESSAGE = "Sorry, You're not authorized to access this resource.";
     String INVALID_CREDENTIALS_MESSAGE = "Invalid credentials.";
+    String INVALID_PASSWORD_MESSAGE = "Invalid or mismatch password.";
     String COULD_NOT_SET_USER_AUTHENTICATION_IN_SECURITY_CONTEXT_MESSAGE = "Could not set user authentication in security context";
     String AUTHORIZATION = "Authorization";
+    String AUTHORIZATION_LOWERCASE = "Authorization";
     String EMTPY = "";
 
     String USER_REGISTERED_SUCCESSFULLY_MESSAGE = "%s registered successfully.";

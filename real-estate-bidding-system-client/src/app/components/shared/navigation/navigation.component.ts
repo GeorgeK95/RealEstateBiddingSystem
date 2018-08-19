@@ -9,9 +9,7 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
-  readonly HOME_URL = '/';
-  readonly SIGNED_OUT_SUCCESSFULLY_MESSAGE = 'Signed out successfully.';
-  readonly SUCCESS = 'Success.';
+
   readonly BTN_CLOSE = 'navbar-toggler collapsed';
   readonly BTN_OPEN = 'navbar-toggler';
   readonly DIV_CLOSE = 'navbar-collapse collapse';
@@ -20,7 +18,7 @@ export class NavigationComponent implements OnInit {
   private hamburgerBtnClass: string;
   private hamburgerDivClass: string;
 
-  constructor(private userService: UserService, private router: Router, private toastr: ToastrService) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
@@ -47,10 +45,7 @@ export class NavigationComponent implements OnInit {
   }
 
   onLogout() {
-    this.userService.authToken = undefined;
-    localStorage.clear();
-    this.toastr.info(this.SIGNED_OUT_SUCCESSFULLY_MESSAGE, this.SUCCESS);
-    this.router.navigate([this.HOME_URL]);
+    this.userService.logout();
   }
 
   clickHamburgerBtn() {

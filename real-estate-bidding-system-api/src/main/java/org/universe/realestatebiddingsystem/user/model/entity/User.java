@@ -119,4 +119,7 @@ public class User implements UserDetails {
         return new ArrayList<>(this.roles);
     }
 
+    public boolean isAdmin() {
+        return this.roles.size() > 1;
+    }
 }

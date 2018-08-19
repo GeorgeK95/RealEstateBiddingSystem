@@ -21,7 +21,7 @@ export class UserProfileComponent implements OnInit {
   readonly ID = 'id';
   readonly VALID = 'VALID';
   readonly RADIX = 10;
-  readonly PROFILE_PAGE_URL = `/users/details/`;
+  readonly HOME_PAGE_URL = '/';
 
   constructor(
     private http: HttpClientService,
@@ -64,15 +64,14 @@ export class UserProfileComponent implements OnInit {
     this.profileService.editProfile(this.editUserRequestModel, this.profilePageUser.id)
       .subscribe((res) => {
         // toastr
-        this.router.navigate([this.PROFILE_PAGE_URL + this.profilePageUser.id]);
+        this.router.navigate([this.HOME_PAGE_URL + this.profilePageUser.id]);
       });
   }
 
   onProfileDeleteSubmit() {
     this.profileService.deleteProfile(this.profilePageUser.id)
       .subscribe((res) => {
-        // toastr
-        this.router.navigate([this.PROFILE_PAGE_URL + this.profilePageUser.id]);
+        this.userService.logout();
       });
   }
 }

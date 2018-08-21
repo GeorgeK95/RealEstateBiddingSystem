@@ -2,40 +2,39 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {UserModule} from './components/user/user.module';
-import {SharedModule} from './components/shared/shared.module';
 import {AppRouting} from './app.routing';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ToastrModule} from 'ngx-toastr';
-import {UserService} from './core/service/user/user.service';
-import {EstateModule} from './components/estate/estate.module';
-import {ServiceModule} from './core/service/services.module';
 import {ErrorInterceptor} from './core/interceptor/error.interceptor';
 import {TokenInterceptor} from './core/interceptor/token.interceptor';
 import {LoginInterceptor} from './core/interceptor/login.interceptor';
-import {AdminModule} from './components/admin/admin.module';
-import {ProfileEditInterceptor} from './core/interceptor/profile-edit.interceptor';
-import { NewEstateComponent } from './components/estate/new-estate/new-estate.component';
+import {ProfileInterceptor} from './core/interceptor/profile.interceptor';
+import {EstateInterceptor} from './core/interceptor/estate.interceptor';
+import {NotFoundComponent} from './components/shared/not-found/not-found.component';
+import {NavigationComponent} from './components/shared/navigation/navigation.component';
+import {HttpClientService} from './core/service/http-client.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavigationComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    AppRouting,
-    UserModule,
-    SharedModule,
-    EstateModule,
-    ServiceModule,
-    AdminModule
+    AppRouting
+    /* ,
+     UserModule,
+     EstateModule,
+     ServiceModule,
+     AdminModule*/
   ],
   providers: [
-    UserService,
+    HttpClientService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
@@ -48,7 +47,12 @@ import { NewEstateComponent } from './components/estate/new-estate/new-estate.co
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ProfileEditInterceptor,
+      useClass: ProfileInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: EstateInterceptor,
       multi: true
     },
     {

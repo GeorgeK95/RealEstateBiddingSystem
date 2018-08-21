@@ -6,5 +6,5 @@ import {HomeComponent} from './home/home.component';
 import {TermsComponent} from './terms/terms.component';
 
 export const sharedComponents = [
-  AboutComponent, ContactsComponent, NavigationComponent, NotFoundComponent, HomeComponent, TermsComponent
+  AboutComponent, ContactsComponent, /*NotFoundComponent,*/ HomeComponent, TermsComponent
 ];

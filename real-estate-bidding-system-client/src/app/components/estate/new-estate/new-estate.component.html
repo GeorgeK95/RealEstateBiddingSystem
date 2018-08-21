@@ -15,12 +15,11 @@
           <div class="mt-3 col-5 row" id="action">
             <!--style="margin-right: 20px"-->
             <div class="col-2">
-              <input type="radio" required ng-model="color.name" name="action" value="rent"
-                     [(ngModel)]="requestModel.action">Rent
+              <input type="radio" required name="action" value="rent" [(ngModel)]="requestModel.action">Rent
             </div>
             <div class="col-8"></div>
             <div class="col-2">
-              <input type="radio" ng-model="color.name" name="action" value="sell" [(ngModel)]="requestModel.action">Sell
+              <input type="radio" name="action" value="sell" [(ngModel)]="requestModel.action">Sell
             </div>
           </div>
         </div>
@@ -46,34 +45,57 @@
         </div>
 
         <div class="form-group row">
-          <label for="floor" class="col-4">Floor</label>
-          <div class="col-2"></div>
-          <div class="form-group col-5">
-            <input id="floor" type="number" class="form-control" placeholder="Floor"
-                   [(ngModel)]="requestModel.floor" name="floor" #floor="ngModel">
-          </div>
-          <div [hidden]="floor.valid || floor.pristine" class="invalid-feedback">
-            Floor must be number between 0 and 100.
-          </div>
-        </div>
-
-        <div class="form-group row">
           <label for="area" class="col-4">Area</label>
           <div class="col-2"></div>
           <div class="form-group col-5">
             <input id="area" type="number" class="form-control" required placeholder="Area"
-                   [(ngModel)]="requestModel.area" name="area">
+                   [min]="1" [(ngModel)]="requestModel.area" name="area" #area="ngModel">
+
+            <div [hidden]="area.valid || area.pristine" class="invalid-feedback">
+              Area must be valid number.
+            </div>
+          </div>
+        </div>
+
+        <hr class="colorgraph">
+
+        <div class="form-group row">
+          <label for="coverImage" class="col-4">Cover Image</label>
+          <div class="col-2"></div>
+          <div id="coverImage" class="form-group col-5">
+            <input class="mt-3" required type="file" name="coverImage" [(ngModel)]="requestModel.coverImage"
+                   #coverImage="ngModel">
+          </div>
+        </div>
+
+       <!-- <div class="form-group row">
+          <label for="image1" class="col-4">Image</label>
+          <div class="col-2"></div>
+          <div id="image1" class="form-group col-5">
+            <input class="mt-3" type="file" name="image1" [(ngModel)]="requestModel.image1"
+                   #image1="ngModel">
           </div>
         </div>
 
         <div class="form-group row">
-          <label for="area" class="col-4">Image</label>
+          <label for="image2" class="col-4">Image</label>
           <div class="col-2"></div>
-          <div class="form-group col-5">
-            <input id="file" type="text" class="form-control" required
-                   [(ngModel)]="requestModel.image" name="image">
+          <div id="image2" class="form-group col-5">
+            <input class="mt-3" type="file" name="image2" [(ngModel)]="requestModel.image2"
+                   #image2="ngModel">
           </div>
         </div>
+
+        <div class="form-group row">
+          <label for="image3" class="col-4">Image</label>
+          <div class="col-2"></div>
+          <div id="image3" class="form-group col-5">
+            <input class="mt-3" type="file" name="image3" [(ngModel)]="requestModel.image3"
+                   #image3="ngModel">
+          </div>
+        </div>-->
+
+        <hr class="colorgraph">
 
         <div class="form-group row">
           <label for="info" class="col-4">Additional Info</label>
@@ -88,52 +110,24 @@
           <label for="peculiarities" class="col-4">Peculiarities</label>
           <div class="col-2"></div>
 
-          <div id="peculiarities" class="row" *ngFor="let peculiarity of peculiarities; let i = index">
-            <div class="col-3">
-              <input type="checkbox"
-                     [name]="'peculiarities'+i"
-                     [(ngModel)]="peculiarity.checked"
-                     value="{{peculiarity.id}}">
-              {{peculiarity.name}}
-              <!--<input type="checkbox" name="peculiarities" value="{{peculiarity.value}}">{{peculiarity.name}}-->
+          <div class="col-4 row">
+            <div id="peculiarities" class="row" *ngFor="let peculiarity of peculiarities; let i = index">
+              <div class="col-3">
+                <input type="checkbox"
+                       [name]="'peculiarities'+i"
+                       [(ngModel)]="peculiarity.checked"
+                       value="{{peculiarity.id}}">
+                {{peculiarity.name}}
+              </div>
             </div>
           </div>
-
-          <!--<div class="form-group col-5" id="peculiarities">
-
-            <div class="row">
-              <div class="col-3"><input type="checkbox" name="peculiarities" value="panel">Panel
-              </div>
-              <div class="col-3"><input type="checkbox" name="peculiarities" value="brick">Brick
-              </div>
-              &lt;!&ndash;Large-format shuttering&ndash;&gt;
-              <div class="col-3"><input type="checkbox" name="peculiarities" value="lfs">LFS</div>
-              &lt;!&ndash;creeping formwork&ndash;&gt;
-              <div class="col-3"><input type="checkbox" name="peculiarities" value="cfw">CFW</div>
-            </div>
-
-            <div class="row">
-              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Elevator</div>
-              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">In Build</div>
-              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Pool</div>
-              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Trimmer Joists</div>
-            </div>
-
-            <div class="row">
-              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">AirCool</div>
-              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Garage</div>
-              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Furnished</div>
-              <div class="col-3"><input type="checkbox" name="peculiarities" value="Car">Panorama View</div>
-            </div>
-
-          </div>-->
         </div>
 
         <hr class="colorgraph">
 
         <div class="col-12">
-          <input type="submit" value="Publish Estate" class="btn btn-success btn-block btn-lg mb-5" tabindex="7"
-                 [disabled]="newEstate.form.invalid">
+          <input type="submit" value="Publish Estate" class="btn btn-success btn-block btn-lg mb-5 mt-4" tabindex="7"
+                 [disabled]="newEstate.form.invalid ">
         </div>
 
       </div>

@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {userComponents} from './index';
 import {CommonModule} from '@angular/common';
+import {HttpClientService} from '../../core/service/http-client.service';
 
 @NgModule({
   imports: [

@@ -7,7 +7,7 @@ import {ToastrService} from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })
-export class ProfileEditInterceptor implements HttpInterceptor {
+export class ProfileInterceptor implements HttpInterceptor {
   readonly PUT = 'PUT';
   readonly RESPONSE_OK = 200;
   readonly RESPONSE_BAD_REQUEST = 400;

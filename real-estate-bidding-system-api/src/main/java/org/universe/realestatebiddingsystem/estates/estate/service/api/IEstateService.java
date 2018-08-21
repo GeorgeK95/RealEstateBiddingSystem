@@ -2,8 +2,8 @@ package org.universe.realestatebiddingsystem.estates.estate.service.api;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
-import org.universe.realestatebiddingsystem.estates.estate.model.request.EstateRequestModel;
+import org.universe.realestatebiddingsystem.estates.estate.model.request.NewEstateRequestModel;
 
 public interface IEstateService {
-    ResponseEntity<?> createAdd(EstateRequestModel requestModel, Errors errors);
+    ResponseEntity<?> createEstate(NewEstateRequestModel requestModel, Errors errors);
 }

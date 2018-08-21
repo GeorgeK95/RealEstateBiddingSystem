@@ -1,16 +1,17 @@
 package org.universe.realestatebiddingsystem.estates.estate.model.request;
 
 import lombok.Data;
-import org.springframework.lang.Nullable;
+import org.springframework.web.multipart.MultipartFile;
 import org.universe.realestatebiddingsystem.estates.peculiarity.model.view.PeculiarityViewModel;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.File;
+import java.io.InputStream;
 
 @Data
-public class EstateRequestModel {
+public class NewEstateRequestModel {
     @NotBlank
     private String action;
 
@@ -21,18 +22,16 @@ public class EstateRequestModel {
     private String city;
 
     @NotNull
-    @Min(1)
-    @Max(50)
-    private int floor;
+    @Min(0)
+    private Integer area;
 
     @NotNull
-    @Min(0)
-    private int area;
+    private File coverImage;
 
-    @NotBlank
-    private String image;
+//    private File image1;
+//    private File image2;
+//    private File image3;
 
-    @NotBlank
     private String additionalInfo;
 
     private PeculiarityViewModel[] peculiarities;

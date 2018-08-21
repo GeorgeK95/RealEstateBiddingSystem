@@ -3,11 +3,12 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 
 import {sharedComponents} from './index';
+import {sharedRoutes} from './shared.routing';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule.forChild(sharedRoutes)
   ],
   declarations: [
     ...sharedComponents

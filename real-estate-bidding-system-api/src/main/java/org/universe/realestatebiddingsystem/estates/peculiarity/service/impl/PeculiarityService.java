@@ -23,9 +23,7 @@ public class PeculiarityService implements IPeculiarityService {
 
     @Override
     public ResponseEntity<?> getAllPeculiarities() {
-        var all = this.peculiarityRepository.findAll();
-        var hopa = DTOConverter.convert(all, PeculiarityViewModel.class);
-
-        return new ResponseEntity<>(hopa, HttpStatus.OK);
+        return new ResponseEntity<>(DTOConverter.convert(this.peculiarityRepository.findAll(), PeculiarityViewModel.class),
+                HttpStatus.OK);
     }
 }

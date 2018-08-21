@@ -23,8 +23,6 @@ public class TypeService implements ITypeService {
 
     @Override
     public ResponseEntity<?> getAllTypes() {
-        var all = this.typeRepository.findAll();
-
-        return new ResponseEntity<>(DTOConverter.convert(all, TypeResponseModel.class), HttpStatus.OK);
+        return new ResponseEntity<>(DTOConverter.convert(this.typeRepository.findAll(), TypeResponseModel.class), HttpStatus.OK);
     }
 }

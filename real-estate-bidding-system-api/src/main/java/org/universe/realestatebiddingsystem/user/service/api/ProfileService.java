@@ -67,7 +67,7 @@ public class ProfileService extends BaseService<User> implements IProfileService
     public ResponseEntity<?> disableUserAccount(Long id) {
         this.userRepository.banUser(id);
 
-        return new ResponseEntity<>(new Gson().toJson(PROFILE_EDITED_SUCCESSFULLY_MESSAGE), HttpStatus.OK);
+        return new ResponseEntity<>(new Gson().toJson(PROFILE_DISABLED_SUCCESSFULLY_MESSAGE), HttpStatus.OK);
     }
 
     private User updateUser(User user, User edited, String newPassword) {

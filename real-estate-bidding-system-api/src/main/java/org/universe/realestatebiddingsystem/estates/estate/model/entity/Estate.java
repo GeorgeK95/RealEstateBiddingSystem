@@ -2,17 +2,18 @@ package org.universe.realestatebiddingsystem.estates.estate.model.entity;
 
 import lombok.Data;
 import org.universe.realestatebiddingsystem.estates.peculiarity.model.entity.Peculiarity;
-import org.universe.realestatebiddingsystem.estates.peculiarity.model.view.PeculiarityViewModel;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import static org.universe.realestatebiddingsystem.app.util.AppConstants.*;
 
 @Entity
-@Table(name = ADDS)
+@Table(name = ESTATES)
 @Data
 public class Estate {
 
@@ -32,9 +33,7 @@ public class Estate {
     @Column(nullable = false)
     private String city;
 
-    private int floor;
-
-    @NotBlank
+    @Min(1)
     @Column(nullable = false)
     private int area;
 
@@ -44,10 +43,15 @@ public class Estate {
 
     private String additionalInfo;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "estates_peculiarity", joinColumns = {
+//    cascade = CascadeType.PERSIST
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "estates_peculiarities", joinColumns = {
             @JoinColumn(name = "estate_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "peculariarity_id",
                     nullable = false, updatable = false)})
     private Set<Peculiarity> peculiarities;
+
+    public void addPeculiarity(Peculiarity p) {
+        this.peculiarities.add(p);
+    }
 }

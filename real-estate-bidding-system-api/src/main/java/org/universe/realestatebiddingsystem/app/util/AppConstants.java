@@ -29,6 +29,7 @@ public interface AppConstants {
     String ALL_URL = "/all";
     String CITIES_URL = "/cities";
     String TYPES_URL = "/types";
+    String PECULIARITIES_URL = "/peculiarities";
     String CURRENT_USER_URL = "/current";
     String REGISTER_URL = "/register";
     String LOGIN_URL = "/login";
@@ -48,6 +49,7 @@ public interface AppConstants {
     String USER_LOGGED_SUCCESSFULLY_MESSAGE = "%s logged in successfully.";
     String PROFILE_EDITED_SUCCESSFULLY_MESSAGE = "Profile edited successfully.";
     String PROFILE_DISABLED_SUCCESSFULLY_MESSAGE = "Profile disabled successfully.";
+    String ESTATE_ADDED_SUCCESSFULLY_MESSAGE = "Estate added successfully.";
     String INVALID_TOWN_MESSAGE = "Invalid town provided.";
     String INVALID_PHONE_MESSAGE = "Invalid phone provided.";
     String INVALID_FIRST_NAME_MESSAGE = "Invalid first name provided.";
@@ -77,7 +79,7 @@ public interface AppConstants {
     int TELEPHONE_LENGHT = 10;
     int ROLE_NAME_LENGH_VALUE = 20;
     String USERS = "users";
-    String ADDS = "estates";
+    String ESTATES = "estates";
     String ROLES = "roles";
     String TYPES = "types";
     String PECULIARITIES = "peculiarities";

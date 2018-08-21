@@ -26,9 +26,7 @@ public class CityService implements ICityService {
 
     @Override
     public ResponseEntity<?> getAllCities() {
-        var all = this.cityRepository.findAll();
-
-        return new ResponseEntity<>(DTOConverter.convert(all, CityResponseModel.class), HttpStatus.OK);
+        return new ResponseEntity<>(DTOConverter.convert(this.cityRepository.findAll(), CityResponseModel.class), HttpStatus.OK);
     }
 
 }

@@ -16,8 +16,8 @@ INSERT INTO `peculiarities` (`id`, `name`) VALUES
 (3, 'LFS'),
 (4, 'CFW'),
 (5, 'Elevator'),
-(6, 'In Build'),
-(7, 'Pool'),
-(8, 'Trimmer Joists'),
-(9, 'AirCool'),
-(10, 'Garage')
+(6, 'Pool'),
+(7, 'AirCool'),
+(8, 'Garage'),
+(9, 'In Build'),
+(10, 'Trimmer Joists')

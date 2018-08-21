@@ -8,7 +8,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.universe.realestatebiddingsystem.estates.estate.service.api.IEstateService;
 import org.universe.realestatebiddingsystem.estates.city.service.api.ICityService;
-import org.universe.realestatebiddingsystem.estates.estate.model.request.EstateRequestModel;
+import org.universe.realestatebiddingsystem.estates.estate.model.request.NewEstateRequestModel;
+import org.universe.realestatebiddingsystem.estates.peculiarity.service.api.IPeculiarityService;
 import org.universe.realestatebiddingsystem.estates.type.service.api.ITypeService;
 
 import javax.validation.Valid;
@@ -23,17 +24,20 @@ public class EstateController {
     private final ICityService cityService;
     private final ITypeService typeService;
     private final IEstateService addService;
+    private final IPeculiarityService peculiarityService;
 
     @Autowired
-    public EstateController(ICityService cityService, ITypeService typeService, IEstateService addService) {
+    public EstateController(ICityService cityService, ITypeService typeService, IEstateService addService,
+                            IPeculiarityService peculiarityService) {
         this.cityService = cityService;
         this.typeService = typeService;
         this.addService = addService;
+        this.peculiarityService = peculiarityService;
     }
 
     @PostMapping(NEW_URL)
-    public ResponseEntity<?> getUsers(@Valid @RequestBody EstateRequestModel requestModel, Errors errors) {
-        return this.addService.createAdd(requestModel, errors);
+    public ResponseEntity<?> getUsers(@Valid @RequestBody NewEstateRequestModel requestModel, Errors errors) {
+        return this.addService.createEstate(requestModel, errors);
     }
 
     // TODO: refactor in separate controllers
@@ -45,5 +49,10 @@ public class EstateController {
     @GetMapping(TYPES_URL)
     public ResponseEntity<?> getAllTypes() {
         return new ResponseEntity<>(this.typeService.getAllTypes(), HttpStatus.OK);
+    }
+
+    @GetMapping(PECULIARITIES_URL)
+    public ResponseEntity<?> getAllPeculiarities() {
+        return new ResponseEntity<>(this.peculiarityService.getAllPeculiarities(), HttpStatus.OK);
     }
 }

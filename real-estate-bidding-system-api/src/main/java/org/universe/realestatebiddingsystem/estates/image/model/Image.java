@@ -23,7 +23,6 @@ public class Image {
     private String url;
 
     @ManyToOne
-//    @JoinColumn(name = "estate_id")
     private Estate estate;
 
     public Image() {

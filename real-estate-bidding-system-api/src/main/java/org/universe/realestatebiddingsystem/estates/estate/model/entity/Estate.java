@@ -40,9 +40,13 @@ public class Estate {
     @Column(nullable = false)
     private int area;
 
-    @Column(nullable = false)
-    @OneToMany(mappedBy = "estate", cascade = CascadeType.ALL)
+    //    @Column(nullable = false)
+    @OneToMany(mappedBy = "estate", cascade = CascadeType.PERSIST)
     private List<Image> images;
+
+    @OneToOne
+    @JoinColumn(name = "cover_image_id")
+    private Image coverImage;
 
     @ManyToOne
     private User author;

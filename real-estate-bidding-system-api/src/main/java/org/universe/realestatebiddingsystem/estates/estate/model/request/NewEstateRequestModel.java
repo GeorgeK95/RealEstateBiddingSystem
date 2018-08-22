@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.universe.realestatebiddingsystem.app.util.AppConstants.AREA_MIN_VALUE;
+import static org.universe.realestatebiddingsystem.app.util.AppConstants.YOU_MUST_BE_LOGGED_IN_TO_PERFORM_THIS_ACTION_MESSAGE;
 
 @Data
 public class NewEstateRequestModel {
@@ -39,13 +40,15 @@ public class NewEstateRequestModel {
     private String thirdImage;
 
     private String additionalInfo;
+
+    @NotBlank(message = YOU_MUST_BE_LOGGED_IN_TO_PERFORM_THIS_ACTION_MESSAGE)
     private String authorToken;
 
     private PeculiarityViewModel[] peculiarities;
 
     public List<String> getOrderedImages() {
         List<String> orderedImages = new ArrayList<>();
-        if (this.coverImage != null) orderedImages.add(this.coverImage);
+//        if (this.coverImage != null) orderedImages.add(this.coverImage);
         if (this.firstImage != null) orderedImages.add(this.firstImage);
         if (this.secondImage != null) orderedImages.add(this.secondImage);
         if (this.thirdImage != null) orderedImages.add(this.thirdImage);

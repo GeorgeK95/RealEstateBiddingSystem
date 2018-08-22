@@ -24,7 +24,7 @@ import org.universe.realestatebiddingsystem.app.security.user.CustomUserDetailsS
 
 import java.util.List;
 
-import static org.universe.realestatebiddingsystem.app.util.AppConstants.USERS_URL_ALL;
+import static org.universe.realestatebiddingsystem.app.util.AppConstants.*;
 
 @Configuration
 @EnableWebSecurity
@@ -97,6 +97,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(STATIC_URLS)
                 .permitAll()
                 .antMatchers(USERS_URL_ALL)
+                .permitAll()
+                .antMatchers(ESTATES_URL_ALL, BY_ID_URL)
+                .permitAll()
+                .antMatchers(CITIES_URL, TYPES_URL,PECULIARITIES_URL)
                 .permitAll()
                 .anyRequest()
                 .authenticated();

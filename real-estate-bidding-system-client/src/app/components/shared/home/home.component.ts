@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {EstateService} from '../../../core/service/estate/estate.service';
-import {NewEstateRequestModel} from '../../../core/model/request/estate/new-estate-request.model';
 import {EstateViewModel} from '../../../core/model/response/estate/estate-view.model';
 
 @Component({
@@ -11,7 +10,7 @@ import {EstateViewModel} from '../../../core/model/response/estate/estate-view.m
 })
 export class HomeComponent implements OnInit {
 
-  readonly ESTATE_DETAILS_URL = 'http://localhost:8080/estates/';
+  readonly ESTATE_DETAILS_URL = '/estates/';
   private estates: EstateViewModel[];
 
   constructor(private router: Router, private estateService: EstateService) {

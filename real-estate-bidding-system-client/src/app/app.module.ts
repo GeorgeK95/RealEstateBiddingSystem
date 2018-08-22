@@ -20,8 +20,7 @@ import { EstateDetailsComponent } from './components/estate/estate-details/estat
   declarations: [
     AppComponent,
     NavigationComponent,
-    NotFoundComponent,
-    EstateDetailsComponent
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

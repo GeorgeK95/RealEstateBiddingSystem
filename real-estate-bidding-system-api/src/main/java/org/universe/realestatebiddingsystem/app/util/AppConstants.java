@@ -23,10 +23,11 @@ public interface AppConstants {
     String ADMIN_URL = "/admin";
     String PECULIARITY_URL = "/peculiarity";
     String ESTATES_URL = "/estates";
-    String ESTATES_ALL_URL = "/estates/all";
-    String ESTATE_URL = "/estates/{id}";
+    String ESTATES_ALL_URL = "/all";
+    String BY_ID_URL = "/{id}";
     String NEW_URL = "/new";
     String USERS_URL_ALL = "/users/**";
+    String ESTATES_URL_ALL = "/estates/all";
     String AUTH_ALL_URL = "/auth/**";
     String MAP_ALL_URL = "/**";
     String ALL_URL = "/all";
@@ -39,6 +40,7 @@ public interface AppConstants {
     String USERS_DETAILS_ID_URL = "/details/{id}";
 
     //    MESSAGES
+    String YOU_MUST_BE_LOGGED_IN_TO_PERFORM_THIS_ACTION_MESSAGE = "You must be logged in to perform this action.";
     String RESPONDING_WITH_UNAUTHORIZED_ERROR_MESSAGE = "Responding with unauthorized error. Message - {}";
     String SORRY_YOU_RE_NOT_AUTHORIZED_TO_ACCESS_THIS_RESOURCE_MESSAGE = "Sorry, You're not authorized to access this resource.";
     String INVALID_CREDENTIALS_MESSAGE = "Invalid credentials.";
@@ -78,6 +80,7 @@ public interface AppConstants {
     String BEARER_ = "Bearer ";
 
     //    CONSTANTS
+   String ESTATE_ID = "estate_id";
     String TELEPHONE_REGEXP = "(^$|[0-9]{10})";
     int TELEPHONE_LENGHT = 10;
     int ROLE_NAME_LENGH_VALUE = 20;

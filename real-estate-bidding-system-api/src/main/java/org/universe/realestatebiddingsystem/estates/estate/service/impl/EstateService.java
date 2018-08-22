@@ -16,6 +16,7 @@ import org.universe.realestatebiddingsystem.estates.estate.repository.EstateRepo
 import org.universe.realestatebiddingsystem.estates.estate.service.api.IEstateService;
 import org.universe.realestatebiddingsystem.app.service.BaseService;
 import org.universe.realestatebiddingsystem.estates.image.model.Image;
+import org.universe.realestatebiddingsystem.estates.image.repository.ImageRepository;
 import org.universe.realestatebiddingsystem.estates.peculiarity.model.entity.Peculiarity;
 import org.universe.realestatebiddingsystem.estates.peculiarity.model.view.PeculiarityViewModel;
 import org.universe.realestatebiddingsystem.estates.peculiarity.repository.PeculiarityRepository;
@@ -35,13 +36,15 @@ public class EstateService extends BaseService<Estate> implements IEstateService
     private final EstateRepository estateRepository;
     private final PeculiarityRepository peculiarityRepository;
     private final JwtTokenProvider tokenProvider;
+    private final ImageRepository imageRepository;
 
     @Autowired
-    protected EstateService(UserRepository userRepository, EstateRepository estateRepository, PeculiarityRepository peculiarityRepository, JwtTokenProvider tokenProvider) {
+    protected EstateService(UserRepository userRepository, EstateRepository estateRepository, PeculiarityRepository peculiarityRepository, JwtTokenProvider tokenProvider, ImageRepository imageRepository) {
         super(userRepository);
         this.estateRepository = estateRepository;
         this.peculiarityRepository = peculiarityRepository;
         this.tokenProvider = tokenProvider;
+        this.imageRepository = imageRepository;
     }
 
     @Override
@@ -77,7 +80,8 @@ public class EstateService extends BaseService<Estate> implements IEstateService
         Set<Peculiarity> peculiarities = new HashSet<>();
         if (!names.isEmpty()) peculiarities = this.peculiarityRepository.findAllByName(names);
 
-        toPersist.setImages(this.processImages(requestModel));
+        toPersist.setCoverImage(new Image(IMAGE, requestModel.getCoverImage()));
+        toPersist.setImages(this.processImages(requestModel.getOrderedImages()));
 //        Image img = this.imageService.uploadImage(mpf);
 
         toPersist.setPeculiarities(peculiarities);
@@ -89,10 +93,14 @@ public class EstateService extends BaseService<Estate> implements IEstateService
         this.estateRepository.save(toPersist);
     }
 
-    private List<Image> processImages(NewEstateRequestModel requestModel) {
+    private List<Image> processImages(List<String> orderedImagesUrls) {
         List<Image> images = new ArrayList<>();
 
-        requestModel.getOrderedImages().forEach(imageUrl -> images.add(new Image(IMAGE, imageUrl)));
+        for (String imageUrl : orderedImagesUrls) {
+//            Image image = new Image(IMAGE, imageUrl);
+//            this.imageRepository.save(image);
+            images.add(new Image(IMAGE, imageUrl));
+        }
 
         return images;
     }

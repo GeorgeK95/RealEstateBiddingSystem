@@ -18,7 +18,6 @@ import static org.universe.realestatebiddingsystem.app.util.AppConstants.*;
 
 @RestController
 @RequestMapping(ESTATES_URL)
-@PreAuthorize(IS_AUTHENTICATED)
 public class EstateController {
 
     private final ICityService cityService;
@@ -35,17 +34,18 @@ public class EstateController {
         this.peculiarityService = peculiarityService;
     }
 
+    @PreAuthorize(IS_AUTHENTICATED)
     @PostMapping(NEW_URL)
     public ResponseEntity<?> createEstate(@Valid @RequestBody NewEstateRequestModel requestModel, Errors errors) {
         return this.estateService.createEstate(requestModel, errors);
     }
 
-    @GetMapping(ESTATES_ALL_URL)
+    @GetMapping(ALL_URL)
     public ResponseEntity<?> getEstates() {
         return this.estateService.findAll();
     }
 
-    @GetMapping(ESTATE_URL)
+    @GetMapping(BY_ID_URL)
     public ResponseEntity<?> getEstate(@PathVariable Long id) {
         return this.estateService.findById(id);
     }

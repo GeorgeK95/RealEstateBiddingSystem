@@ -1,13 +1,15 @@
 package org.universe.realestatebiddingsystem.estates.estate.model.entity;
 
 import lombok.Data;
-import org.universe.realestatebiddingsystem.estates.image.model.Image;
+import org.universe.realestatebiddingsystem.estates.bid.model.Bid;
+import org.universe.realestatebiddingsystem.estates.image.model.entity.Image;
 import org.universe.realestatebiddingsystem.estates.peculiarity.model.entity.Peculiarity;
 import org.universe.realestatebiddingsystem.user.model.entity.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import java.util.HashSet;
 import java.util.List;
@@ -38,10 +40,14 @@ public class Estate {
 
     @Min(AREA_MIN_VALUE)
     @Column(nullable = false)
-    private int area;
+    private Double area;
+
+    @Min(PRICE_MIN_VALUE)
+    @Column(nullable = false)
+    private Double price;
 
     //    @Column(nullable = false)
-    @OneToMany(mappedBy = "estate", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "estate")
     private List<Image> images;
 
     @OneToOne
@@ -51,6 +57,8 @@ public class Estate {
     @ManyToOne
     private User author;
 
+    @Column(nullable = false)
+    @Size(min = ADDITIONAL_INFO_MIN_VALUE)
     private String additionalInfo;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -59,4 +67,11 @@ public class Estate {
             inverseJoinColumns = {@JoinColumn(name = "peculariarity_id",
                     nullable = false, updatable = false)})
     private Set<Peculiarity> peculiarities;
+
+    @OneToMany(mappedBy = "estate")
+    private Set<Bid> bids = new HashSet<>();
+
+    public void addBid(Bid bid) {
+        this.bids.add(bid);
+    }
 }

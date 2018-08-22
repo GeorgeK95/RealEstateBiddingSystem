@@ -1,0 +1,29 @@
+img {
+  width: 100%;
+}
+
+.estate-type {
+  font-weight: bold;
+  font-size: 30px;
+  color: #757575;
+}
+
+.estate-city {
+  font-size: 25px;
+  color: #686868;
+}
+
+.estate-action {
+  font-size: 20px;
+  color: #606060;
+}
+
+.estate-info {
+  color: #888;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 15vw;
+  object-fit: cover;
+}

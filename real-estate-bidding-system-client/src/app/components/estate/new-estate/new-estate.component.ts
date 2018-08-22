@@ -3,7 +3,7 @@ import {NewEstateRequestModel} from '../../../core/model/request/estate/new-esta
 import {EstateService} from '../../../core/service/estate/estate.service';
 import {CityResponseModel} from '../../../core/model/response/city/city-response.model';
 import {TypeResponseModel} from '../../../core/model/response/city/type-response.model';
-import {PeculiarityViewModel} from '../../../core/model/view/peculiarity-view.model';
+import {PeculiarityViewModel} from '../../../core/model/view/peculiarity/peculiarity-view.model';
 import {Router} from '@angular/router';
 import {UserService} from '../../../core/service/user/user.service';
 

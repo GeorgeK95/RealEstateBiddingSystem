@@ -19,7 +19,7 @@
             </div>
             <div class="col-8"></div>
             <div class="col-2">
-              <input type="radio" name="action" value="sell" [(ngModel)]="requestModel.action">Sell
+              <input type="radio" name="action" value="sell" [(ngModel)]="requestModel.action">Sale
             </div>
           </div>
         </div>
@@ -48,11 +48,24 @@
           <label for="area" class="col-4">Area</label>
           <div class="col-2"></div>
           <div class="form-group col-5">
-            <input id="area" type="number" class="form-control" required placeholder="Area"
+            <input id="area" type="number" step="0.01" class="form-control" required placeholder="Area"
                    [min]="1" [(ngModel)]="requestModel.area" name="area" #area="ngModel">
 
             <div [hidden]="area.valid || area.pristine" class="invalid-feedback">
               Area must be valid number.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="price" class="col-4">Price Per Meter</label>
+          <div class="col-2"></div>
+          <div class="form-group col-5">
+            <input id="price" type="number" step="0.01" class="form-control" required placeholder="Price Per Meter"
+                   [min]="1" [(ngModel)]="requestModel.price" name="price" #price="ngModel">
+
+            <div [hidden]="price.valid || price.pristine" class="invalid-feedback">
+              Price must be valid decimal.
             </div>
           </div>
         </div>
@@ -114,7 +127,8 @@
           <label for="info" class="col-4">Additional Info</label>
           <div class="col-2"></div>
           <div class="form-group col-5">
-            <textarea id="info" type="number" class="form-control" placeholder="Additional Info"
+            <textarea required [minlength]="20" id="info" type="number" class="form-control"
+                      placeholder="Additional Info"
                       [(ngModel)]="requestModel.additionalInfo" name="additionalInfo"></textarea>
           </div>
         </div>

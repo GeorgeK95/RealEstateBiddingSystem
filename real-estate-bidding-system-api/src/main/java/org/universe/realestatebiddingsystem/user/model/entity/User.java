@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.universe.realestatebiddingsystem.estates.bid.model.Bid;
 import org.universe.realestatebiddingsystem.estates.estate.model.entity.Estate;
 
 import javax.persistence.*;
@@ -61,6 +62,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "author")
     private Set<Estate> estates;
 
+    @OneToMany(mappedBy = "author")
+    private Set<Bid> bids;
+
     @Column(nullable = false)
     private Boolean isBanned = false;
 
@@ -117,10 +121,6 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return this.isBanned;
-    }
-
-    public List<Role> getRolesList() {
-        return new ArrayList<>(this.roles);
     }
 
     public boolean isAdmin() {

@@ -2,6 +2,9 @@ package org.universe.realestatebiddingsystem.estates.estate.model.view;
 
 import lombok.Data;
 import org.universe.realestatebiddingsystem.estates.peculiarity.model.view.PeculiarityViewModel;
+import org.universe.realestatebiddingsystem.user.model.view.UserViewModel;
+
+import java.util.List;
 
 @Data
 public class EstateViewModel {
@@ -9,11 +12,13 @@ public class EstateViewModel {
     private String action;
     private String type;
     private String city;
-    private Integer area;
-    private String coverImage;
-    private String firstImage;
-    private String secondImage;
-    private String thirdImage;
-    private String additionalInfo;
+    private Double area;
+    private Double price;
+    private ImageViewModel coverImage;
+    private List<ImageViewModel> images;
+    //    private String firstImage;
+//    private String secondImage;
+//    private String thirdImage;
+    private UserViewModel author;
     private PeculiarityViewModel[] peculiarities;
 }

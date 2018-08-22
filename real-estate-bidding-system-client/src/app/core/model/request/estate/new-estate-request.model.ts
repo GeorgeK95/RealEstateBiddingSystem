@@ -1,4 +1,4 @@
-import {PeculiarityViewModel} from '../../view/peculiarity-view.model';
+import {PeculiarityViewModel} from '../../view/peculiarity/peculiarity-view.model';
 
 export class NewEstateRequestModel {
   constructor(
@@ -6,6 +6,7 @@ export class NewEstateRequestModel {
     public type: string,
     public city: string,
     public area: number,
+    public price: number,
     public coverImage: string,
     public firstImage: string,
     public secondImage: string,

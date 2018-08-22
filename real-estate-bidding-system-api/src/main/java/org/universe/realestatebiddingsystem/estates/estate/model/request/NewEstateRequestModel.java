@@ -1,20 +1,17 @@
 package org.universe.realestatebiddingsystem.estates.estate.model.request;
 
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 import org.universe.realestatebiddingsystem.estates.peculiarity.model.view.PeculiarityViewModel;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.File;
-import java.io.InputStream;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.universe.realestatebiddingsystem.app.util.AppConstants.AREA_MIN_VALUE;
-import static org.universe.realestatebiddingsystem.app.util.AppConstants.YOU_MUST_BE_LOGGED_IN_TO_PERFORM_THIS_ACTION_MESSAGE;
+import static org.universe.realestatebiddingsystem.app.util.AppConstants.*;
 
 @Data
 public class NewEstateRequestModel {
@@ -30,7 +27,11 @@ public class NewEstateRequestModel {
 
     @NotNull
     @Min(AREA_MIN_VALUE)
-    private Integer area;
+    private Double area;
+
+    @NotNull
+    @Min(PRICE_MIN_VALUE)
+    private Double price;
 
     @NotNull
     private String coverImage;
@@ -39,6 +40,8 @@ public class NewEstateRequestModel {
     private String secondImage;
     private String thirdImage;
 
+    @NotBlank
+    @Size(min = ADDITIONAL_INFO_MIN_VALUE, message = INVALID_ADDITIONAL_INFO_MESSAGE)
     private String additionalInfo;
 
     @NotBlank(message = YOU_MUST_BE_LOGGED_IN_TO_PERFORM_THIS_ACTION_MESSAGE)

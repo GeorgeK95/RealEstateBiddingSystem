@@ -17,7 +17,7 @@ const HOME = '';
 const appRoutes = [
   {path: HOME, loadChildren: () => SharedModule},
   {path: USERS, loadChildren: () => UserModule},
-  {path: ESTATES,  canActivate: [AuthGuard], loadChildren: () => EstateModule},
+  {path: ESTATES, loadChildren: () => EstateModule},
   {path: ADMIN, canActivate: [AdminGuard], loadChildren: () => AdminModule},
   {path: ALL, component: NotFoundComponent}
 ];

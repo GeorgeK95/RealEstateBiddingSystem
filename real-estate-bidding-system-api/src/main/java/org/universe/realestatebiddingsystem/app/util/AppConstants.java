@@ -20,6 +20,7 @@ public interface AppConstants {
     String HOME_URL = "/";
     String ID_PATTERN_URL = "/{id}";
     String USERS_URL = "/users";
+    String BIDS_URL = "/{id}/bids";
     String ADMIN_URL = "/admin";
     String PECULIARITY_URL = "/peculiarity";
     String ESTATES_URL = "/estates";
@@ -40,6 +41,7 @@ public interface AppConstants {
     String USERS_DETAILS_ID_URL = "/details/{id}";
 
     //    MESSAGES
+    String BID_WITH_PRICE_F_MADE_SUCCESSFULLY_MESSAGE = "Bid with price %f made successfully.";
     String YOU_MUST_BE_LOGGED_IN_TO_PERFORM_THIS_ACTION_MESSAGE = "You must be logged in to perform this action.";
     String RESPONDING_WITH_UNAUTHORIZED_ERROR_MESSAGE = "Responding with unauthorized error. Message - {}";
     String SORRY_YOU_RE_NOT_AUTHORIZED_TO_ACCESS_THIS_RESOURCE_MESSAGE = "Sorry, You're not authorized to access this resource.";
@@ -80,13 +82,16 @@ public interface AppConstants {
     String BEARER_ = "Bearer ";
 
     //    CONSTANTS
-   String ESTATE_ID = "estate_id";
+    int ADDITIONAL_INFO_MIN_VALUE = 20;
+    String INVALID_ADDITIONAL_INFO_MESSAGE = "Additional info must be at least 20 symbols.";
+    String ESTATE_ID = "estate_id";
     String TELEPHONE_REGEXP = "(^$|[0-9]{10})";
     int TELEPHONE_LENGHT = 10;
     int ROLE_NAME_LENGH_VALUE = 20;
     String USERS = "users";
     String ESTATES = "estates";
     String ROLES = "roles";
+    String BIDS = "bids";
     String TYPES = "types";
     String IMAGES = "images";
     String PECULIARITIES = "peculiarities";
@@ -109,4 +114,5 @@ public interface AppConstants {
     int USER_LAST_NAME_MIN_VALUE = 3;
     int USER_LAST_NAME_MAX_VALUE = 30;
     int AREA_MIN_VALUE = 1;
+    int PRICE_MIN_VALUE = 1;
 }

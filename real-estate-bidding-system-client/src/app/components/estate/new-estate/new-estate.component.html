@@ -1,6 +1,6 @@
 <div class="container mt-58">
 
-  <form (ngSubmit)="onNewEstateFormSubmit()" #newEstate="ngForm">
+  <form (ngSubmit)="onNewEstateFormSubmit()" #newEstate="ngForm" enctype="multipart/form-data">
     <div class="row">
       <div class="col-2"></div>
 
@@ -62,38 +62,51 @@
         <div class="form-group row">
           <label for="coverImage" class="col-4">Cover Image</label>
           <div class="col-2"></div>
-          <div id="coverImage" class="form-group col-5">
-            <input class="mt-3" required type="file" name="coverImage" [(ngModel)]="requestModel.coverImage"
+          <div class="form-group col-5">
+            <input id="coverImage" class="form-control mt-3" required type="text" name="coverImage"
+                   [(ngModel)]="requestModel.coverImage"
                    #coverImage="ngModel">
           </div>
         </div>
 
-       <!-- <div class="form-group row">
-          <label for="image1" class="col-4">Image</label>
-          <div class="col-2"></div>
-          <div id="image1" class="form-group col-5">
-            <input class="mt-3" type="file" name="image1" [(ngModel)]="requestModel.image1"
-                   #image1="ngModel">
-          </div>
+        <div class="row">
+          <div class="col-5"></div>
+          <div class="arrow-down" *ngIf="!showMore" (click)="onArrowClick()"></div>
+          <div class="arrow-up" *ngIf="showMore" (click)="onArrowClick()"></div>
+          <div class="col-5"></div>
         </div>
 
-        <div class="form-group row">
-          <label for="image2" class="col-4">Image</label>
-          <div class="col-2"></div>
-          <div id="image2" class="form-group col-5">
-            <input class="mt-3" type="file" name="image2" [(ngModel)]="requestModel.image2"
-                   #image2="ngModel">
+        <div *ngIf="showMore">
+          <div class="form-group row">
+            <label for="firstImage" class="col-4">Image</label>
+            <div class="col-2"></div>
+            <div class="form-group col-5">
+              <input id="firstImage" class="form-control mt-3" type="text" name="firstImage"
+                     [(ngModel)]="requestModel.firstImage"
+                     #firstImage="ngModel">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="secondImage" class="col-4">Image</label>
+            <div class="col-2"></div>
+            <div class="form-group col-5">
+              <input id="secondImage" class="form-control mt-3" type="text" name="secondImage"
+                     [(ngModel)]="requestModel.secondImage"
+                     #secondImage="ngModel">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="thirdImage" class="col-4">Image</label>
+            <div class="col-2"></div>
+            <div class="form-group col-5">
+              <input id="thirdImage" class="form-control mt-3" type="text" name="thirdImage"
+                     [(ngModel)]="requestModel.thirdImage"
+                     #thirdImage="ngModel">
+            </div>
           </div>
         </div>
-
-        <div class="form-group row">
-          <label for="image3" class="col-4">Image</label>
-          <div class="col-2"></div>
-          <div id="image3" class="form-group col-5">
-            <input class="mt-3" type="file" name="image3" [(ngModel)]="requestModel.image3"
-                   #image3="ngModel">
-          </div>
-        </div>-->
 
         <hr class="colorgraph">
 

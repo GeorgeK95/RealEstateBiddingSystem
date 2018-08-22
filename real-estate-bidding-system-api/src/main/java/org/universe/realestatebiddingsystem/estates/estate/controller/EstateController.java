@@ -23,21 +23,31 @@ public class EstateController {
 
     private final ICityService cityService;
     private final ITypeService typeService;
-    private final IEstateService addService;
+    private final IEstateService estateService;
     private final IPeculiarityService peculiarityService;
 
     @Autowired
-    public EstateController(ICityService cityService, ITypeService typeService, IEstateService addService,
+    public EstateController(ICityService cityService, ITypeService typeService, IEstateService estateService,
                             IPeculiarityService peculiarityService) {
         this.cityService = cityService;
         this.typeService = typeService;
-        this.addService = addService;
+        this.estateService = estateService;
         this.peculiarityService = peculiarityService;
     }
 
     @PostMapping(NEW_URL)
-    public ResponseEntity<?> getUsers(@Valid @RequestBody NewEstateRequestModel requestModel, Errors errors) {
-        return this.addService.createEstate(requestModel, errors);
+    public ResponseEntity<?> createEstate(@Valid @RequestBody NewEstateRequestModel requestModel, Errors errors) {
+        return this.estateService.createEstate(requestModel, errors);
+    }
+
+    @GetMapping(ESTATES_ALL_URL)
+    public ResponseEntity<?> getEstates() {
+        return this.estateService.findAll();
+    }
+
+    @GetMapping(ESTATE_URL)
+    public ResponseEntity<?> getEstate(@PathVariable Long id) {
+        return this.estateService.findById(id);
     }
 
     // TODO: refactor in separate controllers

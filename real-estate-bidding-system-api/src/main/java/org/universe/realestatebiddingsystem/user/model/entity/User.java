@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.universe.realestatebiddingsystem.estates.estate.model.entity.Estate;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -56,6 +57,9 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = USER_ID),
             inverseJoinColumns = @JoinColumn(name = ROLE_ID))
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "author")
+    private Set<Estate> estates;
 
     @Column(nullable = false)
     private Boolean isBanned = false;

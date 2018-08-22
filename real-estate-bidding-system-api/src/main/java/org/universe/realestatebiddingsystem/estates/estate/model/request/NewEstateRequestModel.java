@@ -9,9 +9,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.universe.realestatebiddingsystem.app.util.AppConstants.AREA_MIN_VALUE;
 
 @Data
 public class NewEstateRequestModel {
+
     @NotBlank
     private String action;
 
@@ -22,17 +28,30 @@ public class NewEstateRequestModel {
     private String city;
 
     @NotNull
-    @Min(0)
+    @Min(AREA_MIN_VALUE)
     private Integer area;
 
     @NotNull
-    private File coverImage;
+    private String coverImage;
 
-//    private File image1;
-//    private File image2;
-//    private File image3;
+    private String firstImage;
+    private String secondImage;
+    private String thirdImage;
 
     private String additionalInfo;
+    private String authorToken;
 
     private PeculiarityViewModel[] peculiarities;
+
+    public List<String> getOrderedImages() {
+        List<String> orderedImages = new ArrayList<>();
+        if (this.coverImage != null) orderedImages.add(this.coverImage);
+        if (this.firstImage != null) orderedImages.add(this.firstImage);
+        if (this.secondImage != null) orderedImages.add(this.secondImage);
+        if (this.thirdImage != null) orderedImages.add(this.thirdImage);
+
+        return orderedImages.stream()
+                .filter(e -> !e.isEmpty())
+                .collect(Collectors.toList());
+    }
 }

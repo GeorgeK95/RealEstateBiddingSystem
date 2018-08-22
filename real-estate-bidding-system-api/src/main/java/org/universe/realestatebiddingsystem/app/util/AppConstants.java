@@ -10,6 +10,7 @@ public interface AppConstants {
     int ZERO = 0;
     int ONE = 1;
     String DASH = "-";
+    String IMAGE = "image";
 
     //    AUTH
     String IS_AUTHENTICATED = "isAuthenticated()";
@@ -22,6 +23,8 @@ public interface AppConstants {
     String ADMIN_URL = "/admin";
     String PECULIARITY_URL = "/peculiarity";
     String ESTATES_URL = "/estates";
+    String ESTATES_ALL_URL = "/estates/all";
+    String ESTATE_URL = "/estates/{id}";
     String NEW_URL = "/new";
     String USERS_URL_ALL = "/users/**";
     String AUTH_ALL_URL = "/auth/**";
@@ -82,6 +85,7 @@ public interface AppConstants {
     String ESTATES = "estates";
     String ROLES = "roles";
     String TYPES = "types";
+    String IMAGES = "images";
     String PECULIARITIES = "peculiarities";
     String CITIES = "cities";
     int USER_FIRST_NAME_MAX_VALUE = 30;
@@ -101,4 +105,5 @@ public interface AppConstants {
     int TOWN_MAX_VALUE = 30;
     int USER_LAST_NAME_MIN_VALUE = 3;
     int USER_LAST_NAME_MAX_VALUE = 30;
+    int AREA_MIN_VALUE = 1;
 }

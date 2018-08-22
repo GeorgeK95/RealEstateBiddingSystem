@@ -14,12 +14,14 @@ import {EstateInterceptor} from './core/interceptor/estate.interceptor';
 import {NotFoundComponent} from './components/shared/not-found/not-found.component';
 import {NavigationComponent} from './components/shared/navigation/navigation.component';
 import {HttpClientService} from './core/service/http-client.service';
+import { EstateDetailsComponent } from './components/estate/estate-details/estate-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    EstateDetailsComponent
   ],
   imports: [
     BrowserModule,

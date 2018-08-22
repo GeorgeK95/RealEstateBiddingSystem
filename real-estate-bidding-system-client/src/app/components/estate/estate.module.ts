@@ -5,13 +5,14 @@ import {estatesComponents} from './index';
 import {estatesRoutes} from './estate.routing';
 import {CommonModule} from '@angular/common';
 import {CustomFormsModule} from 'ng2-validation';
-import {HttpClientService} from '../../core/service/http-client.service';
+import {FileUploadModule} from 'ng2-file-upload';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     CustomFormsModule,
+    FileUploadModule,
     RouterModule.forChild(estatesRoutes)
   ],
   declarations: [

@@ -11,9 +11,11 @@ export class EstateInterceptor implements HttpInterceptor {
   readonly POST = 'POST';
   readonly PUT = 'PUT';
   readonly RESPONSE_OK = 200;
+  readonly RESPONSE_CREATED = 201;
   readonly RESPONSE_BAD_REQUEST = 400;
   readonly SUCCESS = 'Success.';
   readonly ERROR = 'Error.';
+  readonly ESTATES_NEW_URL = 'estates/new';
 
   // readonly PROFILE_EDITED_SUCCESSFULLY_MESSAGE = 'Profile edited successfully.';
 
@@ -27,8 +29,8 @@ export class EstateInterceptor implements HttpInterceptor {
       .pipe(
         tap(
           (event: HttpEvent<any>) => {
-            if (event instanceof HttpResponse && req.method === this.POST &&
-              event.status === this.RESPONSE_OK) {
+            if (event instanceof HttpResponse && req.url.includes(this.ESTATES_NEW_URL)) {
+              /*&& req.method === this.POST && event.status === this.RESPONSE_CREATED*/
               this.toastr.success(event.body, this.SUCCESS);
             } else {
               if (event instanceof HttpResponse && req.method === this.PUT &&

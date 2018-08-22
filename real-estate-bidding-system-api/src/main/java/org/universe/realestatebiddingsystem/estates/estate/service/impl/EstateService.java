@@ -7,24 +7,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
+import org.universe.realestatebiddingsystem.app.security.jwt.JwtTokenProvider;
 import org.universe.realestatebiddingsystem.app.util.DTOConverter;
 import org.universe.realestatebiddingsystem.estates.estate.model.entity.Estate;
 import org.universe.realestatebiddingsystem.estates.estate.model.request.NewEstateRequestModel;
+import org.universe.realestatebiddingsystem.estates.estate.model.view.EstateViewModel;
 import org.universe.realestatebiddingsystem.estates.estate.repository.EstateRepository;
 import org.universe.realestatebiddingsystem.estates.estate.service.api.IEstateService;
 import org.universe.realestatebiddingsystem.app.service.BaseService;
+import org.universe.realestatebiddingsystem.estates.image.model.Image;
 import org.universe.realestatebiddingsystem.estates.peculiarity.model.entity.Peculiarity;
 import org.universe.realestatebiddingsystem.estates.peculiarity.model.view.PeculiarityViewModel;
 import org.universe.realestatebiddingsystem.estates.peculiarity.repository.PeculiarityRepository;
+import org.universe.realestatebiddingsystem.user.model.entity.User;
 import org.universe.realestatebiddingsystem.user.repository.UserRepository;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.universe.realestatebiddingsystem.app.util.AppConstants.ESTATE_ADDED_SUCCESSFULLY_MESSAGE;
+import static org.universe.realestatebiddingsystem.app.util.AppConstants.IMAGE;
 
 @Transactional
 @Service
@@ -32,12 +34,14 @@ public class EstateService extends BaseService<Estate> implements IEstateService
 
     private final EstateRepository estateRepository;
     private final PeculiarityRepository peculiarityRepository;
+    private final JwtTokenProvider tokenProvider;
 
     @Autowired
-    protected EstateService(UserRepository userRepository, EstateRepository estateRepository, PeculiarityRepository peculiarityRepository) {
+    protected EstateService(UserRepository userRepository, EstateRepository estateRepository, PeculiarityRepository peculiarityRepository, JwtTokenProvider tokenProvider) {
         super(userRepository);
         this.estateRepository = estateRepository;
         this.peculiarityRepository = peculiarityRepository;
+        this.tokenProvider = tokenProvider;
     }
 
     @Override
@@ -49,18 +53,47 @@ public class EstateService extends BaseService<Estate> implements IEstateService
         return new ResponseEntity<>(new Gson().toJson(ESTATE_ADDED_SUCCESSFULLY_MESSAGE), HttpStatus.CREATED);
     }
 
+    @Override
+    public ResponseEntity<?> findAll() {
+        List<Estate> allEstates = this.estateRepository.findAll();
+        List<EstateViewModel> viewModels = DTOConverter.convert(allEstates, EstateViewModel.class);
+
+        return new ResponseEntity<>(viewModels, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> findById(Long id) {
+        EstateViewModel estateViewModel = DTOConverter.convert(this.estateRepository.findById(id), EstateViewModel.class);
+
+        return new ResponseEntity<>(estateViewModel, HttpStatus.OK);
+    }
+
     private void processAndSaveEstate(NewEstateRequestModel requestModel) {
         Estate toPersist = DTOConverter.convert(requestModel, Estate.class);
 
-        Set<Peculiarity> peculiarities = this.peculiarityRepository.findAllByName(
-                Arrays.stream(requestModel.getPeculiarities())
-                        .map(PeculiarityViewModel::getName)
-                        .collect(Collectors.toSet())
-        );
+        Set<String> names = Arrays.stream(requestModel.getPeculiarities()).map(PeculiarityViewModel::getName)
+                .collect(Collectors.toSet());
 
-        toPersist.setPeculiarities(new HashSet<>());
-        peculiarities.forEach(toPersist::addPeculiarity);
+        Set<Peculiarity> peculiarities = new HashSet<>();
+        if (!names.isEmpty()) peculiarities = this.peculiarityRepository.findAllByName(names);
+
+        toPersist.setImages(this.processImages(requestModel));
+//        Image img = this.imageService.uploadImage(mpf);
+
+        toPersist.setPeculiarities(peculiarities);
+
+        Long userId = this.tokenProvider.getUserIdFromJWT(requestModel.getAuthorToken());
+        User author = this.userRepository.findById(userId).orElseThrow();
+        toPersist.setAuthor(author);
 
         this.estateRepository.save(toPersist);
+    }
+
+    private List<Image> processImages(NewEstateRequestModel requestModel) {
+        List<Image> images = new ArrayList<>();
+
+        requestModel.getOrderedImages().forEach(imageUrl -> images.add(new Image(IMAGE, imageUrl)));
+
+        return images;
     }
 }

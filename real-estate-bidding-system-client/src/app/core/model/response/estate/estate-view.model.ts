@@ -1,7 +1,8 @@
 import {PeculiarityViewModel} from '../../view/peculiarity-view.model';
 
-export class NewEstateRequestModel {
+export class EstateViewModel {
   constructor(
+    public id: number,
     public action: any,
     public type: string,
     public city: string,
@@ -11,8 +12,7 @@ export class NewEstateRequestModel {
     public secondImage: string,
     public thirdImage: string,
     public additionalInfo: string,
-    public peculiarities: PeculiarityViewModel[],
-    public authorToken: string
+    public peculiarities: PeculiarityViewModel[]
   ) {
   }
 }

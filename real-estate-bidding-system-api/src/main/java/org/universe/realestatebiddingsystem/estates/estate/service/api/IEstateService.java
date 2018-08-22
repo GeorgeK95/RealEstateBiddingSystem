@@ -6,4 +6,8 @@ import org.universe.realestatebiddingsystem.estates.estate.model.request.NewEsta
 
 public interface IEstateService {
     ResponseEntity<?> createEstate(NewEstateRequestModel requestModel, Errors errors);
+
+    ResponseEntity<?> findAll();
+
+    ResponseEntity<?> findById(Long id);
 }

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClientService} from '../http-client.service';
-import {NewEstateRequestModel} from '../../model/request/estate/new-estate-request.model';
+import {EstateRequestModel} from '../../model/request/estate/estate-request.model';
 import {EstateViewModel} from '../../model/response/estate/estate-view.model';
 import {BidRequestModel} from '../../model/request/bid/bid-request.model';
 
@@ -27,7 +27,7 @@ export class EstateService {
   }
 
   createEstate(requestModel: any) {
-    return this.httpClient.post<NewEstateRequestModel>(this.CREATE_ESTATE_URL, requestModel);
+    return this.httpClient.post<EstateRequestModel>(this.CREATE_ESTATE_URL, requestModel);
   }
 
   getPeculiarities() {
@@ -43,7 +43,12 @@ export class EstateService {
   }
 
   createBid(bid: BidRequestModel, id: number) {
-    const CREATE_BID_URL = `'http://localhost:8080/estates/${id}/bids'`;
-    return this.httpClient.post(CREATE_BID_URL, bid);
+    const BID_URL = `http://localhost:8080/estates/${id}/bids`;
+    return this.httpClient.post(BID_URL, bid);
+  }
+
+  deleteEstate(id: number) {
+    const BID_URL = `http://localhost:8080/estates/${id}/bids`;
+    return this.httpClient.delete(BID_URL);
   }
 }

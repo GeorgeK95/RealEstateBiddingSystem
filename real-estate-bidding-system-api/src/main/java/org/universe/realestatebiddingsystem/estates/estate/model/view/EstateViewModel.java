@@ -11,6 +11,7 @@ public class EstateViewModel {
     private Long id;
     private String action;
     private String type;
+    private String additionalInfo;
     private String city;
     private Double area;
     private Double price;
@@ -20,5 +21,6 @@ public class EstateViewModel {
 //    private String secondImage;
 //    private String thirdImage;
     private UserViewModel author;
+    private Double lastBid;
     private PeculiarityViewModel[] peculiarities;
 }

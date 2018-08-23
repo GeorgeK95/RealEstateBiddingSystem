@@ -21,16 +21,13 @@
           <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/estates/new">New</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/users/myoffers">My Offers</a>
+          <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/users/{{getCurrentUserId()}}/estates">My Estates</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/users/mybids">My Bids</a>
+          <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/users/{{getCurrentUserId()}}/bids">My Bids</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/users/details/{{getCurrentUserId()}}">My Profile</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/estates/myfriends">My Friends</a>
+          <a class="nav-link" *ngIf="isLoggedIn()" routerLink="/users/{{getCurrentUserId()}}">My Profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" *ngIf="isLoggedIn() && isAdmin()" routerLink="/admin/users">Users</a>

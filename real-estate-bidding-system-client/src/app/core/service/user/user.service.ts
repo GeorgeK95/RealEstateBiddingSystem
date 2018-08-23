@@ -6,6 +6,7 @@ import {UserResponseModel} from '../../model/response/user/user-response.model';
 import {UserProfileResponseModel} from '../../model/response/user/user-profile-response.model';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
+import {EstateViewModel} from '../../model/response/estate/estate-view.model';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,11 @@ export class UserService {
 
   getCurrentlyLoggedInUserForProfile() {
     return this.httpClient.get<UserProfileResponseModel>(this.CURRENT_USER_URL);
+  }
+
+  getUserEstates(userId: number) {
+    const USER_ESTATES_URL = `http://localhost:8080/users/${userId}/estates`;
+    return this.httpClient.get<EstateViewModel[]>(USER_ESTATES_URL);
   }
 
   get isAdmin(): string {

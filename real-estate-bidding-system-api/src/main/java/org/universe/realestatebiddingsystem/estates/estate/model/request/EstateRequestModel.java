@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import static org.universe.realestatebiddingsystem.app.util.AppConstants.*;
 
 @Data
-public class NewEstateRequestModel {
+public class EstateRequestModel {
 
     @NotBlank
     private String action;
@@ -41,11 +41,11 @@ public class NewEstateRequestModel {
     private String thirdImage;
 
     @NotBlank
-    @Size(min = ADDITIONAL_INFO_MIN_VALUE, message = INVALID_ADDITIONAL_INFO_MESSAGE)
+    @Size(min = ADDITIONAL_INFO_MIN_VALUE, max = ADDITIONAL_INFO_MAX_VALUE, message = INVALID_ADDITIONAL_INFO_MESSAGE)
     private String additionalInfo;
 
-    @NotBlank(message = YOU_MUST_BE_LOGGED_IN_TO_PERFORM_THIS_ACTION_MESSAGE)
-    private String authorToken;
+    /*@NotBlank(message = YOU_MUST_BE_LOGGED_IN_TO_PERFORM_THIS_ACTION_MESSAGE)
+    private String authorToken;*/
 
     private PeculiarityViewModel[] peculiarities;
 

@@ -1,6 +1,7 @@
 package org.universe.realestatebiddingsystem.user.model.response;
 
 import lombok.Data;
+import org.universe.realestatebiddingsystem.estates.estate.model.view.EstateViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -126,4 +126,8 @@ public class User implements UserDetails {
     public boolean isAdmin() {
         return this.roles.size() > 1;
     }
+
+    public List<Role> getRolesList() {
+        return new ArrayList<>(this.roles);
+    }
 }

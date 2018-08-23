@@ -13,6 +13,7 @@ import static org.universe.realestatebiddingsystem.app.util.AppConstants.BIDS;
 @Table(name = BIDS)
 @Data
 public class Bid {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

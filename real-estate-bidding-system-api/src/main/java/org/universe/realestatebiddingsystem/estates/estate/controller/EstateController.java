@@ -8,10 +8,11 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.universe.realestatebiddingsystem.estates.estate.service.api.IEstateService;
 import org.universe.realestatebiddingsystem.estates.city.service.api.ICityService;
-import org.universe.realestatebiddingsystem.estates.estate.model.request.NewEstateRequestModel;
+import org.universe.realestatebiddingsystem.estates.estate.model.request.EstateRequestModel;
 import org.universe.realestatebiddingsystem.estates.peculiarity.service.api.IPeculiarityService;
 import org.universe.realestatebiddingsystem.estates.type.service.api.ITypeService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import static org.universe.realestatebiddingsystem.app.util.AppConstants.*;
@@ -36,8 +37,9 @@ public class EstateController {
 
     @PreAuthorize(IS_AUTHENTICATED)
     @PostMapping(NEW_URL)
-    public ResponseEntity<?> createEstate(@Valid @RequestBody NewEstateRequestModel requestModel, Errors errors) {
-        return this.estateService.createEstate(requestModel, errors);
+    public ResponseEntity<?> createEstate(@Valid @RequestBody EstateRequestModel requestModel, Errors errors, HttpServletRequest req) {
+        String authorToken = req.getHeader(AUTHORIZATION).replace(BEARER_, EMTPY);
+        return this.estateService.createEstate(requestModel, errors, authorToken);
     }
 
     @GetMapping(ALL_URL)
@@ -50,19 +52,8 @@ public class EstateController {
         return this.estateService.findById(id);
     }
 
-    // TODO: refactor in separate controllers
-    @GetMapping(CITIES_URL)
-    public ResponseEntity<?> getAllCities() {
-        return new ResponseEntity<>(this.cityService.getAllCities(), HttpStatus.OK);
-    }
-
-    @GetMapping(TYPES_URL)
-    public ResponseEntity<?> getAllTypes() {
-        return new ResponseEntity<>(this.typeService.getAllTypes(), HttpStatus.OK);
-    }
-
-    @GetMapping(PECULIARITIES_URL)
-    public ResponseEntity<?> getAllPeculiarities() {
-        return new ResponseEntity<>(this.peculiarityService.getAllPeculiarities(), HttpStatus.OK);
+    @DeleteMapping(BIDS_URL)
+    public ResponseEntity<?> deleteEstateProcess(@PathVariable Long id) {
+        return this.estateService.deleteEstate(id);
     }
 }

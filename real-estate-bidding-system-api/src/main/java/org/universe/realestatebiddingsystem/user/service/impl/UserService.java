@@ -15,6 +15,9 @@ import org.universe.realestatebiddingsystem.app.model.response.JwtAuthentication
 import org.universe.realestatebiddingsystem.app.security.jwt.JwtTokenProvider;
 import org.universe.realestatebiddingsystem.app.service.BaseService;
 import org.universe.realestatebiddingsystem.app.util.DTOConverter;
+import org.universe.realestatebiddingsystem.estates.estate.model.entity.Estate;
+import org.universe.realestatebiddingsystem.estates.estate.model.view.EstateViewModel;
+import org.universe.realestatebiddingsystem.estates.estate.repository.EstateRepository;
 import org.universe.realestatebiddingsystem.user.model.entity.User;
 import org.universe.realestatebiddingsystem.user.model.enumeration.RoleName;
 import org.universe.realestatebiddingsystem.user.model.request.LoginRequestModel;
@@ -46,13 +49,16 @@ public class UserService extends BaseService<User> implements IUserService {
 
     private final IRoleService roleService;
 
+    private final EstateRepository estateRepository;
+
     @Autowired
-    public UserService(UserRepository userRepository, JwtTokenProvider tokenProvider, AuthenticationManager authenticationManager, IRoleService roleService) {
+    public UserService(UserRepository userRepository, JwtTokenProvider tokenProvider, AuthenticationManager authenticationManager, IRoleService roleService, EstateRepository estateRepository) {
         super(userRepository);
         this.userRepository = userRepository;
         this.tokenProvider = tokenProvider;
         this.authenticationManager = authenticationManager;
         this.roleService = roleService;
+        this.estateRepository = estateRepository;
     }
 
     @Override
@@ -106,7 +112,9 @@ public class UserService extends BaseService<User> implements IUserService {
 
         User user = this.getUserByIdOrThrowException(userId);
 
-        return new ResponseEntity<>(DTOConverter.convert(user, UserResponseModel.class), HttpStatus.OK);
+        UserResponseModel userResponseModel = DTOConverter.convert(user, UserResponseModel.class);
+
+        return new ResponseEntity<>(userResponseModel, HttpStatus.OK);
     }
 
     @Override
@@ -114,6 +122,12 @@ public class UserService extends BaseService<User> implements IUserService {
         User user = this.getUserByIdOrThrowException(id);
 
         return new ResponseEntity<>(DTOConverter.convert(user, UserProfileResponseModel.class), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> getUserEstates(Long userId) {
+        List<Estate> estatesFromQuery = this.estateRepository.getEstatesByUserId(userId);
+        return new ResponseEntity<>(DTOConverter.convert(estatesFromQuery, EstateViewModel.class), HttpStatus.OK);
     }
 
     private User getUserByIdOrThrowException(Long userId) {

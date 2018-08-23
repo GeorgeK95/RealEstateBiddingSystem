@@ -12,12 +12,10 @@ export class EstateViewModel {
     public price: number,
     public coverImage: ImageViewModel,
     public images: ImageViewModel[],
-    // public firstImage: string,
-    // public secondImage: string,
-    // public thirdImage: string,
     public additionalInfo: string,
     public author: UserViewModel,
-    public peculiarities: PeculiarityViewModel[]
+    public peculiarities: PeculiarityViewModel[],
+    public lastBid: number
   ) {
   }
 }

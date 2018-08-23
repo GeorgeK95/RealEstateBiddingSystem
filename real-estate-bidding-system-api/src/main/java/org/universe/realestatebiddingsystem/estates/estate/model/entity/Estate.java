@@ -11,6 +11,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -47,7 +48,7 @@ public class Estate {
     private Double price;
 
     //    @Column(nullable = false)
-    @OneToMany(mappedBy = "estate")
+    @OneToMany(mappedBy = "estate", cascade = CascadeType.REMOVE)
     private List<Image> images;
 
     @OneToOne
@@ -68,10 +69,22 @@ public class Estate {
                     nullable = false, updatable = false)})
     private Set<Peculiarity> peculiarities;
 
-    @OneToMany(mappedBy = "estate")
-    private Set<Bid> bids = new HashSet<>();
+    @OneToMany(mappedBy = "estate", cascade = CascadeType.REMOVE)
+    private List<Bid> bids = new ArrayList<>();
 
     public void addBid(Bid bid) {
         this.bids.add(bid);
+    }
+
+    public double getLastBidOrStartPrice() {
+        int size = this.bids.size();
+
+        return size != ZERO ? this.bids.get(size - 1).getPrice() : this.price;
+    }
+
+    public double getLastBid() {
+        int size = this.bids.size();
+
+        return size != ZERO ? this.bids.get(size - 1).getPrice() : ZERO;
     }
 }

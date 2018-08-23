@@ -11,8 +11,9 @@ import org.universe.realestatebiddingsystem.app.security.jwt.JwtTokenProvider;
 import org.universe.realestatebiddingsystem.app.util.DTOConverter;
 import org.universe.realestatebiddingsystem.estates.bid.model.Bid;
 import org.universe.realestatebiddingsystem.estates.bid.model.request.BidRequestModel;
+import org.universe.realestatebiddingsystem.estates.bid.repository.BidRepository;
 import org.universe.realestatebiddingsystem.estates.estate.model.entity.Estate;
-import org.universe.realestatebiddingsystem.estates.estate.model.request.NewEstateRequestModel;
+import org.universe.realestatebiddingsystem.estates.estate.model.request.EstateRequestModel;
 import org.universe.realestatebiddingsystem.estates.estate.model.view.EstateViewModel;
 import org.universe.realestatebiddingsystem.estates.estate.repository.EstateRepository;
 import org.universe.realestatebiddingsystem.estates.estate.service.api.IEstateService;
@@ -30,9 +31,7 @@ import javax.validation.constraints.NotNull;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.universe.realestatebiddingsystem.app.util.AppConstants.BID_WITH_PRICE_F_MADE_SUCCESSFULLY_MESSAGE;
-import static org.universe.realestatebiddingsystem.app.util.AppConstants.ESTATE_ADDED_SUCCESSFULLY_MESSAGE;
-import static org.universe.realestatebiddingsystem.app.util.AppConstants.IMAGE;
+import static org.universe.realestatebiddingsystem.app.util.AppConstants.*;
 
 @Transactional
 @Service
@@ -42,21 +41,23 @@ public class EstateService extends BaseService<Estate> implements IEstateService
     private final PeculiarityRepository peculiarityRepository;
     private final JwtTokenProvider tokenProvider;
     private final ImageRepository imageRepository;
+    private final BidRepository bidRepository;
 
     @Autowired
-    protected EstateService(UserRepository userRepository, EstateRepository estateRepository, PeculiarityRepository peculiarityRepository, JwtTokenProvider tokenProvider, ImageRepository imageRepository) {
+    protected EstateService(UserRepository userRepository, EstateRepository estateRepository, PeculiarityRepository peculiarityRepository, JwtTokenProvider tokenProvider, ImageRepository imageRepository, BidRepository bidRepository) {
         super(userRepository);
         this.estateRepository = estateRepository;
         this.peculiarityRepository = peculiarityRepository;
         this.tokenProvider = tokenProvider;
         this.imageRepository = imageRepository;
+        this.bidRepository = bidRepository;
     }
 
     @Override
-    public ResponseEntity<?> createEstate(NewEstateRequestModel requestModel, Errors errors) {
+    public ResponseEntity<?> createEstate(EstateRequestModel requestModel, Errors errors, String authorToken) {
         if (errors.hasErrors()) return new ResponseEntity(super.processErrors(errors), HttpStatus.BAD_REQUEST);
 
-        this.processAndSaveEstate(requestModel);
+        this.processAndSaveEstate(requestModel, authorToken);
 
         return new ResponseEntity<>(new Gson().toJson(ESTATE_ADDED_SUCCESSFULLY_MESSAGE), HttpStatus.CREATED);
     }
@@ -79,30 +80,54 @@ public class EstateService extends BaseService<Estate> implements IEstateService
     }
 
     @Override
-    public ResponseEntity<?> addBid(Long estateId, @Valid BidRequestModel bidRequestModel, Errors errors) {
-        if (errors.hasErrors()) return new ResponseEntity(super.processErrors(errors), HttpStatus.BAD_REQUEST);
-
+    public ResponseEntity<?> addBid(Long estateId, @Valid BidRequestModel bidRequestModel, Errors errors, String authorToken) {
         Estate estate = this.estateRepository.findById(estateId).orElseThrow();
 
-        Bid bid = this.processBid(bidRequestModel);
-        estate.addBid(bid);
+        if (errors.hasErrors() || bidRequestModel.getPrice() < estate.getLastBidOrStartPrice() + 1)
+            return new ResponseEntity(super.processErrors(errors), HttpStatus.BAD_REQUEST);
 
-        this.estateRepository.save(estate);
+        Bid bid = this.processBid(bidRequestModel, authorToken);
+        bid.setEstate(estate);
 
-        return new ResponseEntity<>(new Gson().toJson(BID_WITH_PRICE_F_MADE_SUCCESSFULLY_MESSAGE), HttpStatus.CREATED);
+        this.bidRepository.save(bid);
+
+        /*estate.addBid(bid);
+        this.estateRepository.save(estate);*/
+        /*new Gson().toJson(String.format(BID_WITH_PRICE_F_MADE_SUCCESSFULLY_MESSAGE, bid.getPrice()))*/
+        EstateViewModel responseModel = DTOConverter.convert(estate, EstateViewModel.class);
+        responseModel.setLastBid(bid.getPrice());
+        return new ResponseEntity<>(responseModel, HttpStatus.CREATED);
     }
 
-    private Bid processBid(BidRequestModel bidRequestModel) {
+    @Override
+    public ResponseEntity<?> deleteEstate(Long id) {
+        Estate bidToRemove = this.removeEstateKeys(this.estateRepository.findById(id).orElseThrow());
+
+        this.estateRepository.delete(bidToRemove);
+
+        return new ResponseEntity<>(new Gson().toJson(ESTATE_DELETED_SUCCESSFULLY_MESSAGE), HttpStatus.OK);
+    }
+
+    private Estate removeEstateKeys(Estate estateToRemove) {
+        estateToRemove.setAuthor(null);
+        Image img = estateToRemove.getCoverImage();
+        estateToRemove.setCoverImage(null);
+        this.imageRepository.delete(img);
+
+        return estateToRemove;
+    }
+
+    private Bid processBid(BidRequestModel bidRequestModel, String authorToken) {
         Bid bid = DTOConverter.convert(bidRequestModel, Bid.class);
         User author = this.userRepository
-                .findById(this.tokenProvider.getUserIdFromJWT(bidRequestModel.getAuthToken()))
+                .findById(this.tokenProvider.getUserIdFromJWT(authorToken))
                 .orElseThrow();
         bid.setAuthor(author);
 
         return bid;
     }
 
-    private void processAndSaveEstate(NewEstateRequestModel requestModel) {
+    private void processAndSaveEstate(EstateRequestModel requestModel, String authorToken) {
         Estate toPersist = DTOConverter.convert(requestModel, Estate.class);
 
         Set<String> names = Arrays.stream(requestModel.getPeculiarities()).map(PeculiarityViewModel::getName)
@@ -115,7 +140,7 @@ public class EstateService extends BaseService<Estate> implements IEstateService
 
         toPersist.setPeculiarities(peculiarities);
 
-        this.setEstateAuthor(requestModel.getAuthorToken(), toPersist);
+        this.setEstateAuthor(authorToken, toPersist);
 
         this.estateRepository.save(toPersist);
     }

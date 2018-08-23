@@ -9,6 +9,7 @@ import org.universe.realestatebiddingsystem.estates.bid.model.request.BidRequest
 import org.universe.realestatebiddingsystem.estates.estate.service.api.IEstateService;
 import org.universe.realestatebiddingsystem.user.model.request.EditProfileRequestModel;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import static org.universe.realestatebiddingsystem.app.util.AppConstants.*;
@@ -26,8 +27,10 @@ public class BidController {
     }
 
     @PostMapping(BIDS_URL)
-    public ResponseEntity<?> getUsers(@PathVariable Long id, @Valid @RequestBody BidRequestModel bidRequestModel,
-                                      Errors errors) {
-        return this.estateService.addBid(id, bidRequestModel, errors);
+    public ResponseEntity<?> createBidProcess(@Valid @RequestBody BidRequestModel bidRequestModel, Errors errors,
+                                              @PathVariable Long id, HttpServletRequest req) {
+        String authorToken = req.getHeader(AUTHORIZATION).replace(BEARER_, EMTPY);
+        return this.estateService.addBid(id, bidRequestModel, errors, authorToken);
     }
+
 }

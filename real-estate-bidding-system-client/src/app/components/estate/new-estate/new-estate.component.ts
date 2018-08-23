@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NewEstateRequestModel} from '../../../core/model/request/estate/new-estate-request.model';
+import {EstateRequestModel} from '../../../core/model/request/estate/estate-request.model';
 import {EstateService} from '../../../core/service/estate/estate.service';
 import {CityResponseModel} from '../../../core/model/response/city/city-response.model';
 import {TypeResponseModel} from '../../../core/model/response/city/type-response.model';
@@ -16,7 +16,7 @@ export class NewEstateComponent implements OnInit {
   readonly COMMA = ',';
   private cities: CityResponseModel[];
   private types: TypeResponseModel[];
-  private requestModel: NewEstateRequestModel;
+  private requestModel: EstateRequestModel;
   private peculiarities: PeculiarityViewModel[];
   private showMore = false;
 
@@ -30,8 +30,8 @@ export class NewEstateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.requestModel = new NewEstateRequestModel(null, '', '', 0, null,
-      '', '', '', '', [], '');
+    this.requestModel = new EstateRequestModel(null, '', '', 0, 0, null,
+      '', '', '', '', []);
 
     this.estateService.getCities()
       .subscribe((res: any) => {
@@ -51,7 +51,7 @@ export class NewEstateComponent implements OnInit {
 
   onNewEstateFormSubmit() {
     this.requestModel.peculiarities = this.peculiarities.filter(p => p.checked);
-    this.requestModel.authorToken = this.userService.authToken;
+    // this.requestModel.authorToken = this.userService.authToken;
 
     this.estateService.createEstate(this.requestModel)
       .subscribe((res) => {

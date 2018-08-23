@@ -98,9 +98,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers(USERS_URL_ALL)
                 .permitAll()
-                .antMatchers(ESTATES_URL_ALL, BY_ID_URL)
+                .antMatchers(ESTATES_URL_ALL, "/estates/{id}")
                 .permitAll()
-                .antMatchers(CITIES_URL, TYPES_URL,PECULIARITIES_URL)
+                .antMatchers(CITIES_URL, TYPES_URL, PECULIARITIES_URL)
                 .permitAll()
                 .anyRequest()
                 .authenticated();

@@ -10,6 +10,7 @@ import {ToastrService} from 'ngx-toastr';
 export class EstateInterceptor implements HttpInterceptor {
   readonly POST = 'POST';
   readonly PUT = 'PUT';
+  readonly DELETE = 'DELETE';
   readonly RESPONSE_OK = 200;
   readonly RESPONSE_CREATED = 201;
   readonly RESPONSE_BAD_REQUEST = 400;
@@ -36,6 +37,16 @@ export class EstateInterceptor implements HttpInterceptor {
               if (event instanceof HttpResponse && req.method === this.PUT &&
                 event.status === this.RESPONSE_BAD_REQUEST) {
                 this.toastr.error(event.body, this.ERROR);
+              } else {
+                if (event instanceof HttpResponse && req.method === this.DELETE &&
+                  event.status === this.RESPONSE_OK) {
+                  this.toastr.success(event.body, this.ERROR);
+                } else {
+                  if (event instanceof HttpResponse && req.method === this.DELETE &&
+                    event.status === this.RESPONSE_BAD_REQUEST) {
+                    this.toastr.error(event.body, this.ERROR);
+                  }
+                }
               }
             }
           }

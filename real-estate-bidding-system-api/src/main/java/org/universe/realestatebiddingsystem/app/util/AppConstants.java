@@ -24,6 +24,7 @@ public interface AppConstants {
     String ADMIN_URL = "/admin";
     String PECULIARITY_URL = "/peculiarity";
     String ESTATES_URL = "/estates";
+    String USER_ESTATES_URL = "/{id}/estates";
     String ESTATES_ALL_URL = "/all";
     String BY_ID_URL = "/{id}";
     String NEW_URL = "/new";
@@ -56,6 +57,7 @@ public interface AppConstants {
     String USER_LOGGED_SUCCESSFULLY_MESSAGE = "%s logged in successfully.";
     String PROFILE_EDITED_SUCCESSFULLY_MESSAGE = "Profile edited successfully.";
     String PROFILE_DISABLED_SUCCESSFULLY_MESSAGE = "Profile disabled successfully.";
+    String ESTATE_DELETED_SUCCESSFULLY_MESSAGE = "Estate deleted successfully.";
     String ESTATE_ADDED_SUCCESSFULLY_MESSAGE = "Estate added successfully.";
     String INVALID_TOWN_MESSAGE = "Invalid town provided.";
     String INVALID_PHONE_MESSAGE = "Invalid phone provided.";
@@ -83,6 +85,7 @@ public interface AppConstants {
 
     //    CONSTANTS
     int ADDITIONAL_INFO_MIN_VALUE = 20;
+    int ADDITIONAL_INFO_MAX_VALUE = 250;
     String INVALID_ADDITIONAL_INFO_MESSAGE = "Additional info must be at least 20 symbols.";
     String ESTATE_ID = "estate_id";
     String TELEPHONE_REGEXP = "(^$|[0-9]{10})";

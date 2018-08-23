@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class BidRequestModel {
-    private String authToken;
+//    private String authorToken;
     private Double price;
 }

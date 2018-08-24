@@ -18,4 +18,6 @@ public interface IUserService {
     ResponseEntity<?> getUserById(Long id);
 
     ResponseEntity<?> getUserEstates(Long userId);
+
+    ResponseEntity<?> getUserBidsEstates(Long userId);
 }

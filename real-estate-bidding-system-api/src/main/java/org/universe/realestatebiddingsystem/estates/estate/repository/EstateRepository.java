@@ -24,4 +24,7 @@ public interface EstateRepository extends JpaRepository<Estate, Long> {
 
     @Query("select u.estates from User u where u.id = :userId")
     List<Estate> getEstatesByUserId(@Param(USER_ID) Long userId);
+
+    @Query("select e from Bid b join b.estate e on e.id = b.estate.id where b.author.id = :userId")
+    List<Estate> getBidsEstatesByUserId(@Param(USER_ID) Long userId);
 }

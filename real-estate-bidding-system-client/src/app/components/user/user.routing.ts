@@ -4,6 +4,7 @@ import {UserProfileComponent} from './profile/user-profile.component';
 import {AuthGuard} from '../../core/guard/auth/auth.guard';
 import {HomeComponent} from '../shared/home/home.component';
 import {UserEstatesComponent} from './user-estates/user-estates.component';
+import {UserBidsComponent} from './user-bids/user-bids.component';
 
 const REGISTER = 'register';
 const LOGIN = 'login';
@@ -16,5 +17,5 @@ export const userRoutes = [
   {path: LOGIN, component: LoginComponent},
   {path: DETAILS_ID, canActivate: [AuthGuard], component: UserProfileComponent},
   {path: DETAILS_ID_ESTATES, canActivate: [AuthGuard], component: UserEstatesComponent},
-  {path: DETAILS_ID_BIDS, canActivate: [AuthGuard], component: UserProfileComponent}
+  {path: DETAILS_ID_BIDS, canActivate: [AuthGuard], component: UserBidsComponent}
 ];

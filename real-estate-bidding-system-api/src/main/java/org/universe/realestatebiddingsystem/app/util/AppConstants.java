@@ -11,6 +11,7 @@ public interface AppConstants {
     int ONE = 1;
     String DASH = "-";
     String IMAGE = "image";
+    String ESTATE = "Estate";
 
     //    AUTH
     String IS_AUTHENTICATED = "isAuthenticated()";
@@ -25,6 +26,7 @@ public interface AppConstants {
     String PECULIARITY_URL = "/peculiarity";
     String ESTATES_URL = "/estates";
     String USER_ESTATES_URL = "/{id}/estates";
+    String USER_BIDS_URL = "/{id}/bids";
     String ESTATES_ALL_URL = "/all";
     String BY_ID_URL = "/{id}";
     String NEW_URL = "/new";

@@ -4,9 +4,11 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
+import org.universe.realestatebiddingsystem.app.exception.ResourceNotFoundException;
 import org.universe.realestatebiddingsystem.app.security.jwt.JwtTokenProvider;
 import org.universe.realestatebiddingsystem.app.util.DTOConverter;
 import org.universe.realestatebiddingsystem.estates.bid.model.Bid;
@@ -72,9 +74,11 @@ public class EstateService extends BaseService<Estate> implements IEstateService
 
     @Override
     public ResponseEntity<?> findById(Long id) {
-        Estate estateById = this.estateRepository.findById(id).orElseThrow();
+        Optional<Estate> estateById = this.estateRepository.findById(id);
 
-        EstateViewModel estateViewModel = DTOConverter.convert(estateById, EstateViewModel.class);
+        if (!estateById.isPresent()) throw new ResourceNotFoundException(ESTATE, ID, id);
+
+        EstateViewModel estateViewModel = DTOConverter.convert(estateById.get(), EstateViewModel.class);
 
         return new ResponseEntity<>(estateViewModel, HttpStatus.OK);
     }
@@ -91,9 +95,6 @@ public class EstateService extends BaseService<Estate> implements IEstateService
 
         this.bidRepository.save(bid);
 
-        /*estate.addBid(bid);
-        this.estateRepository.save(estate);*/
-        /*new Gson().toJson(String.format(BID_WITH_PRICE_F_MADE_SUCCESSFULLY_MESSAGE, bid.getPrice()))*/
         EstateViewModel responseModel = DTOConverter.convert(estate, EstateViewModel.class);
         responseModel.setLastBid(bid.getPrice());
         return new ResponseEntity<>(responseModel, HttpStatus.CREATED);

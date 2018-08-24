@@ -54,11 +54,7 @@ export class EstateDetailsComponent implements OnInit {
   }
 
   onDeleteEstate() {
-    this.estateService.deleteEstate(this.estate.id)
-      .subscribe(res => {
-          console.log(res);
-        }
-      );
+    this.estateService.deleteEstate(this.estate.id).subscribe();
   }
 
   isLoggedIn() {

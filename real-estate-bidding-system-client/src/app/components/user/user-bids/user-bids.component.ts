@@ -6,10 +6,10 @@ import {UserResponseModel} from '../../../core/model/response/user/user-response
 
 @Component({
   selector: 'app-home',
-  templateUrl: './user-estates.component.html',
-  styleUrls: ['./user-estates.component.css']
+  templateUrl: './user-bids.component.html',
+  styleUrls: ['./user-bids.component.css']
 })
-export class UserEstatesComponent implements OnInit {
+export class UserBidsComponent implements OnInit {
 
   readonly ESTATE_DETAILS_URL = '/estates/';
   private estates: EstateViewModel[];
@@ -20,7 +20,7 @@ export class UserEstatesComponent implements OnInit {
   ngOnInit() {
     this.userService.getCurrentlyLoggedInUser()
       .subscribe((user: UserResponseModel) => {
-        this.userService.getUserEstates(user.id)
+        this.userService.getUserBidsEstates(user.id)
           .subscribe((estates: EstateViewModel[]) => {
             this.estates = estates;
           });

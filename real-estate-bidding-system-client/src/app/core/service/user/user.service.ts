@@ -64,6 +64,11 @@ export class UserService {
     return this.httpClient.get<EstateViewModel[]>(USER_ESTATES_URL);
   }
 
+  getUserBidsEstates(userId: number) {
+    const USER_BIDS_URL = `http://localhost:8080/users/${userId}/bids`;
+    return this.httpClient.get<EstateViewModel[]>(USER_BIDS_URL);
+  }
+
   get isAdmin(): string {
     return this._isAdmin;
   }

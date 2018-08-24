@@ -48,7 +48,7 @@ export class EstateService {
   }
 
   deleteEstate(id: number) {
-    const BID_URL = `http://localhost:8080/estates/${id}/bids`;
+    const BID_URL = `http://localhost:8080/estates/${id}`;
     return this.httpClient.delete(BID_URL);
   }
 }

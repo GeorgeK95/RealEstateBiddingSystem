@@ -15,6 +15,7 @@ import org.universe.realestatebiddingsystem.app.model.response.JwtAuthentication
 import org.universe.realestatebiddingsystem.app.security.jwt.JwtTokenProvider;
 import org.universe.realestatebiddingsystem.app.service.BaseService;
 import org.universe.realestatebiddingsystem.app.util.DTOConverter;
+import org.universe.realestatebiddingsystem.estates.bid.repository.BidRepository;
 import org.universe.realestatebiddingsystem.estates.estate.model.entity.Estate;
 import org.universe.realestatebiddingsystem.estates.estate.model.view.EstateViewModel;
 import org.universe.realestatebiddingsystem.estates.estate.repository.EstateRepository;
@@ -127,6 +128,12 @@ public class UserService extends BaseService<User> implements IUserService {
     @Override
     public ResponseEntity<?> getUserEstates(Long userId) {
         List<Estate> estatesFromQuery = this.estateRepository.getEstatesByUserId(userId);
+        return new ResponseEntity<>(DTOConverter.convert(estatesFromQuery, EstateViewModel.class), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<?> getUserBidsEstates(Long userId) {
+        List<Estate> estatesFromQuery = this.estateRepository.getBidsEstatesByUserId(userId);
         return new ResponseEntity<>(DTOConverter.convert(estatesFromQuery, EstateViewModel.class), HttpStatus.OK);
     }
 

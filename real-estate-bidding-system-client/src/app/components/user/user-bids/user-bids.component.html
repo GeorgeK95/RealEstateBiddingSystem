@@ -1,0 +1,25 @@
+<div class="container mt-58">
+
+  <!-- Jumbotron Header -->
+  <header class="jumbotron my-4 align-center background-img">
+    <h1 class="display-3 colored">Welcome to Real Estate Bidding System!</h1>
+    <a href="#" class="btn btn-primary btn-lg mt-2">Filter Estates</a>
+  </header>
+
+  <!-- Page Features -->
+  <div class="row text-center">
+
+    <div class="col-lg-4 col-md-6 mb-4" *ngFor="let estate of estates">
+      <div class="card" (click)="navigateToDetails(estate.id)">
+        <img class="card-img-top" src="{{estate.coverImage.url}}" alt="">
+        <div class="card-body">
+          <div class="card-title estate-type">{{estate.type}}</div>
+          <div class="card-title estate-city">{{estate.city}}</div>
+          <div class="card-title estate-action">For {{estate.action}}</div>
+          <p class="card-text estate-info">{{estate.additionalInfo | slice:0:28}}...</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

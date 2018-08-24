@@ -29,8 +29,8 @@ public class BidController {
     @PostMapping(BIDS_URL)
     public ResponseEntity<?> createBidProcess(@Valid @RequestBody BidRequestModel bidRequestModel, Errors errors,
                                               @PathVariable Long id, HttpServletRequest req) {
-        String authorToken = req.getHeader(AUTHORIZATION).replace(BEARER_, EMTPY);
-        return this.estateService.addBid(id, bidRequestModel, errors, authorToken);
+        String authorToken = req.getHeader(AUTHORIZATION).replace(BEARER_,EMTPY);
+        return this.estateService.addBid(id, bidRequestModel, errors,authorToken);
     }
 
 }

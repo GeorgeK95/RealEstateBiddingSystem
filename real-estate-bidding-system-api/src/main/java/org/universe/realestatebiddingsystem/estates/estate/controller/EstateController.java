@@ -52,8 +52,9 @@ public class EstateController {
         return this.estateService.findById(id);
     }
 
-    @DeleteMapping(BIDS_URL)
+    @DeleteMapping(BY_ID_URL)
     public ResponseEntity<?> deleteEstateProcess(@PathVariable Long id) {
         return this.estateService.deleteEstate(id);
     }
+
 }

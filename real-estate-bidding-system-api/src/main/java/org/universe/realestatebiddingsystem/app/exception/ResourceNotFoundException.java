@@ -3,6 +3,8 @@ package org.universe.realestatebiddingsystem.app.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.util.function.Supplier;
+
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class ResourceNotFoundException extends RuntimeException {
     private static final String S_NOT_FOUND_WITH_S_S = "%s not found with %s : '%s'";

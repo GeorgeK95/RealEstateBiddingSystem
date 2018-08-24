@@ -13,7 +13,7 @@ export class EstateService {
   readonly GET_PECULIARITIES_URL = 'http://localhost:8080/estates/peculiarities';
   readonly GET_ESTATES_URL = 'http://localhost:8080/estates/all';
   readonly GET_ESTATE_URL = 'http://localhost:8080/estates/';
-  readonly CREATE_ESTATE_URL = 'http://localhost:8080/estates/new';
+  readonly ESTATE_URL = 'http://localhost:8080/estates/new';
 
   constructor(private httpClient: HttpClientService) {
   }
@@ -27,7 +27,7 @@ export class EstateService {
   }
 
   createEstate(requestModel: any) {
-    return this.httpClient.post<EstateRequestModel>(this.CREATE_ESTATE_URL, requestModel);
+    return this.httpClient.post<EstateRequestModel>(this.ESTATE_URL, requestModel);
   }
 
   getPeculiarities() {
@@ -50,5 +50,9 @@ export class EstateService {
   deleteEstate(id: number) {
     const BID_URL = `http://localhost:8080/estates/${id}`;
     return this.httpClient.delete(BID_URL);
+  }
+
+  editEstate(editModel: EstateViewModel) {
+    return this.httpClient.put(this.ESTATE_URL, editModel);
   }
 }

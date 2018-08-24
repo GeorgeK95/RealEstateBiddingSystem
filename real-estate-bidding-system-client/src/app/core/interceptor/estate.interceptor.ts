@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +18,13 @@ export class EstateInterceptor implements HttpInterceptor {
   readonly SUCCESS = 'Success.';
   readonly ERROR = 'Error.';
   readonly ESTATES_NEW_URL = 'estates/new';
+  readonly HOME_URL = '';
 
   // readonly PROFILE_EDITED_SUCCESSFULLY_MESSAGE = 'Profile edited successfully.';
 
   constructor(
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {
   }
 
@@ -40,7 +43,8 @@ export class EstateInterceptor implements HttpInterceptor {
               } else {
                 if (event instanceof HttpResponse && req.method === this.DELETE &&
                   event.status === this.RESPONSE_OK) {
-                  this.toastr.success(event.body, this.ERROR);
+                  this.toastr.success(event.body, this.SUCCESS);
+                  this.router.navigate([this.HOME_URL]);
                 } else {
                   if (event instanceof HttpResponse && req.method === this.DELETE &&
                     event.status === this.RESPONSE_BAD_REQUEST) {

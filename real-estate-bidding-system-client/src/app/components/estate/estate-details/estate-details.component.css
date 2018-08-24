@@ -10,3 +10,27 @@ img {
 .red {
   color: #f0465f;
 }
+
+label {
+  margin-top: 1.5rem !important
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+
+  border-top: 20px solid #888;
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+
+  border-bottom: 20px solid #888;
+}
+
+

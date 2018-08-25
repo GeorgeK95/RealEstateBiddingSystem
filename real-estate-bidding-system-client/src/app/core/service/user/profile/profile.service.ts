@@ -19,4 +19,9 @@ export class ProfileService {
   deleteProfile(id: number) {
     return this.httpClient.delete(this.USER_DETAILS_URL + id);
   }
+
+  addFriend(currentUserId: number, profileUserId: number) {
+    const USERS_FRIENDS_URL = `http://localhost:8080/users/${currentUserId}/friends/${profileUserId}`;
+    return this.httpClient.post(USERS_FRIENDS_URL, null);
+  }
 }

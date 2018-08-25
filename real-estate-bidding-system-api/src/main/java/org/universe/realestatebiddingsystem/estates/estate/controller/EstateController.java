@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.universe.realestatebiddingsystem.estates.estate.model.view.EstateViewModel;
 import org.universe.realestatebiddingsystem.estates.estate.service.api.IEstateService;
 import org.universe.realestatebiddingsystem.estates.city.service.api.ICityService;
 import org.universe.realestatebiddingsystem.estates.estate.model.request.EstateRequestModel;
@@ -42,7 +43,15 @@ public class EstateController {
         return this.estateService.createEstate(requestModel, errors, authorToken);
     }
 
+    @PreAuthorize(IS_AUTHENTICATED)
+    @PutMapping(NEW_URL)
+    public ResponseEntity<?> editEstate(@Valid @RequestBody EstateViewModel requestModel, Errors errors, HttpServletRequest req) {
+        String authorToken = req.getHeader(AUTHORIZATION).replace(BEARER_, EMTPY);
+        return this.estateService.editEstate(requestModel, errors, authorToken);
+    }
+
     @GetMapping(ALL_URL)
+    //TODO pagination
     public ResponseEntity<?> getEstates() {
         return this.estateService.findAll();
     }

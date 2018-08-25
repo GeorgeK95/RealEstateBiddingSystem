@@ -31,7 +31,7 @@
           <li *ngIf="estate.lastBid !== 0">Last bid <span class="red">${{estate.lastBid}}</span> per m2.</li>
         </ul>
 
-        <form (ngSubmit)="placeBid()" #bidForm="ngForm" *ngIf="isLoggedIn()">
+        <form (ngSubmit)="placeBid()" #bidForm="ngForm" *ngIf="isLoggedIn() && !isAuthor()">
           <h3 class="my-3">Place a bit from here</h3>
 
           <div class="row">
@@ -96,7 +96,7 @@
             <label for="type" class="col-4">Type</label>
             <div class="col-2"></div>
             <div class="form-group col-5">
-              <select id="type" class="form-control" name="city" [(ngModel)]="editModel.type" required>
+              <select id="type" class="form-control" name="type" [(ngModel)]="editModel.type" required>
                 <option *ngFor="let type of types" value="{{type.typeName}}">{{type.typeName}}</option>
               </select>
             </div>
@@ -163,7 +163,7 @@
                 <label for="firstImage" class="col-4">Image</label>
                 <div class="col-2"></div>
                 <div class="form-group col-5">
-                  <input id="firstImage" class="form-control mt-3" type="text" name="firstImage">
+                  <input id="firstImage" value="{{image.url}}" class="form-control mt-3" type="text" name="firstImage">
                 </div>
               </div>
             </div>

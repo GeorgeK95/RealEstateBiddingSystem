@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
@@ -87,10 +86,17 @@ public class EstateService extends BaseService<Estate> implements IEstateService
     public ResponseEntity<?> addBid(Long estateId, @Valid BidRequestModel bidRequestModel, Errors errors, String authorToken) {
         Estate estate = this.estateRepository.findById(estateId).orElseThrow();
 
+        User author = this.userRepository
+                .findById(this.tokenProvider.getUserIdFromJWT(authorToken))
+                .orElseThrow();
+
+        if (estate.getAuthor().getId().equals(author.getId()))
+            return new ResponseEntity(new Gson().toJson(INVALID_BID_MESSAGE), HttpStatus.BAD_REQUEST);
+
         if (errors.hasErrors() || bidRequestModel.getPrice() < estate.getLastBidOrStartPrice() + 1)
             return new ResponseEntity(super.processErrors(errors), HttpStatus.BAD_REQUEST);
 
-        Bid bid = this.processBid(bidRequestModel, authorToken);
+        Bid bid = this.processBid(bidRequestModel, author);
         bid.setEstate(estate);
 
         this.bidRepository.save(bid);
@@ -109,6 +115,36 @@ public class EstateService extends BaseService<Estate> implements IEstateService
         return new ResponseEntity<>(new Gson().toJson(ESTATE_DELETED_SUCCESSFULLY_MESSAGE), HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<?> editEstate(EstateViewModel requestModel, Errors errors, String authorToken) {
+        if (errors.hasErrors()) return new ResponseEntity(super.processErrors(errors), HttpStatus.BAD_REQUEST);
+
+        Optional<Estate> estateById = this.estateRepository.findById(requestModel.getId());
+
+        if (!estateById.isPresent()) throw new ResourceNotFoundException(ESTATE, ID, requestModel.getId());
+
+        //save images first
+        Estate estate = this.editEstateProcess(estateById.get(), requestModel);
+
+        this.estateRepository.save(estate);
+
+        return new ResponseEntity<>(new Gson().toJson(ESTATE_EDITED_SUCCESSFULLY_MESSAGE), HttpStatus.CREATED);
+    }
+
+    private Estate editEstateProcess(Estate estate, EstateViewModel requestModel) {
+        Estate requestObject = DTOConverter.convert(requestModel, Estate.class);
+        if (requestObject.getAction() != null) estate.setAction(requestObject.getAction());
+        if (requestObject.getAdditionalInfo() != null) estate.setAdditionalInfo(requestObject.getAdditionalInfo());
+        if (requestObject.getArea() != null) estate.setArea(requestObject.getArea());
+        if (requestObject.getAuthor() != null) estate.setAuthor(requestObject.getAuthor());
+        if (requestObject.getCity() != null) estate.setCity(requestObject.getCity());
+        if (requestObject.getPrice() != null) estate.setPrice(requestObject.getPrice());
+        if (requestObject.getType() != null) estate.setType(requestObject.getType());
+        if (requestObject.getCoverImage() != null) estate.setCoverImage(requestObject.getCoverImage());
+        if (requestObject.getImages() != null) estate.setImages(requestObject.getImages());
+        return requestObject;
+    }
+
     private Estate removeEstateKeys(Estate estateToRemove) {
         estateToRemove.setAuthor(null);
         Image img = estateToRemove.getCoverImage();
@@ -118,11 +154,8 @@ public class EstateService extends BaseService<Estate> implements IEstateService
         return estateToRemove;
     }
 
-    private Bid processBid(BidRequestModel bidRequestModel, String authorToken) {
+    private Bid processBid(BidRequestModel bidRequestModel, User author) {
         Bid bid = DTOConverter.convert(bidRequestModel, Bid.class);
-        User author = this.userRepository
-                .findById(this.tokenProvider.getUserIdFromJWT(authorToken))
-                .orElseThrow();
         bid.setAuthor(author);
 
         return bid;

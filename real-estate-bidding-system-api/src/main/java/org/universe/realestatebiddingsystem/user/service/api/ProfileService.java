@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,10 +13,14 @@ import org.universe.realestatebiddingsystem.app.security.jwt.JwtTokenProvider;
 import org.universe.realestatebiddingsystem.app.service.BaseService;
 import org.universe.realestatebiddingsystem.app.util.DTOConverter;
 import org.universe.realestatebiddingsystem.user.model.entity.User;
+import org.universe.realestatebiddingsystem.user.model.enumeration.RoleName;
 import org.universe.realestatebiddingsystem.user.model.request.EditProfileRequestModel;
+import org.universe.realestatebiddingsystem.user.repository.RoleRepository;
 import org.universe.realestatebiddingsystem.user.repository.UserRepository;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 import static org.universe.realestatebiddingsystem.app.util.AppConstants.*;
 
@@ -24,11 +29,13 @@ import static org.universe.realestatebiddingsystem.app.util.AppConstants.*;
 public class ProfileService extends BaseService<User> implements IProfileService {
 
     private final JwtTokenProvider tokenProvider;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    protected ProfileService(UserRepository userRepository, JwtTokenProvider tokenProvider) {
+    protected ProfileService(UserRepository userRepository, JwtTokenProvider tokenProvider, RoleRepository roleRepository) {
         super(userRepository);
         this.tokenProvider = tokenProvider;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -70,17 +77,27 @@ public class ProfileService extends BaseService<User> implements IProfileService
         return new ResponseEntity<>(new Gson().toJson(PROFILE_DISABLED_SUCCESSFULLY_MESSAGE), HttpStatus.OK);
     }
 
+    private User getUser(Long id) {
+        Optional<User> userById = this.userRepository.findById(id);
+
+        if (!userById.isPresent()) throw new UsernameNotFoundException(USER_NOT_FOUND_WITH_ID_MESSAGE + id);
+
+        return userById.get();
+    }
+
     private User updateUser(User user, User edited, String newPassword) {
-        if (edited.getFirstName() != null && !edited.getFirstName().isEmpty())
-            user.setFirstName(edited.getFirstName());
-        if (edited.getLastName() != null && !edited.getLastName().isEmpty())
-            user.setLastName(edited.getLastName());
-        if (edited.getTelephone() != null && !edited.getTelephone().isEmpty())
-            user.setTelephone(edited.getTelephone());
-        if (edited.getTown() != null && !edited.getTown().isEmpty())
-            user.setTown(edited.getTown());
-        if (newPassword != null && !newPassword.isEmpty()) {
+        if (edited.getFirstName() != null && !edited.getFirstName().isEmpty()) user.setFirstName(edited.getFirstName());
+        if (edited.getLastName() != null && !edited.getLastName().isEmpty()) user.setLastName(edited.getLastName());
+        if (edited.getTelephone() != null && !edited.getTelephone().isEmpty()) user.setTelephone(edited.getTelephone());
+        if (edited.getTown() != null && !edited.getTown().isEmpty()) user.setTown(edited.getTown());
+        if (newPassword != null && !newPassword.isEmpty())
             user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
+
+        if (!edited.getRoles().isEmpty()) {
+            user.addRole(this.roleRepository.findByName(RoleName.ROLE_ADMIN).get());
+        } else {
+            user.setRoles(new HashSet<>());
+            user.addRole(this.roleRepository.findByName(RoleName.ROLE_USER).get());
         }
 
         return user;

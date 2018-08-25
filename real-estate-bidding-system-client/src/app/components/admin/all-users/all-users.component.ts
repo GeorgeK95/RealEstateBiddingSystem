@@ -10,7 +10,7 @@ import {UserResponseModel} from '../../../core/model/response/user/user-response
   styleUrls: ['./all-users.component.css']
 })
 export class AllUsersComponent implements OnInit {
-  readonly USER_BY_ID_URL = '/users/details/';
+  readonly USER_BY_ID_URL = '/users/';
   readonly SEPARATOR = ', ';
   private users: UserResponseModel[];
   private cloned: UserResponseModel[];

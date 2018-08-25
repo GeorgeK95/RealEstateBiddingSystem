@@ -48,10 +48,10 @@ public class Estate {
     private Double price;
 
     //    @Column(nullable = false)
-    @OneToMany(mappedBy = "estate", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "estate", cascade = CascadeType.ALL)
     private List<Image> images;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "cover_image_id")
     private Image coverImage;
 

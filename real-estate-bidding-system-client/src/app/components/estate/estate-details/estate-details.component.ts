@@ -17,6 +17,7 @@ import {PeculiarityViewModel} from '../../../core/model/view/peculiarity/peculia
 })
 export class EstateDetailsComponent implements OnInit {
   readonly HOME_PAGE_URL = '/';
+  private currentUserId: number;
   private estate: EstateViewModel;
   private bidRequestModel: BidRequestModel;
   private hasAuthorities = false;
@@ -24,7 +25,7 @@ export class EstateDetailsComponent implements OnInit {
   private showDeleteForm = false;
   private showMore = false;
 
-  private editModel: EstateViewModel; //EditReqModel
+  private editModel: EstateViewModel;
 
   private cities: CityResponseModel[];
   private types: TypeResponseModel[];
@@ -69,6 +70,11 @@ export class EstateDetailsComponent implements OnInit {
       .subscribe((res: any) => {
         this.peculiarities = res.body;
       });
+
+    this.userService.getCurrentlyLoggedInUser()
+      .subscribe((res: UserResponseModel) => {
+        this.currentUserId = res.id;
+      });
   }
 
   placeBid() {
@@ -105,4 +111,7 @@ export class EstateDetailsComponent implements OnInit {
     this.showMore = !this.showMore;
   }
 
+  isAuthor() {
+    return this.currentUserId === this.estate.author.id;
+  }
 }

@@ -34,7 +34,7 @@ public class ProfileController {
     }
 
     @DeleteMapping(USERS_DETAILS_ID_URL)
-    public ResponseEntity<?> editUserProfile(@PathVariable Long id) {
+    public ResponseEntity<?> deleteUserProfile(@PathVariable Long id) {
         return this.profileService.disableUserAccount(id);
     }
 }

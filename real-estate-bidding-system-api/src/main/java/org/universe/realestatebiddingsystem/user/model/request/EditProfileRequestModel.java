@@ -1,8 +1,11 @@
 package org.universe.realestatebiddingsystem.user.model.request;
 
 import lombok.Data;
+import org.universe.realestatebiddingsystem.user.model.response.RoleResponseModel;
 
 import javax.validation.constraints.*;
+
+import java.util.Set;
 
 import static org.universe.realestatebiddingsystem.app.util.AppConstants.*;
 
@@ -43,6 +46,8 @@ public class EditProfileRequestModel {
 
     @Pattern(regexp = TELEPHONE_REGEXP, message = INVALID_PHONE_MESSAGE)
     private String telephone;
+
+    private Set<RoleResponseModel> roles;
 
     public String getPassword() {
         return null;

@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.universe.realestatebiddingsystem.estates.bid.model.Bid;
 import org.universe.realestatebiddingsystem.estates.estate.model.entity.Estate;
+import org.universe.realestatebiddingsystem.user.model.enumeration.RoleName;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -130,4 +131,9 @@ public class User implements UserDetails {
     public List<Role> getRolesList() {
         return new ArrayList<>(this.roles);
     }
+
+    public void addRole(Role roleAdmin) {
+        this.roles.add(roleAdmin);
+    }
+
 }

@@ -42,8 +42,10 @@ public interface AppConstants {
     String REGISTER_URL = "/register";
     String LOGIN_URL = "/login";
     String USERS_DETAILS_ID_URL = "/details/{id}";
+    String USERS_FRIENDS_URL = "/{userId}/friends/{friendId}";
 
     //    MESSAGES
+    String INVALID_BID_MESSAGE = "You are not allowed to bid for your own estate add.";
     String BID_WITH_PRICE_F_MADE_SUCCESSFULLY_MESSAGE = "Bid with price %f made successfully.";
     String YOU_MUST_BE_LOGGED_IN_TO_PERFORM_THIS_ACTION_MESSAGE = "You must be logged in to perform this action.";
     String RESPONDING_WITH_UNAUTHORIZED_ERROR_MESSAGE = "Responding with unauthorized error. Message - {}";
@@ -59,8 +61,10 @@ public interface AppConstants {
     String USER_LOGGED_SUCCESSFULLY_MESSAGE = "%s logged in successfully.";
     String PROFILE_EDITED_SUCCESSFULLY_MESSAGE = "Profile edited successfully.";
     String PROFILE_DISABLED_SUCCESSFULLY_MESSAGE = "Profile disabled successfully.";
+    String FRIEND_ADDED_SUCCESSFULLY_MESSAGE = "Friend added successfully.";
     String ESTATE_DELETED_SUCCESSFULLY_MESSAGE = "Estate deleted successfully.";
     String ESTATE_ADDED_SUCCESSFULLY_MESSAGE = "Estate added successfully.";
+    String ESTATE_EDITED_SUCCESSFULLY_MESSAGE = "Estate edited successfully.";
     String INVALID_TOWN_MESSAGE = "Invalid town provided.";
     String INVALID_PHONE_MESSAGE = "Invalid phone provided.";
     String INVALID_FIRST_NAME_MESSAGE = "Invalid first name provided.";

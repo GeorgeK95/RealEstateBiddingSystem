@@ -1,3 +1,5 @@
+import {RoleResponseModel} from '../../response/role/role-response.model';
+
 export class EditProfileRequestModel {
   constructor(
     // public id: string,
@@ -9,6 +11,7 @@ export class EditProfileRequestModel {
     public telephone: string,
     public firstName: string,
     public lastName: string,
+    public roles: RoleResponseModel[]
   ) {
   }
 

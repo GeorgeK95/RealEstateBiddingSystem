@@ -34,7 +34,7 @@ img {
 
 .estate-type {
   font-weight: bold;
-  font-size: 30px;
+  font-size: 25px;
   color: #757575;
 }
 
@@ -73,3 +73,8 @@ img {
   color: #d9e0db;
 }
 
+@media only screen and (max-width: 1125px) {
+  .estate-type {
+    font-size: 18px;
+  }
+}

@@ -3,11 +3,13 @@ import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileInterceptor implements HttpInterceptor {
+  readonly HOME_PAGE_URL = '/';
   readonly PUT = 'PUT';
   readonly RESPONSE_OK = 200;
   readonly RESPONSE_BAD_REQUEST = 400;
@@ -16,7 +18,8 @@ export class ProfileInterceptor implements HttpInterceptor {
   readonly PROFILE_EDITED_SUCCESSFULLY_MESSAGE = 'Profile edited successfully.';
 
   constructor(
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {
   }
 
@@ -28,6 +31,7 @@ export class ProfileInterceptor implements HttpInterceptor {
             if (event instanceof HttpResponse && req.method === this.PUT &&
               event.status === this.RESPONSE_OK) {
               this.toastr.success(this.PROFILE_EDITED_SUCCESSFULLY_MESSAGE, this.SUCCESS);
+              this.router.navigate([this.HOME_PAGE_URL]);
             } else {
               if (event instanceof HttpResponse && req.method === this.PUT &&
                 event.status === this.RESPONSE_BAD_REQUEST) {

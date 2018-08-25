@@ -127,7 +127,7 @@
           <label for="info" class="col-4">Additional Info</label>
           <div class="col-2"></div>
           <div class="form-group col-5">
-            <textarea required [minlength]="20" id="info" type="number" class="form-control"
+            <textarea required [minlength]="20" [maxlength]="500" id="info" type="number" class="form-control"
                       placeholder="Additional Info"
                       [(ngModel)]="requestModel.additionalInfo" name="additionalInfo"></textarea>
           </div>

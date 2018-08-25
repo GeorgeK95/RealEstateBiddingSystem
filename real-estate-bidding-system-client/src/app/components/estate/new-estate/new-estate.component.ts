@@ -24,7 +24,7 @@ export class NewEstateComponent implements OnInit {
 
   constructor(
     private estateService: EstateService,
-    private router: Router,
+    // private router: Router,
     private userService: UserService
   ) {
   }
@@ -51,12 +51,7 @@ export class NewEstateComponent implements OnInit {
 
   onNewEstateFormSubmit() {
     this.requestModel.peculiarities = this.peculiarities.filter(p => p.checked);
-    // this.requestModel.authorToken = this.userService.authToken;
-
-    this.estateService.createEstate(this.requestModel)
-      .subscribe((res) => {
-        this.router.navigate([this.HOME_PAGE_URL]);
-      });
+    this.estateService.createEstate(this.requestModel).subscribe();
   }
 
   onArrowClick() {

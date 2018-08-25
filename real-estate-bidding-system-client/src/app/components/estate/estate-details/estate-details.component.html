@@ -7,7 +7,7 @@
       </h1>
 
       <div class="col-md-8">
-        <img class="img-fluid" src="{{estate.coverImage.url}}" alt="">
+        <img class="img-fluid" src="{{selectedImage.url}}" alt="">
       </div>
 
       <div class="col-md-4">
@@ -60,7 +60,7 @@
 
     <div class="row">
       <div class="col-md-3 col-sm-6 mb-4" *ngFor="let image of estate.images">
-        <img class="img-fluid" src="{{image.url}}" alt="image">
+        <img (click)="changeSelectedImage(image)" class="img-fluid" src="{{image.url}}" alt="image">
       </div>
     </div>
 
@@ -163,7 +163,8 @@
                 <label for="firstImage" class="col-4">Image</label>
                 <div class="col-2"></div>
                 <div class="form-group col-5">
-                  <input id="firstImage" value="{{image.url}}" class="form-control mt-3" type="text" name="firstImage">
+                  <input id="firstImage" value="{{image.url}}" [(ngModel)]="image.url" class="form-control mt-3"
+                         type="text" name="{{image.name}}">
                 </div>
               </div>
             </div>

@@ -5,10 +5,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {BidRequestModel} from '../../../core/model/request/bid/bid-request.model';
 import {UserService} from '../../../core/service/user/user.service';
 import {UserResponseModel} from '../../../core/model/response/user/user-response.model';
-import {EstateRequestModel} from '../../../core/model/request/estate/estate-request.model';
 import {CityResponseModel} from '../../../core/model/response/city/city-response.model';
 import {TypeResponseModel} from '../../../core/model/response/city/type-response.model';
 import {PeculiarityViewModel} from '../../../core/model/view/peculiarity/peculiarity-view.model';
+import {ImageViewModel} from '../../../core/model/view/image/image-view.model';
 
 @Component({
   selector: 'app-estate-details',
@@ -16,7 +16,7 @@ import {PeculiarityViewModel} from '../../../core/model/view/peculiarity/peculia
   styleUrls: ['./estate-details.component.css']
 })
 export class EstateDetailsComponent implements OnInit {
-  readonly HOME_PAGE_URL = '/';
+  // readonly HOME_PAGE_URL = '/';
   private currentUserId: number;
   private estate: EstateViewModel;
   private bidRequestModel: BidRequestModel;
@@ -27,6 +27,8 @@ export class EstateDetailsComponent implements OnInit {
 
   private editModel: EstateViewModel;
 
+  private selectedImage: ImageViewModel;
+
   private cities: CityResponseModel[];
   private types: TypeResponseModel[];
   private peculiarities: PeculiarityViewModel[];
@@ -34,8 +36,7 @@ export class EstateDetailsComponent implements OnInit {
   constructor(
     private estateService: EstateService,
     private userService: UserService,
-    private route: ActivatedRoute,
-    private router: Router) {
+    private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -45,6 +46,7 @@ export class EstateDetailsComponent implements OnInit {
       .subscribe((res: EstateViewModel) => {
         this.estate = res;
         this.editModel = res;
+        this.selectedImage = res.coverImage;
         this.bidRequestModel = new BidRequestModel(0);
         this.bidRequestModel.price = res.lastBid;
 
@@ -71,10 +73,12 @@ export class EstateDetailsComponent implements OnInit {
         this.peculiarities = res.body;
       });
 
-    this.userService.getCurrentlyLoggedInUser()
-      .subscribe((res: UserResponseModel) => {
-        this.currentUserId = res.id;
-      });
+    if (this.isLoggedIn()) {
+      this.userService.getCurrentlyLoggedInUser()
+        .subscribe((res: UserResponseModel) => {
+          this.currentUserId = res.id;
+        });
+    }
   }
 
   placeBid() {
@@ -91,7 +95,7 @@ export class EstateDetailsComponent implements OnInit {
   onEditEstateFormSubmit() {
     this.estateService.editEstate(this.editModel)
       .subscribe((res) => {
-        this.router.navigate([this.HOME_PAGE_URL]);
+        // this.router.navigate([this.HOME_PAGE_URL]);
       });
   }
 
@@ -113,5 +117,9 @@ export class EstateDetailsComponent implements OnInit {
 
   isAuthor() {
     return this.currentUserId === this.estate.author.id;
+  }
+
+  changeSelectedImage(image: ImageViewModel) {
+    this.selectedImage = image;
   }
 }

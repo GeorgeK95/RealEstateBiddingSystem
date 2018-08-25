@@ -13,12 +13,16 @@
       <div class="card" (click)="navigateToDetails(estate.id)">
         <img class="card-img-top" src="{{estate.coverImage.url}}" alt="">
         <div class="card-body">
-          <div class="card-title estate-type">{{estate.type}}</div>
+          <div class="card-title estate-type estate-type">{{estate.type}}</div>
           <div class="card-title estate-city">{{estate.city}}</div>
           <div class="card-title estate-action">For {{estate.action}}</div>
           <p class="card-text estate-info">{{estate.additionalInfo | slice:0:28}}...</p>
         </div>
       </div>
+    </div>
+
+    <div class="col-12 mb-4" (click)="loadNextPage()">
+      <button class="btn btn-block btn-info">Load More</button>
     </div>
 
   </div>

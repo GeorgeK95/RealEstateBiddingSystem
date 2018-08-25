@@ -34,8 +34,9 @@ export class EstateService {
     return this.httpClient.get(this.GET_PECULIARITIES_URL);
   }
 
-  getEstates() {
-    return this.httpClient.get<EstateViewModel[]>(this.GET_ESTATES_URL);
+  getEstates(page: number) {
+    const queryString = `?page=${page}`;
+    return this.httpClient.get<EstateViewModel[]>(this.GET_ESTATES_URL + queryString);
   }
 
   getEstateById(id: number) {

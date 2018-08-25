@@ -59,7 +59,8 @@ export class ErrorInterceptor implements HttpInterceptor {
               }
             }
           }
-          if (err.status === this.BAD_REQUEST_STATUS_CODE && !err.url.endsWith(this.LOGIN_URL)) {
+          if (err.status === this.BAD_REQUEST_STATUS_CODE &&
+            !err.url.endsWith(this.LOGIN_URL)) {
             this.toastr.error(this.INVALID_DATA_PROVIDED, this.ERROR);
             this.router.navigate([this.HOME_URL]);
           }

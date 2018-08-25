@@ -12,7 +12,7 @@ export class RegisterComponent implements OnInit {
   private register: RegisterRequestModel;
   private HOME_URL: '/';
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {

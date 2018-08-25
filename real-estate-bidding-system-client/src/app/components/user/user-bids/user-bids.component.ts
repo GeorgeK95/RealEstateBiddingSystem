@@ -30,4 +30,5 @@ export class UserBidsComponent implements OnInit {
   navigateToDetails(estateId: number) {
     this.router.navigate([this.ESTATE_DETAILS_URL + estateId]);
   }
+
 }

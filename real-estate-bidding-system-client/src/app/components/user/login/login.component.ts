@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   private login: LoginRequestModel;
   private HOME_URL: '/';
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {

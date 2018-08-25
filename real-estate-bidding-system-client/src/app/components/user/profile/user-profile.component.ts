@@ -22,14 +22,13 @@ export class UserProfileComponent implements OnInit {
   private profilePageUser: UserProfileResponseModel; // which profile we are looking at
   readonly ROLE_ADMIN = 'ROLE_ADMIN';
   readonly ID = 'id';
-  readonly VALID = 'VALID';
   readonly RADIX = 10;
-  readonly HOME_PAGE_URL = '/';
+  // readonly HOME_PAGE_URL = '/';
 
   constructor(
     private http: HttpClientService,
     private route: ActivatedRoute,
-    private router: Router,
+    // private router: Router,
     private userService: UserService,
     private profileService: ProfileService
   ) {
@@ -61,7 +60,7 @@ export class UserProfileComponent implements OnInit {
 
     this.profileService.editProfile(this.editUserRequestModel, this.profilePageUser.id)
       .subscribe((res) => {
-        this.router.navigate([this.HOME_PAGE_URL]);
+        // this.router.navigate([this.HOME_PAGE_URL]);
       });
   }
 
@@ -69,13 +68,6 @@ export class UserProfileComponent implements OnInit {
     this.profileService.deleteProfile(this.profilePageUser.id)
       .subscribe((res) => {
         this.userService.logout();
-      });
-  }
-
-  onAdd() {
-    this.profileService.addFriend(this.user.id, this.profilePageUser.id)
-      .subscribe((res) => {
-        console.log(res);
       });
   }
 

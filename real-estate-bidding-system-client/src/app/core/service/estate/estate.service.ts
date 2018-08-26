@@ -34,9 +34,13 @@ export class EstateService {
     return this.httpClient.get(this.GET_PECULIARITIES_URL);
   }
 
-  getEstates(page: number) {
-    const queryString = `?page=${page}`;
-    return this.httpClient.get<EstateViewModel[]>(this.GET_ESTATES_URL + queryString);
+  getEstates(page: number, city?: string, area?: number, price?: number) {
+    const pageString = `?page=${page}`;
+    const priceString = `&city=${city}`;
+    const cityString = `&area=${area}`;
+    const areaString = `&price=${price}`;
+    const url = this.GET_ESTATES_URL + pageString + priceString + cityString + areaString;
+    return this.httpClient.get<EstateViewModel[]>(url);
   }
 
   getEstateById(id: number) {
@@ -53,7 +57,7 @@ export class EstateService {
     return this.httpClient.delete(BID_URL);
   }
 
-  editEstate(editModel: EstateViewModel) {
+  editEstate(editModel: any) {
     return this.httpClient.put(this.ESTATE_URL, editModel);
   }
 }

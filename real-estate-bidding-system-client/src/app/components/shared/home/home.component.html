@@ -3,7 +3,45 @@
   <!-- Jumbotron Header -->
   <header class="jumbotron my-4 align-center background-img">
     <h1 class="display-3 colored">Welcome to Real Estate Bidding System!</h1>
-    <a href="#" class="btn btn-primary btn-lg mt-2">Filter Estates</a>
+
+
+    <form (ngSubmit)="onFilter()" #filterForm="ngForm">
+      <div class="row">
+        <div class="col-3">
+          <label for="price" class="white">Location</label>
+          <select id="city" class="form-control" name="city" [(ngModel)]="searchModel.city" required>
+            <option *ngFor="let city of cities" value="{{city.name}}">{{city.name}}</option>
+          </select>
+        </div>
+
+        <div class="col-3">
+          <label for="area" class="white">Area Under</label>
+          <input id="area" type="number" step="0.01" class="form-control" required placeholder="Area"
+                 [min]="1" [(ngModel)]="searchModel.area" name="area" #area="ngModel">
+          <div [hidden]="area.valid || area.pristine" class="invalid-feedback">
+            Area must be valid number.
+          </div>
+        </div>
+
+        <div class="col-3">
+          <label for="price" class="white">Price under</label>
+          <input id="price" type="number" step="0.01" class="form-control" required placeholder="Price Per Meter"
+                 [min]="1" [(ngModel)]="searchModel.price" name="price" #price="ngModel">
+
+          <div [hidden]="price.valid || price.pristine" class="invalid-feedback">
+            Price must be valid decimal.
+          </div>
+        </div>
+
+        <div class="col-3">
+          <label for="filter-btn"></label>
+          <button id="filter-btn" type="submit" class="btn btn-primary btn-lg mt-5"
+                  [disabled]="filterForm.form.invalid">Filter Estates
+          </button>
+        </div>
+      </div>
+    </form>
+
   </header>
 
   <!-- Page Features -->

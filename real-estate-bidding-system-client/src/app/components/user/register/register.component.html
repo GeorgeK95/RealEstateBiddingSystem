@@ -89,13 +89,16 @@
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-6">
             <div class="form-group">
-              <input type="text" class="form-control" id="town"
+              <select id="town" class="form-control" name="town" [(ngModel)]="register.town" #town="ngModel" required>
+                <option *ngFor="let city of cities" value="{{city.name}}">{{city.name}}</option>
+              </select>
+              <!--<input type="text" class="form-control" id="town"
                      required
                      placeholder="Town"
                      pattern="^[A-Z][a-z]{2,29}$"
                      [(ngModel)]="register.town"
                      name="town"
-                     #town="ngModel">
+                     #town="ngModel">-->
             </div>
             <div [hidden]="town.valid || town.pristine" class="invalid-feedback">
               Town must contain only letters, start with a capital letter and must be between 3 and 30 symbols.

@@ -48,7 +48,7 @@ public class Estate {
     private Double price;
 
     //    @Column(nullable = false)
-    @OneToMany(mappedBy = "estate", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "estate", cascade = CascadeType.PERSIST)
     private List<Image> images;
 
     @OneToOne(cascade = CascadeType.PERSIST)
@@ -58,7 +58,7 @@ public class Estate {
     @ManyToOne
     private User author;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = ESTATE_INFO_MAX_LENGHT)
     @Size(min = ADDITIONAL_INFO_MIN_VALUE)
     private String additionalInfo;
 

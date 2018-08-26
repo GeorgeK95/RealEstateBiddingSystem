@@ -28,7 +28,7 @@
           <label for="type" class="col-4">Type</label>
           <div class="col-2"></div>
           <div class="form-group col-5">
-            <select id="type" class="form-control" name="city" [(ngModel)]="requestModel.type" required>
+            <select id="type" class="form-control" name="type" [(ngModel)]="requestModel.type" required>
               <option *ngFor="let type of types" value="{{type.typeName}}">{{type.typeName}}</option>
             </select>
           </div>
@@ -127,9 +127,12 @@
           <label for="info" class="col-4">Additional Info</label>
           <div class="col-2"></div>
           <div class="form-group col-5">
-            <textarea required [minlength]="20" [maxlength]="500" id="info" type="number" class="form-control"
-                      placeholder="Additional Info"
+            <textarea required [minlength]="20" [maxlength]="380" id="info" type="number" class="form-control"
+                      placeholder="Additional Info" #additionalInfo="ngModel"
                       [(ngModel)]="requestModel.additionalInfo" name="additionalInfo"></textarea>
+            <div [hidden]="additionalInfo.valid || additionalInfo.pristine" class="invalid-feedback">
+              Additional info must be between 20 and 380 symbols long.
+            </div>
           </div>
         </div>
 

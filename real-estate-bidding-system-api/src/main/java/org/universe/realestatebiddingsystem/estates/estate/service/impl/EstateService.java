@@ -16,6 +16,7 @@ import org.universe.realestatebiddingsystem.estates.bid.repository.BidRepository
 import org.universe.realestatebiddingsystem.estates.estate.model.entity.Estate;
 import org.universe.realestatebiddingsystem.estates.estate.model.request.EstateRequestModel;
 import org.universe.realestatebiddingsystem.estates.estate.model.view.EstateViewModel;
+import org.universe.realestatebiddingsystem.estates.estate.model.view.ImageViewModel;
 import org.universe.realestatebiddingsystem.estates.estate.repository.EstateRepository;
 import org.universe.realestatebiddingsystem.estates.estate.service.api.IEstateService;
 import org.universe.realestatebiddingsystem.app.service.BaseService;
@@ -30,6 +31,9 @@ import org.universe.realestatebiddingsystem.user.repository.UserRepository;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static org.universe.realestatebiddingsystem.app.util.AppConstants.*;
@@ -123,8 +127,14 @@ public class EstateService extends BaseService<Estate> implements IEstateService
 
         if (!estateById.isPresent()) throw new ResourceNotFoundException(ESTATE, ID, requestModel.getId());
 
-        //save images first
         Estate estate = this.editEstateProcess(estateById.get(), requestModel);
+
+       /* List<String> filteredImages = requestModel.getImages().stream()
+                .filter(i -> !i.getUrl().isEmpty())
+                .distinct()
+                .map(ImageViewModel::getUrl)
+                .collect(Collectors.toList());
+        this.setImages(estate, requestModel.getCoverImage().getUrl(), filteredImages);*/
 
         this.estateRepository.save(estate);
 
@@ -141,7 +151,20 @@ public class EstateService extends BaseService<Estate> implements IEstateService
         if (requestObject.getPrice() != null) estate.setPrice(requestObject.getPrice());
         if (requestObject.getType() != null) estate.setType(requestObject.getType());
         if (requestObject.getCoverImage() != null) estate.setCoverImage(requestObject.getCoverImage());
-        if (requestObject.getImages() != null) estate.setImages(requestObject.getImages());
+        if (requestObject.getImages() != null) {
+            for (Image current : estate.getImages()) {
+                current.setEstate(null);
+                this.imageRepository.delete(current);
+            }
+            estate.setImages(requestObject.getImages());
+        }
+
+        Set<String> names = Arrays.stream(requestModel.getPeculiarities()).map(PeculiarityViewModel::getName)
+                .collect(Collectors.toSet());
+        Set<Peculiarity> peculiarities = new HashSet<>();
+        if (!names.isEmpty()) peculiarities = this.peculiarityRepository.findAllByName(names);
+        estate.setPeculiarities(peculiarities);
+
         return requestObject;
     }
 

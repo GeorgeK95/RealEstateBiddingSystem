@@ -5,11 +5,12 @@ import org.springframework.validation.Errors;
 import org.universe.realestatebiddingsystem.estates.bid.model.request.BidRequestModel;
 import org.universe.realestatebiddingsystem.estates.estate.model.request.EstateRequestModel;
 import org.universe.realestatebiddingsystem.estates.estate.model.view.EstateViewModel;
+import org.universe.realestatebiddingsystem.estates.page.PagedResponseModel;
 
 import javax.validation.Valid;
 
 public interface IEstateService {
-    ResponseEntity<?> createEstate(EstateRequestModel requestModel, Errors errors,String authorToken);
+    ResponseEntity<?> createEstate(EstateRequestModel requestModel, Errors errors, String authorToken);
 
     ResponseEntity<?> findAll();
 
@@ -20,4 +21,5 @@ public interface IEstateService {
     ResponseEntity<?> deleteEstate(Long id);
 
     ResponseEntity<?> editEstate(EstateViewModel requestModel, Errors errors, String authorToken);
+
 }

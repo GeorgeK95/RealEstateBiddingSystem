@@ -22,7 +22,9 @@ export class ErrorInterceptor implements HttpInterceptor {
   readonly UNAUTHORIZED = 'Unauthorized!';
   readonly HOME_URL = '/';
   readonly LOGIN_URL = 'http://localhost:8080/users/login';
+  readonly REGISTER_URL = 'http://localhost:8080/users/register';
   readonly EDIT_PROFILE_URL = 'http://localhost:8080/users/details/';
+  readonly ESTATES_NEW_URL = 'estates/new';
   readonly PUT = 'PUT';
   readonly INVALID_CREDENTIALS = 'Invalid or mismatch password.';
 
@@ -60,7 +62,9 @@ export class ErrorInterceptor implements HttpInterceptor {
             }
           }
           if (err.status === this.BAD_REQUEST_STATUS_CODE &&
-            !err.url.endsWith(this.LOGIN_URL)) {
+            !err.url.endsWith(this.REGISTER_URL) &&
+            !err.url.endsWith(this.LOGIN_URL) &&
+            !err.url.endsWith(this.ESTATES_NEW_URL)) {
             this.toastr.error(this.INVALID_DATA_PROVIDED, this.ERROR);
             this.router.navigate([this.HOME_URL]);
           }

@@ -1,5 +1,7 @@
 package org.universe.realestatebiddingsystem.estates.estate.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -27,4 +29,13 @@ public interface EstateRepository extends JpaRepository<Estate, Long> {
 
     @Query("select e from Bid b join b.estate e on e.id = b.estate.id where b.author.id = :userId group by e.id")
     List<Estate> getBidsEstatesByUserId(@Param(USER_ID) Long userId);
+
+    @Query("select e from Estate e where e.city like :city")
+    Page<Estate> findAllByCity(Pageable pageable, @Param("city") String city);
+
+    @Query("select e from Estate e where e.area <= :area")
+    Page<Estate> findAllByArea(Pageable pageable, @Param("area") Double area);
+
+    @Query("select e from Estate e where e.price <= :price")
+    Page<Estate> findAllByPrice(Pageable pageable, @Param("price") Double price);
 }

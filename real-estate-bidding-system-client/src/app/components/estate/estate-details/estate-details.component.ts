@@ -9,6 +9,7 @@ import {CityResponseModel} from '../../../core/model/response/city/city-response
 import {TypeResponseModel} from '../../../core/model/response/city/type-response.model';
 import {PeculiarityViewModel} from '../../../core/model/view/peculiarity/peculiarity-view.model';
 import {ImageViewModel} from '../../../core/model/view/image/image-view.model';
+import {EditEstateRequestModel} from '../../../core/model/request/estate/edit-estate-request.model';
 
 @Component({
   selector: 'app-estate-details',
@@ -25,7 +26,7 @@ export class EstateDetailsComponent implements OnInit {
   private showDeleteForm = false;
   private showMore = false;
 
-  private editModel: EstateViewModel;
+  private editModel: EditEstateRequestModel;
 
   private selectedImage: ImageViewModel;
 
@@ -43,10 +44,10 @@ export class EstateDetailsComponent implements OnInit {
     const id = Number(this.route.snapshot.url[0].path);
 
     this.estateService.getEstateById(id)
-      .subscribe((res: EstateViewModel) => {
+      .subscribe((res: any) => {
         this.estate = res;
         this.editModel = res;
-        this.selectedImage = res.coverImage;
+        this.selectedImage = res.images[0] || res.coverImage;
         this.bidRequestModel = new BidRequestModel(0);
         this.bidRequestModel.price = res.lastBid;
 
@@ -93,10 +94,7 @@ export class EstateDetailsComponent implements OnInit {
   }
 
   onEditEstateFormSubmit() {
-    this.estateService.editEstate(this.editModel)
-      .subscribe((res) => {
-        // this.router.navigate([this.HOME_PAGE_URL]);
-      });
+    this.estateService.editEstate(this.editModel).subscribe();
   }
 
   onDeleteEstateShow() {

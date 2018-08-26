@@ -4,10 +4,12 @@ import {RouterModule} from '@angular/router';
 
 import {sharedComponents} from './index';
 import {sharedRoutes} from './shared.routing';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     RouterModule.forChild(sharedRoutes)
   ],
   declarations: [

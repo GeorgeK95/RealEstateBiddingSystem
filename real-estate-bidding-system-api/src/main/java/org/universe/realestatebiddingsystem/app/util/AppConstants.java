@@ -3,15 +3,21 @@ package org.universe.realestatebiddingsystem.app.util;
 public interface AppConstants {
     String USER_CAPITALIZED = "User";
     String EMAIL = "email";
+    String UNDEFINED = "undefined";
+    String NULL = "null";
 
     String ADMIN = "admin";
     String FIELD = " field ";
     String DOT = ".";
     int ZERO = 0;
+    String ZERO_STR = "0";
     int ONE = 1;
     String DASH = "-";
     String IMAGE = "image";
     String ESTATE = "Estate";
+    String CITY = "city";
+    String AREA = "area";
+    String PRICE = "price";
 
     //    AUTH
     String IS_AUTHENTICATED = "isAuthenticated()";
@@ -32,7 +38,6 @@ public interface AppConstants {
     String NEW_URL = "/new";
     String USERS_URL_ALL = "/users/**";
     String ESTATES_URL_ALL = "/estates/all";
-    String AUTH_ALL_URL = "/auth/**";
     String MAP_ALL_URL = "/**";
     String ALL_URL = "/all";
     String CITIES_URL = "/cities";
@@ -42,42 +47,29 @@ public interface AppConstants {
     String REGISTER_URL = "/register";
     String LOGIN_URL = "/login";
     String USERS_DETAILS_ID_URL = "/details/{id}";
-    String USERS_FRIENDS_URL = "/{userId}/friends/{friendId}";
 
     //    MESSAGES
     String INVALID_BID_MESSAGE = "You are not allowed to bid for your own estate add.";
-    String BID_WITH_PRICE_F_MADE_SUCCESSFULLY_MESSAGE = "Bid with price %f made successfully.";
-    String YOU_MUST_BE_LOGGED_IN_TO_PERFORM_THIS_ACTION_MESSAGE = "You must be logged in to perform this action.";
     String RESPONDING_WITH_UNAUTHORIZED_ERROR_MESSAGE = "Responding with unauthorized error. Message - {}";
-    String SORRY_YOU_RE_NOT_AUTHORIZED_TO_ACCESS_THIS_RESOURCE_MESSAGE = "Sorry, You're not authorized to access this resource.";
     String INVALID_CREDENTIALS_MESSAGE = "Invalid credentials.";
     String INVALID_PASSWORD_MESSAGE = "Invalid or mismatch password.";
     String COULD_NOT_SET_USER_AUTHENTICATION_IN_SECURITY_CONTEXT_MESSAGE = "Could not set user authentication in security context";
     String AUTHORIZATION = "Authorization";
-    String AUTHORIZATION_LOWERCASE = "Authorization";
     String EMTPY = "";
 
     String USER_REGISTERED_SUCCESSFULLY_MESSAGE = "%s registered successfully.";
     String USER_LOGGED_SUCCESSFULLY_MESSAGE = "%s logged in successfully.";
     String PROFILE_EDITED_SUCCESSFULLY_MESSAGE = "Profile edited successfully.";
     String PROFILE_DISABLED_SUCCESSFULLY_MESSAGE = "Profile disabled successfully.";
-    String FRIEND_ADDED_SUCCESSFULLY_MESSAGE = "Friend added successfully.";
     String ESTATE_DELETED_SUCCESSFULLY_MESSAGE = "Estate deleted successfully.";
     String ESTATE_ADDED_SUCCESSFULLY_MESSAGE = "Estate added successfully.";
     String ESTATE_EDITED_SUCCESSFULLY_MESSAGE = "Estate edited successfully.";
     String INVALID_TOWN_MESSAGE = "Invalid town provided.";
     String INVALID_PHONE_MESSAGE = "Invalid phone provided.";
     String INVALID_FIRST_NAME_MESSAGE = "Invalid first name provided.";
-    String INVALID_CONFIRM_PASSWORD_MESSAGE = "Custom password field is mandatory.";
     String INVALID_LAST_NAME_MESSAGE = "Invalid last name provided.";
     String EMAIL_ADDRESS_ALREADY_IN_USE_MESSAGE = "Email Address already in use!";
     String PASSWORDS_MISMATCH_MESSAGE = "Passwords do not match!";
-    String USER_ROLE_NOT_SET_MESSAGE = "User Role not set.";
-
-    //    PreAuthorize params
-    String HAS_ROLE_USER = "hasRole('USER_UPPERCASE')";
-    String HAS_ROLE_ADMIN = "hasRole('ADMIN')";
-    String HAS_ANY_ROLE_AUTH = "hasAnyRole('USER_UPPERCASE', 'ADMIN')";
 
     //    JWT
     String APP_JWT_SECRET = "${app.jwtSecret}";
@@ -90,10 +82,14 @@ public interface AppConstants {
     String BEARER_ = "Bearer ";
 
     //    CONSTANTS
+    String PAGE = "page";
+    String SIZE = "size";
+    String PAGE_VALUE = "0";
+    String SIZE_VALUE = "3";
+    int ESTATE_INFO_MAX_LENGHT = 380;
     int ADDITIONAL_INFO_MIN_VALUE = 20;
     int ADDITIONAL_INFO_MAX_VALUE = 250;
-    String INVALID_ADDITIONAL_INFO_MESSAGE = "Additional info must be at least 20 symbols.";
-    String ESTATE_ID = "estate_id";
+    String INVALID_ADDITIONAL_INFO_MESSAGE = "Additional info must be between 20 and 380 symbols long.";
     String TELEPHONE_REGEXP = "(^$|[0-9]{10})";
     int TELEPHONE_LENGHT = 10;
     int ROLE_NAME_LENGH_VALUE = 20;

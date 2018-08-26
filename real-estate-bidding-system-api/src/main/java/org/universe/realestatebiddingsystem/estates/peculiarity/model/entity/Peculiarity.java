@@ -20,6 +20,13 @@ public class Peculiarity {
     @Column(unique = true)
     private String name;
 
+    public Peculiarity() {
+    }
+
+    public Peculiarity(String name) {
+        this.name = name;
+    }
+
     /*@ManyToMany(mappedBy = "peculiarities")
     private Set<Estate> estates;*/
 }

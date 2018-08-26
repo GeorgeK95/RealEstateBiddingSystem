@@ -1,15 +1,16 @@
 package org.universe.realestatebiddingsystem.estates.estate.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.universe.realestatebiddingsystem.estates.estate.model.view.EstateViewModel;
+import org.universe.realestatebiddingsystem.estates.estate.service.api.IAllEstatesService;
 import org.universe.realestatebiddingsystem.estates.estate.service.api.IEstateService;
 import org.universe.realestatebiddingsystem.estates.city.service.api.ICityService;
 import org.universe.realestatebiddingsystem.estates.estate.model.request.EstateRequestModel;
+import org.universe.realestatebiddingsystem.estates.page.PagedResponseModel;
 import org.universe.realestatebiddingsystem.estates.peculiarity.service.api.IPeculiarityService;
 import org.universe.realestatebiddingsystem.estates.type.service.api.ITypeService;
 
@@ -21,19 +22,20 @@ import static org.universe.realestatebiddingsystem.app.util.AppConstants.*;
 @RestController
 @RequestMapping(ESTATES_URL)
 public class EstateController {
-
     private final ICityService cityService;
     private final ITypeService typeService;
     private final IEstateService estateService;
     private final IPeculiarityService peculiarityService;
+    private final IAllEstatesService allEstatesService;
 
     @Autowired
     public EstateController(ICityService cityService, ITypeService typeService, IEstateService estateService,
-                            IPeculiarityService peculiarityService) {
+                            IPeculiarityService peculiarityService, IAllEstatesService allEstatesService) {
         this.cityService = cityService;
         this.typeService = typeService;
         this.estateService = estateService;
         this.peculiarityService = peculiarityService;
+        this.allEstatesService = allEstatesService;
     }
 
     @PreAuthorize(IS_AUTHENTICATED)
@@ -51,10 +53,19 @@ public class EstateController {
     }
 
     @GetMapping(ALL_URL)
+    public PagedResponseModel<EstateViewModel> getPolls(
+            @RequestParam(value = PAGE, defaultValue = PAGE_VALUE) int page,
+            @RequestParam(value = SIZE, defaultValue = SIZE_VALUE) int size,
+            HttpServletRequest request
+    ) {
+        return this.allEstatesService.getAllEstatesPaged(page, size, request.getParameterMap());
+    }
+
+    /*@GetMapping(ALL_URL)
     //TODO pagination
     public ResponseEntity<?> getEstates() {
         return this.estateService.findAll();
-    }
+    }*/
 
     @GetMapping(BY_ID_URL)
     public ResponseEntity<?> getEstate(@PathVariable Long id) {

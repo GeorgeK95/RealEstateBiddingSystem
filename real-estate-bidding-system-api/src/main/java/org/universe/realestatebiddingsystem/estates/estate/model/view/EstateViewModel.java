@@ -17,9 +17,9 @@ public class EstateViewModel {
     private Double price;
     private ImageViewModel coverImage;
     private List<ImageViewModel> images;
-    //    private String firstImage;
-//    private String secondImage;
-//    private String thirdImage;
+    private String firstImage;
+    private String secondImage;
+    private String thirdImage;
     private UserViewModel author;
     private Double lastBid;
     private PeculiarityViewModel[] peculiarities;

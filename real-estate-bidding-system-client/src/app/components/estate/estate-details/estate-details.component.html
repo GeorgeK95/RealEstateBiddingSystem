@@ -67,7 +67,7 @@
   </div>
 
   <div *ngIf="showEditForm && !showDeleteForm">
-    <form (ngSubmit)="onEditEstateFormSubmit()" #editEstateForm="ngForm" enctype="multipart/form-data">
+    <form (ngSubmit)="onEditEstateFormSubmit()" #editEstateForm="ngForm">
       <div class="row">
         <div class="col-2"></div>
 
@@ -157,7 +157,7 @@
             <div class="col-5"></div>
           </div>
 
-          <div *ngIf="showMore">
+         <!-- <div *ngIf="showMore">
             <div *ngFor="let image of editModel.images; let i = index">
               <div class="form-group row">
                 <label for="firstImage" class="col-4">Image</label>
@@ -168,6 +168,38 @@
                 </div>
               </div>
             </div>
+          </div>-->
+
+          <div *ngIf="showMore">
+            <div class="form-group row">
+              <label for="firstImage" class="col-4">Image</label>
+              <div class="col-2"></div>
+              <div class="form-group col-5">
+                <input id="firstImage" class="form-control mt-3" type="text" name="firstImage"
+                       [(ngModel)]="editModel.firstImage"
+                       #firstImage="ngModel">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="secondImage" class="col-4">Image</label>
+              <div class="col-2"></div>
+              <div class="form-group col-5">
+                <input id="secondImage" class="form-control mt-3" type="text" name="secondImage"
+                       [(ngModel)]="editModel.secondImage"
+                       #secondImage="ngModel">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="thirdImage" class="col-4">Image</label>
+              <div class="col-2"></div>
+              <div class="form-group col-5">
+                <input id="thirdImage" class="form-control mt-3" type="text" name="thirdImage"
+                       [(ngModel)]="editModel.thirdImage"
+                       #thirdImage="ngModel">
+              </div>
+            </div>
           </div>
 
           <hr class="colorgraph">
@@ -176,9 +208,12 @@
             <label for="info" class="col-4">Additional Info</label>
             <div class="col-2"></div>
             <div class="form-group col-5">
-  <textarea required [minlength]="20" id="info" type="number" class="form-control"
-            placeholder="Additional Info"
-            [(ngModel)]="editModel.additionalInfo" name="additionalInfo"></textarea>
+              <textarea required [minlength]="20" [maxlength]="380" id="info" type="number" class="form-control"
+                        placeholder="Additional Info" #additionalInfo="ngModel"
+                        [(ngModel)]="editModel.additionalInfo" name="additionalInfo"></textarea>
+              <div [hidden]="additionalInfo.valid || additionalInfo.pristine" class="invalid-feedback">
+                Additional info must be between 20 and 380 symbols long.
+              </div>
             </div>
           </div>
 
@@ -256,7 +291,7 @@
           <label for="info" class="col-4">Additional Info</label>
           <div class="col-2"></div>
           <div class="form-group col-5">
-            <textarea required [minlength]="20" id="info" type="number" class="form-control"
+            <textarea required [minlength]="20" [maxlength]="380" id="info" type="number" class="form-control"
                       [(ngModel)]="estate.additionalInfo" name="additionalInfo" readonly>
             </textarea>
           </div>
